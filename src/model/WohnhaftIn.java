@@ -11,7 +11,7 @@ public class WohnhaftIn {
 	private Adresse objAdresse;
 
 	
-	private WohnhaftIn(Person oPerson, Adresse oAdresse) {
+	public WohnhaftIn(Person oPerson, Adresse oAdresse) {
 		this.objPerson = oPerson;
 		this.objAdresse = oAdresse;
 	}

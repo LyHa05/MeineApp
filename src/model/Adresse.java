@@ -5,6 +5,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * @author Lydia Pflug
+ * @date 19.08.2016
+ */
+
 public class Adresse {
 
 	private IntegerProperty adressID;
@@ -15,12 +20,13 @@ public class Adresse {
 	private StringProperty land;
 	private StringProperty festnetzNr;
 	
-	private Adresse(int aID, String str, String zusatz, String plz, String ort,
+	public Adresse(int aID, String str, String zusatz, String plz, String ort,
 			String land, String fnNr) {
 
 		this.adressID = new SimpleIntegerProperty(aID);
 		this.strasse = new SimpleStringProperty(str);
 		this.zusatz = new SimpleStringProperty(zusatz);
+		this.plz = new SimpleStringProperty(plz);
 		this.ort = new SimpleStringProperty(ort);
 		this.land = new SimpleStringProperty(land);
 		this.festnetzNr = new SimpleStringProperty(fnNr);

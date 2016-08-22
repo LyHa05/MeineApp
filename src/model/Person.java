@@ -30,12 +30,10 @@ public class Person {
 	private StringProperty eMailAdresse4;
 	private StringProperty eMailAdresse5;
 	
-//	Pruefen, inwieweit dieser Konstruktor nötig ist bzw. angepasst werden muss
-//	public Person() {
-//		this(null, null, null, null, null
-//			,null, null, null, null, null
-//			,null, null, null);
-//	}
+	
+	public Person() {
+		this(0, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null);
+	}
 	
 	public Person(int pID, String name, String vname1, String vname2, String geschl,
 		int gJahr, int gMonat, int gTag, String handy1, String handy2, String eMail1, String eMail2,
