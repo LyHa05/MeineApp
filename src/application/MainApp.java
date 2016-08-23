@@ -1,11 +1,12 @@
 package application;
 
 import java.io.IOException;
-import application.controller.PersonDB;
+
+import application.controller.PersonUebersichtController;
+import application.controller.RootLayoutController;
+import application.controller.StartSeiteController;
 import application.model.Person;
-import application.view.PersonUebersichtController;
-import application.view.RootLayoutController;
-import application.view.StartSeiteController;
+import application.model.PersonDB;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,4 +1,4 @@
-package application.controller;
+package application.model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,7 +10,6 @@ import java.sql.Statement;
 
 import javax.sql.rowset.JdbcRowSet;
 import com.sun.rowset.JdbcRowSetImpl;
-import application.model.Person;
 
 
 public class PersonDB {

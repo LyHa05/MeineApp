@@ -1,4 +1,4 @@
-package application.view;
+package application.controller;
 
 import application.util.DateUtil;
 import application.MainApp;
@@ -97,6 +97,39 @@ public class PersonUebersichtController {
     		handyNr1Label.setText("");
     		eMail1Label.setText("");
     	}
+    }
+    
+    
+    /**
+     * Wird aufgerufen, wenn User Zurueck anklickt. Oeffnet die Startseite. 
+     */
+    @FXML
+    public void handleZurueck() {
+    	mainApp.showStartSeite();
+    }
+    
+    /**
+     * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Person anzulegen.
+     */
+    @FXML
+    public void handleNeu() {
+    	
+    }
+    
+    /**
+     * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
+     */
+    @FXML
+    public void handleAendern() {
+    	
+    }
+    
+    /**
+     * Wird aufgerufen, wenn User Loeschen anklickt. Loescht Persondaten.
+     */
+    @FXML
+    public void handleLoeschen() {
+    	
     }
 	
     /**
