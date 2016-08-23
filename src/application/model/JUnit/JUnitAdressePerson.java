@@ -1,16 +1,16 @@
 /**
  * 
  */
-package model.JUnit;
+package application.model.JUnit;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Adresse;
-import model.Person;
-import model.WohnhaftIn;
+import application.model.Adresse;
+import application.model.Person;
+import application.model.WohnhaftIn;
 
 /**
  * @author Lydia Pflug

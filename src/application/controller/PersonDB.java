@@ -1,4 +1,4 @@
-package controller;
+package application.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 import javax.sql.rowset.JdbcRowSet;
 import com.sun.rowset.JdbcRowSetImpl;
-import model.Person;
+import application.model.Person;
 
 
 public class PersonDB {
