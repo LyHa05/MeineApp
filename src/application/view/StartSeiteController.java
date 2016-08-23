@@ -1,6 +1,6 @@
 package application.view;
 
-import address.model.Person;
+import application.model.Person;
 import application.MainApp;
 import javafx.fxml.FXML;
 
@@ -24,10 +24,7 @@ public class StartSeiteController {
      */
     @FXML
     private void handlePersonUebersicht() {
-        boolean okClicked = mainApp.showPersonUebersicht();
-        if (okClicked) {
-            mainApp.getPersonData().add(tempPerson);
-        }
+            mainApp.showPersonUebersicht();
     }
     
 }

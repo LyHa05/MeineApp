@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -131,7 +132,7 @@ public class PersonDB {
 	         p.setVorname1(rowSet.getString("Vorname1"));
 	         p.setVorname2(rowSet.getString("Vorname2"));
 	         p.setGeschlecht(rowSet.getString("Geschlecht"));
-	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum"));
+	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
 	         p.setHandyNr1(rowSet.getString("HandyNr1"));
 	         p.setHandyNr2(rowSet.getString("HandyNr2"));
 	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
@@ -149,12 +150,19 @@ public class PersonDB {
 	      Person p = new Person();
 	      try {
 	         rowSet.last();
-	         p.setPersonId(rowSet.getInt("personId"));
-	         p.setFirstName(rowSet.getString("firstName"));
-	         p.setMiddleName(rowSet.getString("middleName"));
-	         p.setLastName(rowSet.getString("lastName"));
-	         p.setEmail(rowSet.getString("email"));
-	         p.setPhone(rowSet.getString("phone"));
+	         p.setPersonID(rowSet.getInt("PersonID"));
+	         p.setName(rowSet.getString("Name"));
+	         p.setVorname1(rowSet.getString("Vorname1"));
+	         p.setVorname2(rowSet.getString("Vorname2"));
+	         p.setGeschlecht(rowSet.getString("Geschlecht"));
+	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
+	         p.setHandyNr1(rowSet.getString("HandyNr1"));
+	         p.setHandyNr2(rowSet.getString("HandyNr2"));
+	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
@@ -167,12 +175,19 @@ public class PersonDB {
 	      try {
 	         if (rowSet.next() == false)
 	            rowSet.previous();
-	         p.setPersonId(rowSet.getInt("personId"));
-	         p.setFirstName(rowSet.getString("firstName"));
-	         p.setMiddleName(rowSet.getString("middleName"));
-	         p.setLastName(rowSet.getString("lastName"));
-	         p.setEmail(rowSet.getString("email"));
-	         p.setPhone(rowSet.getString("phone"));
+	         p.setPersonID(rowSet.getInt("PersonID"));
+	         p.setName(rowSet.getString("Name"));
+	         p.setVorname1(rowSet.getString("Vorname1"));
+	         p.setVorname2(rowSet.getString("Vorname2"));
+	         p.setGeschlecht(rowSet.getString("Geschlecht"));
+	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
+	         p.setHandyNr1(rowSet.getString("HandyNr1"));
+	         p.setHandyNr2(rowSet.getString("HandyNr2"));
+	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
@@ -185,12 +200,19 @@ public class PersonDB {
 	      try {
 	         if (rowSet.previous() == false)
 	            rowSet.next();
-	         p.setPersonId(rowSet.getInt("personId"));
-	         p.setFirstName(rowSet.getString("firstName"));
-	         p.setMiddleName(rowSet.getString("middleName"));
-	         p.setLastName(rowSet.getString("lastName"));
-	         p.setEmail(rowSet.getString("email"));
-	         p.setPhone(rowSet.getString("phone"));
+	         p.setPersonID(rowSet.getInt("PersonID"));
+	         p.setName(rowSet.getString("Name"));
+	         p.setVorname1(rowSet.getString("Vorname1"));
+	         p.setVorname2(rowSet.getString("Vorname2"));
+	         p.setGeschlecht(rowSet.getString("Geschlecht"));
+	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
+	         p.setHandyNr1(rowSet.getString("HandyNr1"));
+	         p.setHandyNr2(rowSet.getString("HandyNr2"));
+	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
@@ -202,12 +224,19 @@ public class PersonDB {
 	      Person p = new Person();
 	      try {
 	         rowSet.moveToCurrentRow();
-	         p.setPersonId(rowSet.getInt("personId"));
-	         p.setFirstName(rowSet.getString("firstName"));
-	         p.setMiddleName(rowSet.getString("middleName"));
-	         p.setLastName(rowSet.getString("lastName"));
-	         p.setEmail(rowSet.getString("email"));
-	         p.setPhone(rowSet.getString("phone"));
+	         p.setPersonID(rowSet.getInt("PersonID"));
+	         p.setName(rowSet.getString("Name"));
+	         p.setVorname1(rowSet.getString("Vorname1"));
+	         p.setVorname2(rowSet.getString("Vorname2"));
+	         p.setGeschlecht(rowSet.getString("Geschlecht"));
+	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
+	         p.setHandyNr1(rowSet.getString("HandyNr1"));
+	         p.setHandyNr2(rowSet.getString("HandyNr2"));
+	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
 	      }

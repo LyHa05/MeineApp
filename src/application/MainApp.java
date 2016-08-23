@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 
 import application.MainApp;
+import application.view.PersonUebersichtController;
 import application.view.RootLayoutController;
 import application.view.StartSeiteController;
 import application.model.Person;
@@ -104,8 +105,22 @@ public class MainApp extends Application {
         
     }
 
-	public boolean showPersonUebersicht() {
-		// TODO Auto-generated method stub
-		return false;
+	public void showPersonUebersicht() {
+		 try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/PersonUebersicht.fxml"));
+	            AnchorPane PersonOverview = (AnchorPane) loader.load();
+
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(PersonOverview);
+	            
+	            // Give the controller access to the main app.
+	            PersonUebersichtController controller = loader.getController();
+	            controller.setMainApp(this);
+	            
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 	}
 }
