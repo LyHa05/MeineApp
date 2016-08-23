@@ -1,17 +1,18 @@
 package application;
 
 import java.io.IOException;
-
-import application.MainApp;
+import application.controller.PersonDB;
+import application.model.Person;
 import application.view.PersonUebersichtController;
 import application.view.RootLayoutController;
 import application.view.StartSeiteController;
-import application.model.Person;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -122,5 +123,40 @@ public class MainApp extends Application {
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
+		 //Personendaten aus Datenbank laden
+		 loadPersonDataFromDatabase();
 	}
+	
+	public void loadPersonDataFromDatabase() {
+        try {
+//            JAXBContext context = JAXBContext
+//                    .newInstance(PersonListWrapper.class);
+//            Unmarshaller um = context.createUnmarshaller();
+//
+//            // Reading XML from the file and unmarshalling.
+//            PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
+//
+//            personDaten.clear();
+//            personDaten.addAll(wrapper.getPersons());
+//
+//            // Save the file path to the registry.
+//            setPersonFilePath(file);
+        	
+        	personDaten.clear();
+        	
+        	PersonDB pdb = new PersonDB();
+        	
+        	personDaten.add(pdb.moveFirst());
+        	
+
+        } catch (Exception e) { // catches ANY exception
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Daten konnten nicht geladen werden");
+//            alert.setContentText("Could not load data from file:\n" + file.getPath());
+
+            alert.showAndWait();
+        }
+    }
+
 }
