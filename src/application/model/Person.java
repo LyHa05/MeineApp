@@ -3,7 +3,6 @@ package application.model;
 import java.sql.Date;
 import java.time.LocalDate;
 
-import application.util.DateUtil;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;

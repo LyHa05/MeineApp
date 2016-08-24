@@ -1,15 +1,13 @@
 package application.model;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.ResultSet;
+//import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
+//import java.sql.Statement;
 
 import javax.sql.rowset.JdbcRowSet;
-import com.sun.rowset.JdbcRowSetImpl;
 
 
 public class PersonDB {
@@ -24,7 +22,7 @@ public class PersonDB {
 	   private JdbcRowSet rowSet = null;
 	   public PersonDB() {
 		   //Achtung Anpassung an Oracle!!!
-	      try {
+//	      try {
 //	         Class.forName(JDBC_DRIVER);
 //	         rowSet = new JdbcRowSetImpl();
 //	         rowSet.setUrl(DB_URL);
@@ -34,21 +32,21 @@ public class PersonDB {
 //	         rowSet.execute();
 	         
 				// Abfrage definieren
-				String query = "SELECT * FROM Person";
+//				String query = "SELECT * FROM Person";
 				// Aufruf des Treibers
-				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				// Datenbankverbindung herstellen
-				Connection con = DriverManager.getConnection(
-						"jdbc:sqlserver://localhost;databasename=test4;user=sa;password=start123$"); // Kennung
+//				Connection con = DriverManager.getConnection(
+//						"jdbc:sqlserver://localhost;databasename=test4;user=sa;password=start123$"); // Kennung
 																														// eintragen
-				System.out.println("Connection Successful ");
-				Statement stmt = con.createStatement();
-				ResultSet rst = stmt.executeQuery(query);
-				ResultSetMetaData md = rst.getMetaData();
-	         
-	      } catch (SQLException | ClassNotFoundException ex) {
-	         ex.printStackTrace();
-	      }
+//				System.out.println("Connection Successful ");
+//				Statement stmt = con.createStatement();
+//				ResultSet rst = stmt.executeQuery(query);
+//				ResultSetMetaData md = rst.getMetaData();
+//	         
+//	      } catch (SQLException | ClassNotFoundException ex) {
+//	         ex.printStackTrace();
+//	      }
 	   }
 	   public Person insert(Person p) {
 	      try {
