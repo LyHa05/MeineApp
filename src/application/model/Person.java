@@ -1,7 +1,9 @@
 package application.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
+import application.util.DateUtil;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -35,12 +37,12 @@ public class Person {
 		this(0, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null);
 	}
 	
-	public Person(int pID, String name, String vname1, String vname2) {
-		this.personID = new SimpleIntegerProperty(pID);
- 		this.name = new SimpleStringProperty(name);
- 		this.vorname1 = new SimpleStringProperty(vname1);
- 		this.vorname2 = new SimpleStringProperty(vname2);
-	}
+//	public Person(int pID, String name, String vname1, String vname2) {
+//		this.personID = new SimpleIntegerProperty(pID);
+// 		this.name = new SimpleStringProperty(name);
+// 		this.vorname1 = new SimpleStringProperty(vname1);
+// 		this.vorname2 = new SimpleStringProperty(vname2);
+//	}
 	
 	public Person(int pID, String name, String vname1, String vname2, String geschl,
 		int gJahr, int gMonat, int gTag, String handy1, String handy2, String eMail1, String eMail2,
@@ -60,6 +62,25 @@ public class Person {
  		this.eMailAdresse4 = new SimpleStringProperty(eMail4);
  		this.eMailAdresse5 = new SimpleStringProperty(eMail5);
 	}
+	
+	public Person(int pID, String name, String vname1, String vname2, String geschl,
+			Date gDatum, String handy1, String handy2, String eMail1, String eMail2,
+			String eMail3, String eMail4, String eMail5) {
+			
+			this.personID = new SimpleIntegerProperty(pID);
+	 		this.name = new SimpleStringProperty(name);
+	 		this.vorname1 = new SimpleStringProperty(vname1);
+	 		this.vorname2 = new SimpleStringProperty(vname2);
+	 		this.geschlecht = new SimpleStringProperty(geschl);
+	 		this.geburtsdatum = new SimpleObjectProperty<LocalDate>(gDatum.toLocalDate());
+	 		this.handyNr1 = new SimpleStringProperty(handy1);
+	 		this.handyNr2 = new SimpleStringProperty(handy2);
+	 		this.eMailAdresse1 = new SimpleStringProperty(eMail1);
+	 		this.eMailAdresse2 = new SimpleStringProperty(eMail2);
+	 		this.eMailAdresse3 = new SimpleStringProperty(eMail3);
+	 		this.eMailAdresse4 = new SimpleStringProperty(eMail4);
+	 		this.eMailAdresse5 = new SimpleStringProperty(eMail5);
+		}
 
 	/**
 	 * @return the personID

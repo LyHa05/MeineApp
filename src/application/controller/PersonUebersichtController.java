@@ -5,9 +5,12 @@ import application.util.DateUtil;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import application.MainApp;
 import application.model.Person;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,7 +57,7 @@ public class PersonUebersichtController {
     // Reference to the main application.
     private MainApp mainApp;
     
-    // Referenz zur Datenbankverbidnung.
+    // Referenz zur Datenbankverbindnung.
     private DBConnect dbc;
     
     /**
@@ -76,18 +79,7 @@ public class PersonUebersichtController {
      */
     @FXML
     private void initialize() throws SQLException {
-    	
-////    	loadPersonDataFromDatabase();
-//    	
-//    	dbc = new DBConnect();
-//    	dbc.connect();
-//    	
-//        // Initialize the person table with the two columns.
-//        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().vorname1Property());
-//        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-//    
-//
-//        
+    	 
         try {
         	//Serververbindung hergestellt
         	dbc = new DBConnect();
@@ -97,7 +89,21 @@ public class PersonUebersichtController {
             ResultSet rs = verbindung.createStatement().executeQuery("SELECT * FROM Person");
             while (rs.next()) {
                 //get string from db,whichever way 
-                personDaten.add(new Person(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+                personDaten.add(new Person(
+                		rs.getInt(1) 		//PersonID
+                		,rs.getString(2)	//Name
+                		,rs.getString(3)	//Vorname1
+                		,rs.getString(4)	//Vorname2
+                		,rs.getString(5)	//Geschlecht
+                		,rs.getDate(6)		//Geburtsdatum
+                		,rs.getString(7)	//HandyNr1
+                		,rs.getString(8)	//HandyNr2
+                		,rs.getString(9)	//EMailAdresse1
+                		,rs.getString(10)	//EMailAdresse2
+                		,rs.getString(11)	//EMailAdresse3
+                		,rs.getString(12)	//EMailAdresse4
+                		,rs.getString(13)	//EMailAdresse5
+                		));                
             }
 
         } catch (SQLException ex) {
