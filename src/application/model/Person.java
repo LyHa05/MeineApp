@@ -35,6 +35,13 @@ public class Person {
 		this(0, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null);
 	}
 	
+	public Person(int pID, String name, String vname1, String vname2) {
+		this.personID = new SimpleIntegerProperty(pID);
+ 		this.name = new SimpleStringProperty(name);
+ 		this.vorname1 = new SimpleStringProperty(vname1);
+ 		this.vorname2 = new SimpleStringProperty(vname2);
+	}
+	
 	public Person(int pID, String name, String vname1, String vname2, String geschl,
 		int gJahr, int gMonat, int gTag, String handy1, String handy2, String eMail1, String eMail2,
 		String eMail3, String eMail4, String eMail5) {

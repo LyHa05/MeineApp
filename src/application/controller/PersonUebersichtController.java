@@ -1,12 +1,23 @@
 package application.controller;
 
 import application.util.DateUtil;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import application.MainApp;
 import application.model.Person;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 
 public class PersonUebersichtController {
 
@@ -43,8 +54,16 @@ public class PersonUebersichtController {
     // Reference to the main application.
     private MainApp mainApp;
     
+    // Referenz zur Datenbankverbidnung.
+    private DBConnect dbc;
+    
     /**
-     * The constructor.
+     * The data as an observable list of Persons.
+     */
+    private ObservableList<Person> personDaten = FXCollections.observableArrayList();
+
+    
+    /**
      * The constructor is called before the initialize() method.
      */
     public PersonUebersichtController() {
@@ -53,19 +72,51 @@ public class PersonUebersichtController {
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
+     * @throws SQLException 
      */
     @FXML
-    private void initialize() {
-        // Initialize the person table with the two columns.
-        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().vorname1Property());
-        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-    
+    private void initialize() throws SQLException {
+    	
+////    	loadPersonDataFromDatabase();
+//    	
+//    	dbc = new DBConnect();
+//    	dbc.connect();
+//    	
+//        // Initialize the person table with the two columns.
+//        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().vorname1Property());
+//        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+//    
+//
+//        
+        try {
+        	//Serververbindung hergestellt
+        	dbc = new DBConnect();
+        	Connection verbindung = dbc.connect();
+        	
+            // Execute query and store result in a resultset
+            ResultSet rs = verbindung.createStatement().executeQuery("SELECT * FROM Person");
+            while (rs.next()) {
+                //get string from db,whichever way 
+                personDaten.add(new Person(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error"+ex);
+        }
+        
+        //Set cell value factory to tableview.
+        //NB.PropertyValue Factory must be the same with the one set in model class.
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("vorname1"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
         // Clear person details.
         showPersonDetails(null);
 
         // Listen for selection changes and show the person details when changed.
         personTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
+        
+
     }
 
     /**
@@ -132,6 +183,34 @@ public class PersonUebersichtController {
     	
     }
 	
+    public void loadPersonDataFromDatabase() {
+        try {
+
+        	dbc = new DBConnect();
+        	
+        	
+        	
+//        	personDaten.clear();
+        	
+
+        	
+
+
+
+        } catch (Exception e) { // catches ANY exception
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Daten konnten nicht geladen werden");
+//            alert.setContentText("Could not load data from file:\n" + file.getPath());
+
+            alert.showAndWait();
+        }
+    }
+    
+	public ObservableList<Person> getPersonDaten() {
+		return personDaten;
+	}
+    
     /**
      * Is called by the main application to give a reference back to itself.
      * 
@@ -141,6 +220,8 @@ public class PersonUebersichtController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        personTable.setItems(mainApp.getPersonDaten());
+//        personTable.setItems(mainApp.getPersonDaten());
+        personTable.setItems(null);
+        personTable.setItems(personDaten);
     }
 }

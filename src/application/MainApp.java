@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 
+import javax.swing.JTable;
+
 import application.controller.PersonUebersichtController;
 import application.controller.RootLayoutController;
 import application.controller.StartSeiteController;
@@ -27,10 +29,10 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    /**
-     * The data as an observable list of Persons.
-     */
-    private ObservableList<Person> personDaten = FXCollections.observableArrayList();
+//    /**
+//     * The data as an observable list of Persons.
+//     */
+//    private ObservableList<Person> personDaten = FXCollections.observableArrayList();
 
 
     /**
@@ -80,9 +82,9 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
-	public ObservableList<Person> getPersonDaten() {
-		return personDaten;
-	}
+//	public ObservableList<Person> getPersonDaten() {
+//		return personDaten;
+//	}
 	
     /**
      * Shows the person overview inside the root layout.
@@ -124,40 +126,8 @@ public class MainApp extends Application {
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-		 //Personendaten aus Datenbank laden
-		 loadPersonDataFromDatabase();
+		 
+		 
 	}
-	
-	public void loadPersonDataFromDatabase() {
-        try {
-//            JAXBContext context = JAXBContext
-//                    .newInstance(PersonListWrapper.class);
-//            Unmarshaller um = context.createUnmarshaller();
-//
-//            // Reading XML from the file and unmarshalling.
-//            PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
-//
-//            personDaten.clear();
-//            personDaten.addAll(wrapper.getPersons());
-//
-//            // Save the file path to the registry.
-//            setPersonFilePath(file);
-        	
-        	personDaten.clear();
-        	
-        	PersonDB pdb = new PersonDB();
-        	
-        	personDaten.add(pdb.moveFirst());
-        	
-
-        } catch (Exception e) { // catches ANY exception
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Daten konnten nicht geladen werden");
-//            alert.setContentText("Could not load data from file:\n" + file.getPath());
-
-            alert.showAndWait();
-        }
-    }
 
 }
