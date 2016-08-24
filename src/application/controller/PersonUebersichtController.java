@@ -155,10 +155,10 @@ public class PersonUebersichtController {
     
     
     /**
-     * Wird aufgerufen, wenn User Zurueck anklickt. Oeffnet die Startseite. 
+     * Wird aufgerufen, wenn User Menue anklickt. Oeffnet die Startseite. 
      */
     @FXML
-    public void handleZurueck() {
+    public void handleMenue() {
     	mainApp.showStartSeite();
     }
     
@@ -183,6 +183,14 @@ public class PersonUebersichtController {
      */
     @FXML
     public void handleLoeschen() {
+    	
+    }
+    
+    /**
+     * Wird aufgerufen, wenn User Adresse anklickt. Oeffnet Adressuebersichtdialog.
+     */
+    @FXML
+    public void handleAdresse() {
     	
     }
 	
