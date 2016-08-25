@@ -1,13 +1,12 @@
 package application.view;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import application.MainApp;
 import application.controller.DBConnect;
 import application.model.Person;
-import application.model.JUnit.PersonDB;
+import application.model.PersonDB;
 import application.util.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,7 +57,7 @@ public class PersonUebersichtController {
     // Referenz zur Datenbankverbindnung.
     private DBConnect dbc;
     private Connection verbindung;
-    private PreparedStatement ps;
+    
     /**
      * The data as an observable list of Persons.
      */
