@@ -1,7 +1,5 @@
 package application.view;
 
-import application.util.DateUtil;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,14 +7,16 @@ import java.sql.SQLException;
 import application.MainApp;
 import application.controller.DBConnect;
 import application.model.Person;
+import application.model.JUnit.PersonDB;
+import application.util.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
@@ -171,48 +171,22 @@ public class PersonUebersichtController {
         Person tempPerson = new Person();
         boolean okClicked = mainApp.showPersonAnpassDialog(tempPerson);
         if (okClicked) {
-        	
-            erstellePerson(tempPerson);
-        }
-    }
-    
-    public void erstellePerson(Person p) throws SQLException {
-    	
-    	try {
-           	 ps = verbindung.prepareStatement("INSERT INTO Person (PersonID, Name,"
-        	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, EMailAdresse1)"
-        	 		+ "VALUES(NEXT VALUE FOR PersonIDSequence,?,?,?,?,?,?,?)");
-        	 ps.setString(1, p.getName());
-        	 ps.setString(2, p.getVorname1());
-        	 ps.setString(3, p.getVorname2());
-        	 ps.setString(4, p.getGeschlecht());
-        	 ps.setDate(5, java.sql.Date.valueOf(p.getGeburtsdatum()));
-        	 ps.setString(6, p.getHandyNr1());
-        	 ps.setString(7, p.geteMailAdresse1());
-        	 ps.executeUpdate();
-        	 
-        	 System.out.println("Insert");
-        	 
-        } catch (SQLException ex) {
-//        	TODO Fehlerbehandlung ordentlich einrichten
-//            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
-//                    ex);
-        	System.out.println("Kein Insert");
-        } finally {
-            ps.close();
-            verbindung.close();
+        	PersonDB.erstellePerson(verbindung, tempPerson);
+        	personDaten.add(tempPerson);
         }
     }
        
     /**
      * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
+     * @throws SQLException 
      */
     @FXML
-    public void handleAendern() {
+    public void handleAendern() throws SQLException {
     	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showPersonAnpassDialog(selectedPerson);
             if (okClicked) {
+            	PersonDB.aenderePerson(verbindung, selectedPerson);
                 showPersonDetails(selectedPerson);
             }
 

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import javax.sql.rowset.JdbcRowSet;
 
 
-public class PersonDB {
+public class DepricatedPersonDB {
 
 	   static final String JDBC_DRIVER =
 			   "com.microsoft.sqlserver.jdbc.SQLServerDriver";
@@ -20,7 +20,7 @@ public class PersonDB {
 	   static final String DB_USER = "user1";
 	   static final String DB_PASS = "secret";
 	   private JdbcRowSet rowSet = null;
-	   public PersonDB() {
+	   public DepricatedPersonDB() {
 		   //Achtung Anpassung an Oracle!!!
 //	      try {
 //	         Class.forName(JDBC_DRIVER);
