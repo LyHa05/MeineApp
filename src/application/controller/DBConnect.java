@@ -8,7 +8,7 @@ public class DBConnect {
 
 	private static Connection conn;
 
-	// TODO
+	// TODO Dialog für Abfrage der Login-Daten in DB
 	// private static String url = "jdbc:mysql://localhost/company";
 	//
 	// private static String user = "root";

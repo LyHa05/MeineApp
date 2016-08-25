@@ -1,4 +1,4 @@
-package application.controller;
+package application.view;
 
 import application.util.DateUtil;
 
@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.MainApp;
+import application.controller.DBConnect;
 import application.model.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -118,7 +119,6 @@ public class PersonUebersichtController {
         // Listen for selection changes and show the person details when changed.
         personTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
-        
 
     }
 
@@ -175,7 +175,23 @@ public class PersonUebersichtController {
      */
     @FXML
     public void handleAendern() {
-    	
+    	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = mainApp.showPersonAnpassDialog(selectedPerson);
+            if (okClicked) {
+                showPersonDetails(selectedPerson);
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
+        }
     }
     
     /**
@@ -191,9 +207,10 @@ public class PersonUebersichtController {
      */
     @FXML
     public void handleAdresse() {
-    	
+    	mainApp.showAdressUebersicht();
     }
 	
+    //TODO loadPersonDataFromDatabase ggf. bereinigen!
     public void loadPersonDataFromDatabase() {
         try {
 

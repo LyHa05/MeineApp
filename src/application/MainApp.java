@@ -1,15 +1,20 @@
 package application;
 
 import java.io.IOException;
-import application.controller.PersonUebersichtController;
-import application.controller.RootLayoutController;
-import application.controller.StartSeiteController;
+
+import application.model.Person;
+import application.view.AdressUebersichtController;
+import application.view.PersonAnpassDialogController;
+import application.view.PersonUebersichtController;
+import application.view.RootLayoutController;
+import application.view.StartSeiteController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -118,7 +123,72 @@ public class MainApp extends Application {
 	            e.printStackTrace();
 	        }
 		 
-		 
 	}
+	
+	public void showAdressUebersicht() {
+		// TODO showAdressUebersicht erstellen
+		 try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/AdressUebersicht.fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(page);
+	            
+	            // Give the controller access to the main app.
+	            AdressUebersichtController controller = loader.getController();
+	            controller.setMainApp(this);
+	            
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	}
+
+	/**
+     * Opens a dialog to edit details for the specified person. If the user
+     * clicks OK, the changes are saved into the provided person object and true
+     * is returned.
+     * 
+     * @param person the person object to be edited
+     * @return true if the user clicked OK, false otherwise.
+     */
+    public boolean showPersonAnpassDialog(Person person) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+        	FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/PersonAnpassDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Person Anpassen");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            PersonAnpassDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setPerson(person);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }   
+	
+    /**
+     * Returns the main stage.
+     * @return
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
 }
