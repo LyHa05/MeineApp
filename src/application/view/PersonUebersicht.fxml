@@ -35,7 +35,7 @@
                       <Button mnemonicParsing="false" onAction="#handleMenue" text="Menü" />
                     </buttons>
                   </ButtonBar>
-                  <AnchorPane depthTest="DISABLE" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane depthTest="DISABLE" prefHeight="355.0" prefWidth="401.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Personenübersicht" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                         <GridPane AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">

@@ -122,7 +122,7 @@ public class PersonAnpassDialogController {
             person.setName(nameField.getText());
             person.setVorname1(vname1Field.getText());
             person.setVorname2(vname2Field.getText());
-            person.setGeschlecht(geschlComboBox.getPromptText());
+            person.setGeschlecht(geschlComboBox.getValue());
             person.setGeburtsdatum(DateUtil.parse(gDatumField.getText()));
             person.setHandyNr1(handyNr1Field.getText());
             person.seteMailAdresse1(eMail1Field.getText());
@@ -154,7 +154,7 @@ public class PersonAnpassDialogController {
         if (vname1Field.getText() == null || vname1Field.getText().length() == 0) {
             errorMessage += "Kein gueltiger Vorname!\n"; 
         }
-        if (geschlComboBox.getPromptText().equals("Männlich") || geschlComboBox.getPromptText().equals("Weiblich")) {
+        if (geschlComboBox.getValue() != "Männlich" && geschlComboBox.getValue() != "Weiblich") {
             errorMessage += "Kein Geschlecht angegeben!\n"; 
         } 
         if ((gDatumField.getText() != null || gDatumField.getText().length() != 0) && (!DateUtil.validDate(gDatumField.getText()))) {

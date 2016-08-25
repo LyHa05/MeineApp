@@ -3,9 +3,9 @@ package application.view;
 import application.util.DateUtil;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import application.MainApp;
 import application.controller.DBConnect;
 import application.model.Person;
@@ -57,7 +57,8 @@ public class PersonUebersichtController {
     
     // Referenz zur Datenbankverbindnung.
     private DBConnect dbc;
-    
+    private Connection verbindung;
+    private PreparedStatement ps;
     /**
      * The data as an observable list of Persons.
      */
@@ -80,8 +81,8 @@ public class PersonUebersichtController {
     	 
         try {
         	//Serververbindung hergestellt
-        	dbc = new DBConnect();
-        	Connection verbindung = dbc.connect();
+        	this.dbc = new DBConnect();
+        	this.verbindung = dbc.connect();
         	
             // Execute query and store result in a resultset
             ResultSet rs = verbindung.createStatement().executeQuery("SELECT * FROM Person");
@@ -153,7 +154,6 @@ public class PersonUebersichtController {
     	}
     }
     
-    
     /**
      * Wird aufgerufen, wenn User Menue anklickt. Oeffnet die Startseite. 
      */
@@ -164,12 +164,46 @@ public class PersonUebersichtController {
     
     /**
      * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Person anzulegen.
+     * @throws SQLException 
      */
     @FXML
-    public void handleNeu() {
-    	
+    public void handleNeu() throws SQLException {
+        Person tempPerson = new Person();
+        boolean okClicked = mainApp.showPersonAnpassDialog(tempPerson);
+        if (okClicked) {
+        	
+            erstellePerson(tempPerson);
+        }
     }
     
+    public void erstellePerson(Person p) throws SQLException {
+    	
+    	try {
+           	 ps = verbindung.prepareStatement("INSERT INTO Person (PersonID, Name,"
+        	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, EMailAdresse1)"
+        	 		+ "VALUES(NEXT VALUE FOR PersonIDSequence,?,?,?,?,?,?,?)");
+        	 ps.setString(1, p.getName());
+        	 ps.setString(2, p.getVorname1());
+        	 ps.setString(3, p.getVorname2());
+        	 ps.setString(4, p.getGeschlecht());
+        	 ps.setDate(5, java.sql.Date.valueOf(p.getGeburtsdatum()));
+        	 ps.setString(6, p.getHandyNr1());
+        	 ps.setString(7, p.geteMailAdresse1());
+        	 ps.executeUpdate();
+        	 
+        	 System.out.println("Insert");
+        	 
+        } catch (SQLException ex) {
+//        	TODO Fehlerbehandlung ordentlich einrichten
+//            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
+//                    ex);
+        	System.out.println("Kein Insert");
+        } finally {
+            ps.close();
+            verbindung.close();
+        }
+    }
+       
     /**
      * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
      */

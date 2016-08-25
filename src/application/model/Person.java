@@ -33,8 +33,24 @@ public class Person {
 	
 	
 	public Person() {
-		this(0, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null);
+		this.personID = new SimpleIntegerProperty(0);
+ 		this.name = new SimpleStringProperty(null);
+ 		this.vorname1 = new SimpleStringProperty(null);
+ 		this.vorname2 = new SimpleStringProperty(null);
+ 		this.geschlecht = new SimpleStringProperty(null);
+ 		this.geburtsdatum = new SimpleObjectProperty<LocalDate>(null);
+ 		this.handyNr1 = new SimpleStringProperty(null);
+ 		this.handyNr2 = new SimpleStringProperty(null);
+ 		this.eMailAdresse1 = new SimpleStringProperty(null);
+ 		this.eMailAdresse2 = new SimpleStringProperty(null);
+ 		this.eMailAdresse3 = new SimpleStringProperty(null);
+ 		this.eMailAdresse4 = new SimpleStringProperty(null);
+ 		this.eMailAdresse5 = new SimpleStringProperty(null);
 	}
+	
+//	public Person() {
+//		this(0, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null);
+//	}
 	
 //	public Person(int pID, String name, String vname1, String vname2) {
 //		this.personID = new SimpleIntegerProperty(pID);
