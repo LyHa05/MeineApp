@@ -39,30 +39,6 @@ public class PersonDB {
 
 	public static void aenderePerson(Connection verbindung, Person p) throws SQLException {
     	
-//		ps = verbindung.prepareStatement("DECLARE @PersonID INT "
-//				+ "Set @PersonID = ?"
-//				+ "UPDATE Person SET "
-//    			+ "Name = ?,"
-//    			+ "Vorname1 = ?,"
-//    			+ "Vorname2 = ?,"
-//    			+ "Geschlecht = ?,"
-//    			+ "Geburtsdatum = ?,"
-//    			+ "HandyNr1 = ?,"
-//    			+ "EMailAdresse1 = ?"
-//    			+ "WHERE PersonID = @PersonID");
-//      
-//			 ps.setInt(1, p.getPersonID());
-//			 ps.setString(2, p.getName());
-//        	 ps.setString(3, p.getVorname1());
-//        	 ps.setString(4, p.getVorname2());
-//        	 ps.setString(5, p.getGeschlecht());
-//        	 ps.setDate(6, java.sql.Date.valueOf(p.getGeburtsdatum()));
-//        	 ps.setString(7, p.getHandyNr1());
-//        	 ps.setString(8, p.geteMailAdresse1());
-//        	 ps.executeUpdate();
-//        	 
-//        	 System.out.println("Update");
-		
     	try {ps = verbindung.prepareStatement("UPDATE Person SET "
     			+ "Name = ?,"
     			+ "Vorname1 = ?,"
@@ -95,6 +71,28 @@ public class PersonDB {
             ps.close();
 //            verbindung.close();
         }		
+	}
+
+	public static void loeschePerson(Connection verbindung, Person p) throws SQLException {
+		try {ps = verbindung.prepareStatement("DELETE FROM Person "
+    			+ "WHERE PersonID = ?");
+      
+        	 ps.setInt(1, p.getPersonID());
+        	 ps.executeUpdate();
+        	 
+        	 System.out.println("Delete");
+        	 
+        } catch (SQLException ex) {
+//        	TODO Fehlerbehandlung ordentlich einrichten
+//            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
+//                    ex);
+        	System.out.println(ex.getMessage());
+        	System.out.println("Kein Delete");
+        } finally {
+            ps.close();
+//            verbindung.close();
+        }		
+		
 	}
 	
 }

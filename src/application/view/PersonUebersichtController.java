@@ -203,10 +203,26 @@ public class PersonUebersichtController {
     
     /**
      * Wird aufgerufen, wenn User Loeschen anklickt. Loescht Persondaten.
+     * @throws SQLException 
      */
     @FXML
-    public void handleLoeschen() {
-    	
+    public void handleLoeschen() throws SQLException {
+        //TODO Personauswahl und Indexauswahl zusammenfassen
+    	int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedIndex >= 0) {
+        	PersonDB.loeschePerson(verbindung, selectedPerson);
+            personTable.getItems().remove(selectedIndex);
+        } else {
+            // Nothing selected. (Error handling)
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+
+            alert.showAndWait();
+        }
     }
     
     /**
