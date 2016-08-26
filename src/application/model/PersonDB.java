@@ -32,7 +32,7 @@ public class PersonDB {
 //                    ex);
         	System.out.println("Kein Insert");
         } finally {
-            ps.close();
+        	if (ps != null) ps.close();
             DBConnect.close();
         }
     }
@@ -69,7 +69,7 @@ public class PersonDB {
         	System.out.println(ex.getMessage());
         	System.out.println("Kein Update");
         } finally {
-            ps.close();
+        	if (ps != null) ps.close();
             DBConnect.close();
         }		
 	}
@@ -90,7 +90,7 @@ public class PersonDB {
         	System.out.println(ex.getMessage());
         	System.out.println("Kein Delete");
         } finally {
-            ps.close();
+        	if (ps != null) ps.close();
             DBConnect.close();
         }		
 		

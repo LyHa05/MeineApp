@@ -1,11 +1,13 @@
 package application.view;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.MainApp;
 import application.controller.DBConnect;
 import application.model.Adresse;
+import application.model.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -52,12 +54,16 @@ public class AdressUebersichtController {
 
 	// Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
 	private ResultSet rs;
+	private PreparedStatement ps;
 
 	// Daten als ObservableList für Adressen
 	private ObservableList<Adresse> adressDaten = FXCollections.observableArrayList();
 
 	// Flag fuer verschiedene Uebersichten (true: personweise, false: gesamt)
 	private boolean flagUebersicht;
+	
+	// Ausgewaehlte Person fuer Adressansicht
+	private Person selectedPerson;
 
 	/**
 	 * The constructor is called before the initialize() method.
@@ -77,7 +83,7 @@ public class AdressUebersichtController {
 		try {
 			if (flagUebersicht) {
 				// Execute query and store result in a resultset
-				rs = DBConnect.connect().createStatement().executeQuery("SELECT Adresse.AdressID"
+				ps = DBConnect.connect().prepareStatement("SELECT Adresse.AdressID"
 						+ ", Adresse.Strasse"
 						+ ", Adresse.Zusatz"
 						+ ", Adresse.PLZ"
@@ -85,7 +91,10 @@ public class AdressUebersichtController {
 						+ ", Adresse.Land"
 						+ ", Adresse.FestnetzNr "
 						+ "FROM Person JOIN WohnhaftIn ON Person.PersonID = WohnhaftIn.PersonID "
-						+ "JOIN Adresse ON WohnhaftIn.AdressID = Adresse.AdressID");
+						+ "JOIN Adresse ON WohnhaftIn.AdressID = Adresse.AdressID "
+						+ "WHERE Person.PersonID = ?");
+				ps.setInt(1,selectedPerson.getPersonID());
+				rs =ps.executeQuery();
 			} else {
 				rs = DBConnect.connect().createStatement().executeQuery("SELECT * FROM Adresse");
 			}
@@ -100,14 +109,19 @@ public class AdressUebersichtController {
 						, rs.getString(6) // Land
 						, rs.getString(7) // Festnetznr
 				));
+				System.out.println("Pruefung der gesetzten Instanzveriablen:");
+				System.out.println(selectedPerson);
+				System.out.println(flagUebersicht);
 			}
 
 		} catch (SQLException ex) {
 			System.err.println("Error" + ex);
 			System.out.println(ex);
 		} finally {
-			rs.close();
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
 			DBConnect.close();
+			
 		}
 		
 		//Set cell value factory to tableview.
@@ -138,4 +152,13 @@ public class AdressUebersichtController {
 		return adressDaten;
 	}
 
+	/**
+	 * @param selectedPerson the selectedPerson to set
+	 */
+	public void setSelectedPerson(Person selectedPerson) {
+		this.selectedPerson = selectedPerson;
+	}
+
+	
+	
 }

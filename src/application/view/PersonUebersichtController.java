@@ -102,7 +102,7 @@ public class PersonUebersichtController {
             System.err.println("Error"+ex);
             System.out.println(ex);
         } finally {
-        	rs.close();
+			if (rs != null) rs.close();
         	DBConnect.close();
         }
         
@@ -238,10 +238,10 @@ public class PersonUebersichtController {
     	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showAdressUebersicht(true, selectedPerson); //Flag fuer PersonAdressAnsicht
-            if (okClicked) {
+//            if (okClicked) {
 //            	PersonDB.aenderePerson(selectedPerson);
-                showPersonDetails(selectedPerson);
-            }
+//                showPersonDetails(selectedPerson);
+//            }
 
         } else {
             // Nothing selected.

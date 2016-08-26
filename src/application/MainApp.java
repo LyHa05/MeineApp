@@ -139,8 +139,12 @@ public class MainApp extends Application {
 	}
 
 	public boolean showAdressUebersicht(boolean flagUebersicht, Person person) {
-		// TODO showAdressUebersicht erstellen
 		 try {
+			 	AdressUebersichtController controller = new AdressUebersichtController();
+	            controller.setFlagUebersicht(flagUebersicht);
+	            controller.setSelectedPerson(person);
+	            System.out.println(person);
+	            System.out.println(flagUebersicht);
 	            // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(MainApp.class.getResource("view/AdressUebersicht.fxml"));
@@ -149,10 +153,15 @@ public class MainApp extends Application {
 	            // Set person overview into the center of root layout.
 	            rootLayout.setCenter(page);
 	            
+	            System.out.println("vor Controller Access");
+	            
 	            // Give the controller access to the main app.
-	            AdressUebersichtController controller = loader.getController();
+	            controller = loader.getController();
 	            controller.setMainApp(this);
-	            controller.setFlagUebersicht(flagUebersicht);
+
+	            System.out.println(person);
+	            
+	            System.out.println("nach Controller Access");      
 	            
 	        } catch (IOException e) {
 	            e.printStackTrace();
