@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import application.MainApp;
-import application.controller.DBConnect;
 import application.model.Person;
 import application.model.PersonDB;
 import application.util.DateUtil;
@@ -55,7 +54,7 @@ public class PersonUebersichtController {
     private MainApp mainApp;
     
     // Referenz zur Datenbankverbindnung.
-    private DBConnect dbc;
+//    private DBConnect dbc;
     private Connection verbindung;
     
     /**
@@ -79,9 +78,13 @@ public class PersonUebersichtController {
     private void initialize() throws SQLException {
     	 
         try {
-        	//Serververbindung hergestellt
-        	this.dbc = new DBConnect();
-        	this.verbindung = dbc.connect();
+        	System.out.println("Bis hier hin.");
+        	System.out.println(mainApp);
+        	//Serververbindung herstellen
+        	this.verbindung = mainApp.getVerbindung();
+//        	this.dbc = new DBConnect();
+//        	this.verbindung = dbc.connect();
+        	System.out.println("Auch bis hier.");
         	
             // Execute query and store result in a resultset
             ResultSet rs = verbindung.createStatement().executeQuery("SELECT * FROM Person");
@@ -106,6 +109,7 @@ public class PersonUebersichtController {
 
         } catch (SQLException ex) {
             System.err.println("Error"+ex);
+            System.out.println(ex);
         }
         
         //Set cell value factory to tableview.
@@ -191,14 +195,18 @@ public class PersonUebersichtController {
 
         } else {
             // Nothing selected.
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
-
-            alert.showAndWait();
+        	keinePersonSelektiert();
         }
+    }
+    
+    public void keinePersonSelektiert() {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.initOwner(mainApp.getPrimaryStage());
+        alert.setTitle("Keine Auswahl");
+        alert.setHeaderText("Keine Person selektiert");
+        alert.setContentText("Bitte waehlen Sie eine Person in der Tabelle aus.");
+
+        alert.showAndWait();
     }
     
     /**
@@ -230,14 +238,25 @@ public class PersonUebersichtController {
      */
     @FXML
     public void handleAdresse() {
-    	mainApp.showAdressUebersicht();
-    }
+    	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = mainApp.showAdressUebersicht(true, selectedPerson); //Flag fuer PersonAdressAnsicht
+            if (okClicked) {
+//            	PersonDB.aenderePerson(verbindung, selectedPerson);
+                showPersonDetails(selectedPerson);
+            }
+
+        } else {
+            // Nothing selected.
+        	keinePersonSelektiert();
+        }    	
+   }
 	
     //TODO loadPersonDataFromDatabase ggf. bereinigen!
     public void loadPersonDataFromDatabase() {
         try {
 
-        	dbc = new DBConnect();
+//        	dbc = new DBConnect();
         	
         	
         	

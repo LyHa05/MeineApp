@@ -1,7 +1,10 @@
 package application;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
+import application.controller.DBConnect;
 import application.model.Person;
 import application.view.AdressUebersichtController;
 import application.view.PersonAnpassDialogController;
@@ -24,19 +27,25 @@ public class MainApp extends Application {
 	 */
     private Stage primaryStage;
     private BorderPane rootLayout;
-
-//    /**
-//     * The data as an observable list of Persons.
-//     */
-//    private ObservableList<Person> personDaten = FXCollections.observableArrayList();
-
+    
+    // Referenz zur Datenbankverbindnung.
+    private DBConnect dbc;
+	private Connection verbindung;
 
     /**
      * Methode wird automatisch aufgerufen beim Launchen der Applikation
+     * @throws SQLException 
      */
-    
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
+    	
+    	// Serververbindung herstellen
+    	this.dbc = new DBConnect();
+    	this.verbindung = dbc.connect();
+    	System.out.println("Verbindung wurde hergestellt.");
+    	System.out.println(verbindung);
+    	
+    	// Stage aufbauen
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AddressApp");
 
@@ -87,7 +96,7 @@ public class MainApp extends Application {
      */
     public void showStartSeite() {
         try {
-            // Load Startseite.
+            // Startseite laden.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/StartSeite.fxml"));
             AnchorPane StartSeite = (AnchorPane) loader.load();
@@ -107,10 +116,15 @@ public class MainApp extends Application {
 
 	public void showPersonUebersicht() {
 		 try {
+			 System.out.println("Vor Load person overview");
 	            // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
+	            System.out.println("FXMLLoader");
 	            loader.setLocation(MainApp.class.getResource("view/PersonUebersicht.fxml"));
+	            System.out.println("loader.setLocation");
 	            AnchorPane PersonOverview = (AnchorPane) loader.load();
+	            System.out.println("AnchorPane PersonOverview");
+	            
 
 	            // Set person overview into the center of root layout.
 	            rootLayout.setCenter(PersonOverview);
@@ -118,14 +132,16 @@ public class MainApp extends Application {
 	            // Give the controller access to the main app.
 	            PersonUebersichtController controller = loader.getController();
 	            controller.setMainApp(this);
+	            System.out.println("Main Referenz fuer PersonUebersicht gesetzt.");
 	            
 	        } catch (IOException e) {
+	        	System.out.println("schlecht");
 	            e.printStackTrace();
 	        }
 		 
 	}
-	
-	public void showAdressUebersicht() {
+
+	public boolean showAdressUebersicht(boolean flagUebersicht, Person person) {
 		// TODO showAdressUebersicht erstellen
 		 try {
 	            // Load person overview.
@@ -143,6 +159,7 @@ public class MainApp extends Application {
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
+		return flagUebersicht;
 	}
 
 	/**
@@ -184,11 +201,21 @@ public class MainApp extends Application {
     }   
 	
     /**
-     * Returns the main stage.
-     * @return
+     * Gibt PrimaryStage zurueck.
+     * @return primaryStage
      */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+    
+    /**
+     * Gibt Datenbankverbindung zurueck.
+	 * @return verbindung
+	 */
+	public Connection getVerbindung() {
+		return verbindung;
+	}
+
+
 
 }
