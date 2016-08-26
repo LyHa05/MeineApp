@@ -29,8 +29,8 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     
     // Referenz zur Datenbankverbindnung.
-    private DBConnect dbc;
-	private Connection verbindung;
+//    private DBConnect dbc;
+//	private Connection verbindung;
 
     /**
      * Methode wird automatisch aufgerufen beim Launchen der Applikation
@@ -40,10 +40,10 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws SQLException {
     	
     	// Serververbindung herstellen
-    	this.dbc = new DBConnect();
-    	this.verbindung = dbc.connect();
-    	System.out.println("Verbindung wurde hergestellt.");
-    	System.out.println(verbindung);
+//    	this.dbc = new DBConnect();
+//    	this.verbindung = dbc.connect();
+//    	System.out.println("Verbindung wurde hergestellt.");
+//    	System.out.println(verbindung);
     	
     	// Stage aufbauen
         this.primaryStage = primaryStage;
@@ -212,9 +212,9 @@ public class MainApp extends Application {
      * Gibt Datenbankverbindung zurueck.
 	 * @return verbindung
 	 */
-	public Connection getVerbindung() {
-		return verbindung;
-	}
+//	public Connection getVerbindung() {
+//		return verbindung;
+//	}
 
 
 

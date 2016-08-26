@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import application.MainApp;
+import application.controller.DBConnect;
 import application.model.Person;
 import application.model.PersonDB;
 import application.util.DateUtil;
@@ -54,7 +55,7 @@ public class PersonUebersichtController {
     private MainApp mainApp;
     
     // Referenz zur Datenbankverbindnung.
-//    private DBConnect dbc;
+    private DBConnect dbc;
     private Connection verbindung;
     
     /**
@@ -81,9 +82,9 @@ public class PersonUebersichtController {
         	System.out.println("Bis hier hin.");
         	System.out.println(mainApp);
         	//Serververbindung herstellen
-        	this.verbindung = mainApp.getVerbindung();
-//        	this.dbc = new DBConnect();
-//        	this.verbindung = dbc.connect();
+//        	this.verbindung = mainApp.getVerbindung();
+        	this.dbc = new DBConnect();
+        	this.verbindung = dbc.connect();
         	System.out.println("Auch bis hier.");
         	
             // Execute query and store result in a resultset
@@ -133,6 +134,8 @@ public class PersonUebersichtController {
      * @param person the person or null
      */
     private void showPersonDetails(Person person) {
+    	System.out.println("showPersonDetails");
+    	System.out.println(mainApp);
     	if (person != null) {
     		// Fill the labels with info from the person object. LocalDate vorab konvertieren
     		personIDLabel.setText(Integer.toString(person.getPersonID()));
