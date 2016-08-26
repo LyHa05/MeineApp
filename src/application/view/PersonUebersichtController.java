@@ -1,6 +1,5 @@
 package application.view;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import application.MainApp;
@@ -54,11 +53,10 @@ public class PersonUebersichtController {
     // Reference to the main application.
     private MainApp mainApp;
     
-    // Referenz zur Datenbankverbindnung.
-    private DBConnect dbc;
-    private Connection verbindung;
+    // Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
+    private ResultSet rs;
     
-    /**
+      /**
      * The data as an observable list of Persons.
      */
     private ObservableList<Person> personDaten = FXCollections.observableArrayList();
@@ -78,17 +76,9 @@ public class PersonUebersichtController {
     @FXML
     private void initialize() throws SQLException {
     	 
-        try {
-        	System.out.println("Bis hier hin.");
-        	System.out.println(mainApp);
-        	//Serververbindung herstellen
-//        	this.verbindung = mainApp.getVerbindung();
-        	this.dbc = new DBConnect();
-        	this.verbindung = dbc.connect();
-        	System.out.println("Auch bis hier.");
-        	
+        try {    	
             // Execute query and store result in a resultset
-            ResultSet rs = verbindung.createStatement().executeQuery("SELECT * FROM Person");
+            rs = DBConnect.connect().createStatement().executeQuery("SELECT * FROM Person");
             while (rs.next()) {
                 //get string from db,whichever way 
                 personDaten.add(new Person(
@@ -105,12 +95,15 @@ public class PersonUebersichtController {
                 		,rs.getString(11)	//EMailAdresse3
                 		,rs.getString(12)	//EMailAdresse4
                 		,rs.getString(13)	//EMailAdresse5
-                		));                
+                		));   
             }
 
         } catch (SQLException ex) {
             System.err.println("Error"+ex);
             System.out.println(ex);
+        } finally {
+        	rs.close();
+        	DBConnect.close();
         }
         
         //Set cell value factory to tableview.
@@ -126,7 +119,7 @@ public class PersonUebersichtController {
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
 
     }
-
+    
     /**
      * Fills all text fields to show details about the person.
      * If the specified person is null, all text fields are cleared.
@@ -177,7 +170,7 @@ public class PersonUebersichtController {
         Person tempPerson = new Person();
         boolean okClicked = mainApp.showPersonAnpassDialog(tempPerson);
         if (okClicked) {
-        	PersonDB.erstellePerson(verbindung, tempPerson);
+        	PersonDB.erstellePerson(tempPerson);
         	personDaten.add(tempPerson);
         }
     }
@@ -192,7 +185,8 @@ public class PersonUebersichtController {
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showPersonAnpassDialog(selectedPerson);
             if (okClicked) {
-            	PersonDB.aenderePerson(verbindung, selectedPerson);
+//            	PersonDB.aenderePerson(verbindung, selectedPerson);
+            	PersonDB.aenderePerson(selectedPerson);
                 showPersonDetails(selectedPerson);
             }
 
@@ -222,7 +216,7 @@ public class PersonUebersichtController {
     	int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
         Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
         if (selectedIndex >= 0) {
-        	PersonDB.loeschePerson(verbindung, selectedPerson);
+        	PersonDB.loeschePerson(selectedPerson);
             personTable.getItems().remove(selectedIndex);
         } else {
             // Nothing selected. (Error handling)
@@ -245,7 +239,7 @@ public class PersonUebersichtController {
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showAdressUebersicht(true, selectedPerson); //Flag fuer PersonAdressAnsicht
             if (okClicked) {
-//            	PersonDB.aenderePerson(verbindung, selectedPerson);
+//            	PersonDB.aenderePerson(selectedPerson);
                 showPersonDetails(selectedPerson);
             }
 

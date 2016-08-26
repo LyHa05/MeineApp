@@ -17,7 +17,7 @@ public class DBConnect {
 	
 	private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
-	public Connection connect() throws SQLException {
+	public static Connection connect() throws SQLException {
 
 		try {
 
@@ -43,7 +43,7 @@ public class DBConnect {
 
 	}
 
-	public Connection getConnection() throws SQLException, ClassNotFoundException {
+	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 
 		if (conn != null && !conn.isClosed())
 
@@ -53,6 +53,11 @@ public class DBConnect {
 
 		return conn;
 
+	}
+	
+	public static void close() throws SQLException {
+		if (conn != null && !conn.isClosed())
+			conn.close();
 	}
 
 }

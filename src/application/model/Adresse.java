@@ -36,99 +36,123 @@ public class Adresse {
 	/**
 	 * @return the adressID
 	 */
-	public IntegerProperty getAdressID() {
-		return adressID;
+	public int getAdressID() {
+		return adressID.get();
 	}
 
 	/**
 	 * @param adressID the adressID to set
 	 */
-	public void setAdressID(IntegerProperty adressID) {
-		this.adressID = adressID;
+	public void setAdressID(int adressID) {
+		this.adressID.set(adressID);
 	}
+	
+    public IntegerProperty adressIDProperty() {
+        return adressID;
+    }
 
 	/**
 	 * @return the strasse
 	 */
-	public StringProperty getStrasse() {
-		return strasse;
+	public String getStrasse() {
+		return strasse.get();
 	}
 
 	/**
 	 * @param strasse the strasse to set
 	 */
-	public void setStrasse(StringProperty strasse) {
-		this.strasse = strasse;
+	public void setStrasse(String strasse) {
+		this.strasse.set(strasse);
 	}
+	
+    public StringProperty strasseProperty() {
+        return strasse;
+    }
 
 	/**
 	 * @return the zusatz
 	 */
-	public StringProperty getZusatz() {
-		return zusatz;
+	public String getZusatz() {
+		return zusatz.get();
 	}
 
 	/**
 	 * @param zusatz the zusatz to set
 	 */
-	public void setZusatz(StringProperty zusatz) {
-		this.zusatz = zusatz;
+	public void setZusatz(String zusatz) {
+		this.zusatz.set(zusatz);
 	}
+	
+    public StringProperty zusatzProperty() {
+        return zusatz;
+    }
 
 	/**
 	 * @return the plz
 	 */
-	public StringProperty getPlz() {
-		return plz;
+	public String getPlz() {
+		return plz.get();
 	}
 
 	/**
 	 * @param plz the plz to set
 	 */
-	public void setPlz(StringProperty plz) {
-		this.plz = plz;
+	public void setPlz(String plz) {
+		this.plz.set(plz);
 	}
 
+    public StringProperty plzProperty() {
+        return plz;
+    }
+	
 	/**
 	 * @return the ort
 	 */
-	public StringProperty getOrt() {
-		return ort;
+	public String getOrt() {
+		return ort.get();
 	}
 
 	/**
 	 * @param ort the ort to set
 	 */
-	public void setOrt(StringProperty ort) {
-		this.ort = ort;
+	public void setOrt(String ort) {
+		this.ort.set(ort);
 	}
+	
+    public StringProperty ortProperty() {
+        return ort;
+    }
 
 	/**
 	 * @return the land
 	 */
-	public StringProperty getLand() {
-		return land;
+	public String getLand() {
+		return land.get();
 	}
 
 	/**
 	 * @param land the land to set
 	 */
-	public void setLand(StringProperty land) {
-		this.land = land;
+	public void setLand(String land) {
+		this.land.set(land);
 	}
+	
+    public StringProperty landProperty() {
+        return land;
+    }
 
 	/**
 	 * @return the festnetzNr
 	 */
-	public StringProperty getFestnetzNr() {
-		return festnetzNr;
+	public String getFestnetzNr() {
+		return festnetzNr.get();
 	}
 
 	/**
 	 * @param festnetzNr the festnetzNr to set
 	 */
-	public void setFestnetzNr(StringProperty festnetzNr) {
-		this.festnetzNr = festnetzNr;
+	public void setFestnetzNr(String festnetzNr) {
+		this.festnetzNr.set(festnetzNr);
 	}
 	
 	

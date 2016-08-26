@@ -1,10 +1,7 @@
 package application;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
-
-import application.controller.DBConnect;
 import application.model.Person;
 import application.view.AdressUebersichtController;
 import application.view.PersonAnpassDialogController;
@@ -121,7 +118,7 @@ public class MainApp extends Application {
 	            FXMLLoader loader = new FXMLLoader();
 	            System.out.println("FXMLLoader");
 	            loader.setLocation(MainApp.class.getResource("view/PersonUebersicht.fxml"));
-	            System.out.println("loader.setLocation");
+	            System.out.println("loader.setLocation");          
 	            AnchorPane PersonOverview = (AnchorPane) loader.load();
 	            System.out.println("AnchorPane PersonOverview");
 	            
@@ -155,6 +152,7 @@ public class MainApp extends Application {
 	            // Give the controller access to the main app.
 	            AdressUebersichtController controller = loader.getController();
 	            controller.setMainApp(this);
+	            controller.setFlagUebersicht(flagUebersicht);
 	            
 	        } catch (IOException e) {
 	            e.printStackTrace();

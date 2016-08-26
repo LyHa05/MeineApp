@@ -1,8 +1,8 @@
 package application.model;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import application.controller.DBConnect;
 
 
 
@@ -10,9 +10,9 @@ public class PersonDB {
 
     private static PreparedStatement ps;
 	
-    public static void erstellePerson(Connection verbindung, Person p) throws SQLException {
+    public static void erstellePerson(Person p) throws SQLException {
     	
-    	try {ps = verbindung.prepareStatement("INSERT INTO Person (PersonID, Name,"
+    	try {ps = DBConnect.connect().prepareStatement("INSERT INTO Person (PersonID, Name,"
         	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, EMailAdresse1)"
         	 		+ "VALUES(NEXT VALUE FOR PersonIDSequence,?,?,?,?,?,?,?)");
         	 ps.setString(1, p.getName());
@@ -33,13 +33,14 @@ public class PersonDB {
         	System.out.println("Kein Insert");
         } finally {
             ps.close();
-//            verbindung.close();
+            DBConnect.close();
         }
     }
 
-	public static void aenderePerson(Connection verbindung, Person p) throws SQLException {
+//    public static void aenderePerson(Connection verbindung, Person p) throws SQLException {
+	public static void aenderePerson(Person p) throws SQLException {
     	
-    	try {ps = verbindung.prepareStatement("UPDATE Person SET "
+    	try {ps = DBConnect.connect().prepareStatement("UPDATE Person SET "
     			+ "Name = ?,"
     			+ "Vorname1 = ?,"
     			+ "Vorname2 = ?,"
@@ -69,12 +70,12 @@ public class PersonDB {
         	System.out.println("Kein Update");
         } finally {
             ps.close();
-//            verbindung.close();
+            DBConnect.close();
         }		
 	}
 
-	public static void loeschePerson(Connection verbindung, Person p) throws SQLException {
-		try {ps = verbindung.prepareStatement("DELETE FROM Person "
+	public static void loeschePerson(Person p) throws SQLException {
+		try {ps = DBConnect.connect().prepareStatement("DELETE FROM Person "
     			+ "WHERE PersonID = ?");
       
         	 ps.setInt(1, p.getPersonID());
@@ -90,7 +91,7 @@ public class PersonDB {
         	System.out.println("Kein Delete");
         } finally {
             ps.close();
-//            verbindung.close();
+            DBConnect.close();
         }		
 		
 	}
