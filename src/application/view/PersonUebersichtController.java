@@ -185,7 +185,6 @@ public class PersonUebersichtController {
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showPersonAnpassDialog(selectedPerson);
             if (okClicked) {
-//            	PersonDB.aenderePerson(verbindung, selectedPerson);
             	PersonDB.aenderePerson(selectedPerson);
                 showPersonDetails(selectedPerson);
             }
@@ -232,16 +231,17 @@ public class PersonUebersichtController {
     
     /**
      * Wird aufgerufen, wenn User Adresse anklickt. Oeffnet Adressuebersichtdialog.
+     * @throws SQLException 
      */
     @FXML
-    public void handleAdresse() {
+    public void handleAdresse() throws SQLException {
     	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showAdressUebersicht(true, selectedPerson); //Flag fuer PersonAdressAnsicht
-//            if (okClicked) {
+            if (okClicked) {
 //            	PersonDB.aenderePerson(selectedPerson);
-//                showPersonDetails(selectedPerson);
-//            }
+                showPersonDetails(selectedPerson);
+            }
 
         } else {
             // Nothing selected.

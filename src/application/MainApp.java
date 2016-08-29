@@ -138,35 +138,67 @@ public class MainApp extends Application {
 		 
 	}
 
-	public boolean showAdressUebersicht(boolean flagUebersicht, Person person) {
-		 try {
-			 	AdressUebersichtController controller = new AdressUebersichtController();
-	            controller.setFlagUebersicht(flagUebersicht);
-	            controller.setSelectedPerson(person);
-	            System.out.println(person);
-	            System.out.println(flagUebersicht);
-	            // Load person overview.
-	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(MainApp.class.getResource("view/AdressUebersicht.fxml"));
-	            AnchorPane page = (AnchorPane) loader.load();
+	public boolean showAdressUebersicht(boolean flagUebersicht, Person person) throws SQLException {
+//		 try {
+//			 	AdressUebersichtController controller = new AdressUebersichtController();
+//	            controller.setFlagUebersicht(flagUebersicht);
+//	            controller.setSelectedPerson(person);
+//	            System.out.println(person);
+//	            System.out.println(flagUebersicht);
+//	            // Load person overview.
+//	            FXMLLoader loader = new FXMLLoader();
+//	            loader.setLocation(MainApp.class.getResource("view/AdressUebersicht.fxml"));
+//	            AnchorPane page = (AnchorPane) loader.load();
+//
+//	            // Set person overview into the center of root layout.
+//	            rootLayout.setCenter(page);
+//	            
+//	            System.out.println("vor Controller Access");
+//	            
+//	            // Give the controller access to the main app.
+//	            controller = loader.getController();
+//	            controller.setMainApp(this);
+//
+//	            System.out.println(person);
+//	            
+//	            System.out.println("nach Controller Access");      
+//	            
+//	        } catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+//		return flagUebersicht;
+		
+		try {
+            // Load the fxml file and create a new stage for the popup dialog.
+        	FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AdressUebersicht.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
 
-	            // Set person overview into the center of root layout.
-	            rootLayout.setCenter(page);
-	            
-	            System.out.println("vor Controller Access");
-	            
-	            // Give the controller access to the main app.
-	            controller = loader.getController();
-	            controller.setMainApp(this);
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Adressuebersicht");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
 
-	            System.out.println(person);
-	            
-	            System.out.println("nach Controller Access");      
-	            
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-		return flagUebersicht;
+            // Set the person into the controller.
+           AdressUebersichtController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setSelectedPerson(person);
+            controller.setFlagUebersicht(flagUebersicht);
+            controller.setAdressTableMitPerson(person);
+            controller.setMainApp(this);
+            System.out.println("#######Alles gesetzt!#######");
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
 	}
 
 	/**
@@ -214,15 +246,5 @@ public class MainApp extends Application {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-    
-    /**
-     * Gibt Datenbankverbindung zurueck.
-	 * @return verbindung
-	 */
-//	public Connection getVerbindung() {
-//		return verbindung;
-//	}
-
-
 
 }
