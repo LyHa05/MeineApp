@@ -98,8 +98,7 @@ public class AdressUebersichtController {
 			try {
 				showWohnendePersonen(newValue);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("Error" + e);
 			}
 		});
 	}
@@ -164,9 +163,8 @@ public class AdressUebersichtController {
 				));
 			}
 
-		} catch (SQLException ex) {
-			System.err.println("Error" + ex);
-			System.out.println(ex);
+		} catch (SQLException e) {
+			System.err.println("Error" + e);
 		} finally {
 			if (rs != null)
 				rs.close();
@@ -235,8 +233,8 @@ public class AdressUebersichtController {
 					));
 				}
 
-			} catch (SQLException ex) {
-				System.err.println("Error" + ex);
+			} catch (SQLException e) {
+				System.err.println("Error" + e);
 			} finally {
 				if (rs != null)
 					rs.close();

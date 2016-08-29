@@ -1,8 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.AdressAnpassDialogController">
+   <children>
+      <GridPane AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="AdressID" />
+            <Label text="Straße und Hausnummer" GridPane.rowIndex="1" />
+            <Label text="Zusatz" GridPane.rowIndex="2" />
+            <Label text="PLZ" GridPane.rowIndex="3" />
+            <Label text="Ort" GridPane.rowIndex="4" />
+            <Label text="Land" GridPane.rowIndex="5" />
+            <Label text="Festnetznummer" GridPane.rowIndex="6" />
+            <TextField fx:id="strasseLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="zusatzLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="plzLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="landLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="festnetzNrLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="adressIDLabel" text="Label" GridPane.columnIndex="1" />
+            <TextField fx:id="ortLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <ButtonBar layoutX="155.0" layoutY="266.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#handleOk" text="OK" />
+            <Button mnemonicParsing="false" onAction="#handleSchliessen" text="Schließen" />
+        </buttons>
+      </ButtonBar>
+   </children>
 </AnchorPane>
-

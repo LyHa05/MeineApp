@@ -86,10 +86,10 @@ public class PersonAnpassDialogController {
     /**
      * Sets the person to be edited in the dialog.
      * 
-     * @param person
+     * @param selectedPerson
      */
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPerson(Person selectedPerson) {
+        this.person = selectedPerson;
 
 		personIDLabel.setText(Integer.toString(person.getPersonID()));
 		nameField.setText(person.getName());
