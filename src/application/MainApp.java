@@ -35,13 +35,7 @@ public class MainApp extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws SQLException {
-    	
-    	// Serververbindung herstellen
-//    	this.dbc = new DBConnect();
-//    	this.verbindung = dbc.connect();
-//    	System.out.println("Verbindung wurde hergestellt.");
-//    	System.out.println(verbindung);
-    	
+    	   	
     	// Stage aufbauen
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AddressApp");
@@ -113,15 +107,10 @@ public class MainApp extends Application {
 
 	public void showPersonUebersicht() {
 		 try {
-			 System.out.println("Vor Load person overview");
-	            // Load person overview.
+			    // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
-	            System.out.println("FXMLLoader");
-	            loader.setLocation(MainApp.class.getResource("view/PersonUebersicht.fxml"));
-	            System.out.println("loader.setLocation");          
-	            AnchorPane PersonOverview = (AnchorPane) loader.load();
-	            System.out.println("AnchorPane PersonOverview");
-	            
+	            loader.setLocation(MainApp.class.getResource("view/PersonUebersicht.fxml"));   
+	            AnchorPane PersonOverview = (AnchorPane) loader.load();            
 
 	            // Set person overview into the center of root layout.
 	            rootLayout.setCenter(PersonOverview);
@@ -129,44 +118,14 @@ public class MainApp extends Application {
 	            // Give the controller access to the main app.
 	            PersonUebersichtController controller = loader.getController();
 	            controller.setMainApp(this);
-	            System.out.println("Main Referenz fuer PersonUebersicht gesetzt.");
-	            
+	               
 	        } catch (IOException e) {
-	        	System.out.println("schlecht");
 	            e.printStackTrace();
 	        }
 		 
 	}
 
 	public boolean showAdressUebersicht(boolean flagUebersicht, Person person) throws SQLException {
-//		 try {
-//			 	AdressUebersichtController controller = new AdressUebersichtController();
-//	            controller.setFlagUebersicht(flagUebersicht);
-//	            controller.setSelectedPerson(person);
-//	            System.out.println(person);
-//	            System.out.println(flagUebersicht);
-//	            // Load person overview.
-//	            FXMLLoader loader = new FXMLLoader();
-//	            loader.setLocation(MainApp.class.getResource("view/AdressUebersicht.fxml"));
-//	            AnchorPane page = (AnchorPane) loader.load();
-//
-//	            // Set person overview into the center of root layout.
-//	            rootLayout.setCenter(page);
-//	            
-//	            System.out.println("vor Controller Access");
-//	            
-//	            // Give the controller access to the main app.
-//	            controller = loader.getController();
-//	            controller.setMainApp(this);
-//
-//	            System.out.println(person);
-//	            
-//	            System.out.println("nach Controller Access");      
-//	            
-//	        } catch (IOException e) {
-//	            e.printStackTrace();
-//	        }
-//		return flagUebersicht;
 		
 		try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -184,12 +143,10 @@ public class MainApp extends Application {
 
             // Set the person into the controller.
            AdressUebersichtController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
             controller.setSelectedPerson(person);
             controller.setFlagUebersicht(flagUebersicht);
             controller.setAdressTableMitPerson(person);
             controller.setMainApp(this);
-            System.out.println("#######Alles gesetzt!#######");
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

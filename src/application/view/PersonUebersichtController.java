@@ -127,8 +127,7 @@ public class PersonUebersichtController {
      * @param person the person or null
      */
     private void showPersonDetails(Person person) {
-    	System.out.println("showPersonDetails");
-    	System.out.println(mainApp);
+
     	if (person != null) {
     		// Fill the labels with info from the person object. LocalDate vorab konvertieren
     		personIDLabel.setText(Integer.toString(person.getPersonID()));
@@ -239,7 +238,6 @@ public class PersonUebersichtController {
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showAdressUebersicht(true, selectedPerson); //Flag fuer PersonAdressAnsicht
             if (okClicked) {
-//            	PersonDB.aenderePerson(selectedPerson);
                 showPersonDetails(selectedPerson);
             }
 

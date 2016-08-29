@@ -24,8 +24,6 @@ public class StartSeiteController {
     @FXML
     private void handlePersonUebersicht() {
             mainApp.showPersonUebersicht();
-    		System.out.println(mainApp);
-            System.out.println("Aufruf von mainApp.showPersonUebersicht()");
     }
     
 }
