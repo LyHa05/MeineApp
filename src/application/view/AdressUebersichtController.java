@@ -64,9 +64,6 @@ public class AdressUebersichtController {
 	// Ausgewaehlte Person fuer Adressansicht
 	private Person selectedPerson;
 
-	// TODO Pruefen, ob wirklich noetig fuer Problembehebung :-)
-	private boolean okClicked = false;
-
 	/**
 	 * The constructor is called before the initialize() method.
 	 */
@@ -106,7 +103,11 @@ public class AdressUebersichtController {
 	 */
 	public void setSelectedPerson(Person sp) {
 		this.selectedPerson = sp;
-		ueberschriftLabel.setText("Adressen von " + selectedPerson.getVorname1() + " " + selectedPerson.getName());
+		if (sp.getPersonID() != 0) {
+			ueberschriftLabel.setText("Adressen von " + selectedPerson.getVorname1() + " " + selectedPerson.getName());
+		} else {
+			ueberschriftLabel.setText("Adressuebersicht");
+		}
 	}
 
 	/**
@@ -165,10 +166,6 @@ public class AdressUebersichtController {
 		landColumn.setCellValueFactory(new PropertyValueFactory<>("land"));
 		festnetzNrColumn.setCellValueFactory(new PropertyValueFactory<>("festnetzNr"));
 
-	}
-
-	public boolean isOkClicked() {
-		return okClicked;
 	}
 
 }

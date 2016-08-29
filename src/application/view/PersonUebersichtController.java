@@ -236,10 +236,8 @@ public class PersonUebersichtController {
     public void handleAdresse() throws SQLException {
     	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
-            boolean okClicked = mainApp.showAdressUebersicht(true, selectedPerson); //Flag fuer PersonAdressAnsicht
-            if (okClicked) {
-                showPersonDetails(selectedPerson);
-            }
+            mainApp.showAdressUebersicht(true, selectedPerson); //Flag fuer PersonAdressAnsicht
+            showPersonDetails(selectedPerson);
 
         } else {
             // Nothing selected.

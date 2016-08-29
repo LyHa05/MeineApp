@@ -125,7 +125,7 @@ public class MainApp extends Application {
 		 
 	}
 
-	public boolean showAdressUebersicht(boolean flagUebersicht, Person person) throws SQLException {
+	public void showAdressUebersicht(boolean flagUebersicht, Person person) throws SQLException {
 		
 		try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -151,10 +151,8 @@ public class MainApp extends Application {
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
-            return controller.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
 	}
 

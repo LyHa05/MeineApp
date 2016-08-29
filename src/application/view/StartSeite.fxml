@@ -6,7 +6,8 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.StartSeiteController">
    <children>
-      <Button mnemonicParsing="false" onAction="#handlePersonUebersicht" text="Personenübersicht" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Button layoutX="451.0" layoutY="315.0" mnemonicParsing="false" onAction="#handlePersonUebersicht" text="Personenübersicht" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="10.0" />
       <Label text="Herzlich Willkommen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Button layoutX="452.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleAdressUebersicht" prefHeight="31.0" prefWidth="141.0" text="Adressübersicht" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>
