@@ -30,8 +30,8 @@ public class StartSeiteController {
 	}
 
 	/**
-	 * Wird aufgerufen, wenn User Personenuebersicht anklickt. Oeffnet einen
-	 * Dialog mit allen Personen in der Uebersicht.
+	 * Wird aufgerufen, wenn User Adressuebersicht anklickt. Oeffnet einen
+	 * Dialog mit allen Adressen in der Uebersicht.
 	 * 
 	 * @throws SQLException
 	 */

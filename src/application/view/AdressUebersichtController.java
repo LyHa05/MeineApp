@@ -3,6 +3,7 @@ package application.view;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import application.MainApp;
 import application.controller.DBConnect;
 import application.model.Adresse;
@@ -11,9 +12,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 /**
  * @author Lydia Pflug
@@ -48,6 +52,10 @@ public class AdressUebersichtController {
 	@FXML
 	private Label ueberschriftLabel;
 
+	// Referenz zum ListView
+	@FXML
+	private ListView<Person> personList;
+
 	// Reference to the main application.
 	private MainApp mainApp;
 
@@ -55,8 +63,11 @@ public class AdressUebersichtController {
 	private ResultSet rs;
 	private PreparedStatement ps;
 
-	// Daten als ObservableList für Adressen
+	// Daten als ObservableList fuer Adressen
 	private ObservableList<Adresse> adressDaten = FXCollections.observableArrayList();
+
+	// Daten als ObservableList fuer Personen
+	private ObservableList<Person> personDaten = FXCollections.observableArrayList();
 
 	// Flag fuer verschiedene Uebersichten (true: personweise, false: gesamt)
 	private boolean flagUebersicht;
@@ -78,24 +89,34 @@ public class AdressUebersichtController {
 	 */
 	@FXML
 	private void initialize() throws SQLException {
+		// Clear person List.
+		showWohnendePersonen(null);
 
+		// Listen for selection changes and show the person details when
+		// changed.
+		adressTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				showWohnendePersonen(newValue);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		adressTable.setItems(null);
 		adressTable.setItems(adressDaten);
-
 	}
 
 	public void setFlagUebersicht(boolean fu) {
 		this.flagUebersicht = fu;
-
 	}
 
-	public ObservableList<Adresse> getPersonDaten() {
-		return adressDaten;
-	}
+	// public ObservableList<Adresse> getAdressDaten() {
+	// return adressDaten;
+	// }
 
 	/**
 	 * @param sp
@@ -115,7 +136,7 @@ public class AdressUebersichtController {
 	 *            the adressTable to set
 	 * @throws SQLException
 	 */
-	public void setAdressTableMitPerson(Person sp) throws SQLException {
+	public void setAdressTable(Person sp) throws SQLException {
 		try {
 			if (flagUebersicht) {
 				// Execute query and store result in a resultset
@@ -165,6 +186,92 @@ public class AdressUebersichtController {
 		ortColumn.setCellValueFactory(new PropertyValueFactory<>("ort"));
 		landColumn.setCellValueFactory(new PropertyValueFactory<>("land"));
 		festnetzNrColumn.setCellValueFactory(new PropertyValueFactory<>("festnetzNr"));
+
+	}
+
+	private void showWohnendePersonen(Adresse selektierteAdresse) throws SQLException {
+		
+		// loescht Daten im ListView
+			personDaten.removeAll(personDaten);
+		
+		// zeigt Person, die unter selektierter Adresse wohnen
+		if (selektierteAdresse != null) {
+			try {
+				// Execute query and store result in a resultset
+				ps = DBConnect.connect().prepareStatement("SELECT DISTINCT "
+								+ "Person.PersonID "
+								+ ", Person.Name "
+								+ ", Person.Vorname1 "
+								+ ", Person.Vorname2 "
+								+ ", Person.Geschlecht "
+								+ ", Person.Geburtsdatum "
+								+ ", Person.HandyNr1 "
+								+ ", Person.HandyNr2 "
+								+ ", Person.EMailAdresse1 "
+								+ ", Person.EMailAdresse2 "
+								+ ", Person.EMailAdresse3 "
+								+ ", Person.EMailAdresse4 "
+								+ ", Person.EMailAdresse5 "
+								+ "FROM Person JOIN WohnhaftIn ON Person.PersonID = WohnhaftIn.PersonID "
+								+ "JOIN Adresse ON WohnhaftIn.AdressID = ?");
+				ps.setInt(1, selektierteAdresse.getAdressID());
+				rs = ps.executeQuery();
+
+				while (rs.next()) {
+					// get string from db,whichever way
+					personDaten.add(new Person(rs.getInt(1) // PersonID
+							, rs.getString(2) // Name
+							, rs.getString(3) // Vorname1
+							, rs.getString(4) // Vorname2
+							, rs.getString(5) // Geschlecht
+							, rs.getDate(6) // Geburtsdatum
+							, rs.getString(7) // HandyNr1
+							, rs.getString(8) // HandyNr2
+							, rs.getString(9) // EMailAdresse1
+							, rs.getString(10) // EMailAdresse2
+							, rs.getString(11) // EMailAdresse3
+							, rs.getString(12) // EMailAdresse4
+							, rs.getString(13) // EMailAdresse5
+					));
+				}
+
+			} catch (SQLException ex) {
+				System.err.println("Error" + ex);
+			} finally {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+				DBConnect.close();
+
+			}
+
+			personList.setItems(personDaten);
+			
+			personList.setCellFactory(new Callback<ListView<Person>, ListCell<Person>>() {
+
+				@Override
+				public ListCell<Person> call(ListView<Person> p) {
+					return new ListCell<Person>() {
+						@Override
+						protected void updateItem(Person person, boolean empty) {
+							super.updateItem(person, empty);
+							if (person != null) {
+								setText(person.getVorname1() + " " + person.getName());
+							} else {
+								setText(null);
+							}
+						}
+					};
+				}
+			});
+
+			// zeigt leeren ListView, wenn keine Adresse selektiert worden ist
+		} else
+
+		{
+
+		}
 
 	}
 

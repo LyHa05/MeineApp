@@ -145,7 +145,7 @@ public class MainApp extends Application {
            AdressUebersichtController controller = loader.getController();
             controller.setSelectedPerson(person);
             controller.setFlagUebersicht(flagUebersicht);
-            controller.setAdressTableMitPerson(person);
+            controller.setAdressTable(person);
             controller.setMainApp(this);
 
             // Show the dialog and wait until the user closes it

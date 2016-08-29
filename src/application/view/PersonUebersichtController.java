@@ -56,11 +56,8 @@ public class PersonUebersichtController {
     // Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
     private ResultSet rs;
     
-      /**
-     * The data as an observable list of Persons.
-     */
+    // The data as an observable list of Persons.
     private ObservableList<Person> personDaten = FXCollections.observableArrayList();
-
     
     /**
      * The constructor is called before the initialize() method.
