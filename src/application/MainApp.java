@@ -60,7 +60,7 @@ public class MainApp extends Application {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class
-                    .getResource("view/RootLayout.fxml"));
+                    .getResource("view/root/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -92,7 +92,7 @@ public class MainApp extends Application {
         try {
             // Startseite laden.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/StartSeite.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/root/StartSeite.fxml"));
             AnchorPane StartSeite = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
@@ -112,7 +112,7 @@ public class MainApp extends Application {
 		 try {
 			    // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(MainApp.class.getResource("view/PersonUebersicht.fxml"));   
+	            loader.setLocation(MainApp.class.getResource("view/person/PersonUebersicht.fxml"));   
 	            AnchorPane PersonOverview = (AnchorPane) loader.load();            
 
 	            // Set person overview into the center of root layout.
@@ -133,7 +133,7 @@ public class MainApp extends Application {
 		try {
             // Load the fxml file and create a new stage for the popup dialog.
         	FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/AdressUebersicht.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/adresse/AdressUebersicht.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -145,7 +145,7 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
 
             // Set the person into the controller.
-           AdressUebersichtController controller = loader.getController();
+            AdressUebersichtController controller = loader.getController();
             controller.setSelectedPerson(person);
             controller.setFlagUebersicht(flagUebersicht);
             controller.setAdressTable(person);
@@ -171,7 +171,7 @@ public class MainApp extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
         	FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/PersonAnpassDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/person/PersonAnpassDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -197,42 +197,42 @@ public class MainApp extends Application {
         }
     }   
 	
-    /**
+    public boolean showAdressAnpassDialog(Adresse adresse) {
+	    try {
+	       // Load the fxml file and create a new stage for the popup dialog.
+	    	FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainApp.class.getResource("view/adresse/AdressAnpassDialog.fxml"));
+	        AnchorPane page = (AnchorPane) loader.load();
+	
+	          // Create the dialog Stage.
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Adresse Anpassen");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+	
+	         // Set the person into the controller.
+	        AdressAnpassDialogController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+	        controller.setAdresse(adresse);
+	      	        
+	        // Show the dialog and wait until the user closes it
+	        dialogStage.showAndWait();
+	
+	        return controller.isOkClicked();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+	/**
      * Gibt PrimaryStage zurueck.
      * @return primaryStage
      */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
-	public boolean showAdressAnpassDialog(Adresse adresse) {
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-        	FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/AdressAnpassDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Adresse Anpassen");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Set the person into the controller.
-            AdressAnpassDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setAdresse(adresse);
-
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-	}
 
 }

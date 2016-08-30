@@ -1,4 +1,4 @@
-package application.model.geschenk;
+package application.model.gs;
 
 public class GeschenkBestandteil {
 

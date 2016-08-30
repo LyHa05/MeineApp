@@ -191,16 +191,6 @@ public class PersonUebersichtController {
         }
     }
     
-    public void keinePersonSelektiert() {
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.initOwner(mainApp.getPrimaryStage());
-        alert.setTitle("Keine Auswahl");
-        alert.setHeaderText("Keine Person selektiert");
-        alert.setContentText("Bitte waehlen Sie eine Person in der Tabelle aus.");
-
-        alert.showAndWait();
-    }
-    
     /**
      * Wird aufgerufen, wenn User Loeschen anklickt. Loescht Persondaten.
      * @throws SQLException 
@@ -236,7 +226,17 @@ public class PersonUebersichtController {
         }    	
    }
 	
-    //TODO loadPersonDataFromDatabase ggf. bereinigen!
+    public void keinePersonSelektiert() {
+	    Alert alert = new Alert(AlertType.WARNING);
+	    alert.initOwner(mainApp.getPrimaryStage());
+	    alert.setTitle("Keine Auswahl");
+	    alert.setHeaderText("Keine Person selektiert");
+	    alert.setContentText("Bitte waehlen Sie eine Person in der Tabelle aus.");
+	
+	    alert.showAndWait();
+	}
+
+	//TODO loadPersonDataFromDatabase ggf. bereinigen!
     public void loadPersonDataFromDatabase() {
         try {
 

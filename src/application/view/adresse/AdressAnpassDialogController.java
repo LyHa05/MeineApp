@@ -1,5 +1,6 @@
 package application.view.adresse;
 
+import application.MainApp;
 import application.model.adresse.Adresse;
 import application.model.person.Person;
 import javafx.fxml.FXML;
@@ -42,6 +43,7 @@ public class AdressAnpassDialogController {
 	private Stage dialogStage;
 	private Adresse adresse;
 	private boolean okClicked = false;
+//	private MainApp mainApp;
 	
 	
 	@FXML
@@ -130,7 +132,7 @@ public class AdressAnpassDialogController {
             errorMessage += "Kein gueltiger Ort!\n"; 
         }
         // TODO Combobox mit D und AT sowie ggf. Möglichkeit selbst etwas einzutragen und Beschränkung auf 3 Zeichen!
-        if (landField.getText() != null || landField.getText().length() == 0) {
+        if (landField.getText() == null || landField.getText().length() == 0) {
             errorMessage += "Kein gültiges Land!\n";
         }
         if (errorMessage.length() == 0) {
@@ -165,5 +167,10 @@ public class AdressAnpassDialogController {
 			ueberschriftLabel.setText("Adressuebersicht");
 		}
 	}
+
+//	public void setMainApp(MainApp mainApp) {
+//		this.mainApp = mainApp;
+//		
+//	}
 
 }

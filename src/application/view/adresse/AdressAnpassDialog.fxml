@@ -43,14 +43,14 @@
                         <Label text="Ort" GridPane.rowIndex="4" />
                         <Label text="Land" GridPane.rowIndex="5" />
                         <Label text="Festnetznummer" GridPane.rowIndex="6" />
-                        <TextField fx:id="strasseLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="zusatzLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="strasseField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="zusatzField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="plzLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="landLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="festnetzNrLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="plzField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="landField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="festnetzNrField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label fx:id="adressIDLabel" text="Label" GridPane.columnIndex="1" />
-                        <TextField fx:id="ortLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="ortField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children>
