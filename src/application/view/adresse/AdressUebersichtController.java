@@ -276,26 +276,26 @@ public class AdressUebersichtController {
 	}
 	
     /**
-     * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
-     * @throws SQLException 
-     */
-    @FXML
-    public void handleAendern() throws SQLException {
-    	Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
-        if (selectedAdresse != null) {
-            boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, selectedAdresse);
-            if (okClicked) {
-            	AdressDB.aendereAdresse(selectedAdresse);
-                showWohnendePersonen(selectedAdresse);
-            }
+	 * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
+	 * @throws SQLException 
+	 */
+	@FXML
+	public void handleAendern() throws SQLException {
+		Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
+	    if (selectedAdresse != null) {
+	        boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, selectedAdresse);
+	        if (okClicked) {
+	        	AdressDB.aendereAdresse(selectedAdresse);
+	            showWohnendePersonen(selectedAdresse);
+	        }
+	
+	    } else {
+	        // Nothing selected.
+	    	keineAdresseSelektiert();
+	    }
+	}
 
-        } else {
-            // Nothing selected.
-        	keineAdresseSelektiert();
-        }
-    }
-    
-    /**
+	/**
      * Wird aufgerufen, wenn User Loeschen anklickt. Loescht Persondaten.
      * @throws SQLException 
      */
@@ -335,14 +335,12 @@ public class AdressUebersichtController {
     public void handleNeu() throws SQLException {
         Adresse tempAdresse = new Adresse();
         boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, tempAdresse);
-        if (okClicked) {
-        	if(flagUebersicht) {
+        if (okClicked && flagUebersicht) {
         	AdressDB.erstelleAdresseFuerPerson(tempAdresse,selectedPerson);
-        	} else {
+    	} else  if (okClicked && !flagUebersicht) { 
         	AdressDB.erstelleAdresse(tempAdresse);	
-        	}
-        	adressDaten.add(tempAdresse);
         }
+        	adressDaten.add(tempAdresse);
     }
 
 	private void keineAdresseSelektiert() {

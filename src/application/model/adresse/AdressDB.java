@@ -42,8 +42,29 @@ public class AdressDB {
         }
 	}
 
-	public static void erstelleAdresse(Adresse tempAdresse) {
-		// TODO Auto-generated method stub erstelleAdresse
+	public static void erstelleAdresse(Adresse a) throws SQLException {
+		try {
+			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (AdressID, Strasse"
+					+ ", Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
+					+ "VALUES(NEXT VALUE FOR AdressIDSequence,?,?,?,?,?,?)");
+			ps.setString(1, a.getStrasse());
+			ps.setString(2, a.getZusatz());
+			ps.setString(3, a.getPlz());
+			ps.setString(4, a.getOrt());
+			ps.setString(5, a.getLand());
+			ps.setString(6, a.getFestnetzNr());
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+//        	TODO Fehlerbehandlung ordentlich einrichten
+//            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
+//                    ex);
+        	System.err.println("Error" + e);
+        	
+        } finally {
+        	if (ps != null) ps.close();
+            DBConnect.close();
+        }
 		
 	}
 

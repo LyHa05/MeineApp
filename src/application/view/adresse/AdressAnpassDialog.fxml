@@ -21,7 +21,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="269.0" prefWidth="400.0">
                <children>
-                  <GridPane AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
+                  <GridPane layoutX="14.0" prefHeight="210.0" prefWidth="370.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,7 +46,7 @@
                         <TextField fx:id="strasseField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="zusatzField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="plzField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="plzField" prefHeight="31.0" prefWidth="177.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="landField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="festnetzNrField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label fx:id="adressIDLabel" text="Label" GridPane.columnIndex="1" />
