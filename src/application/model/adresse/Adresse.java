@@ -1,4 +1,4 @@
-package application.model;
+package application.model.adresse;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -31,6 +31,16 @@ public class Adresse {
 		this.land = new SimpleStringProperty(land);
 		this.festnetzNr = new SimpleStringProperty(fnNr);
 		
+	}
+
+	public Adresse() {
+		this.adressID = new SimpleIntegerProperty(0);
+		this.strasse = new SimpleStringProperty(null);
+		this.zusatz = new SimpleStringProperty(null);
+		this.plz = new SimpleStringProperty(null);
+		this.ort = new SimpleStringProperty(null);
+		this.land = new SimpleStringProperty(null);
+		this.festnetzNr = new SimpleStringProperty(null);
 	}
 
 	/**

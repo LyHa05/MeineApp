@@ -2,12 +2,15 @@ package application;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import application.model.Person;
-import application.view.AdressUebersichtController;
-import application.view.PersonAnpassDialogController;
-import application.view.PersonUebersichtController;
-import application.view.RootLayoutController;
-import application.view.StartSeiteController;
+
+import application.model.adresse.Adresse;
+import application.model.person.Person;
+import application.view.adresse.AdressAnpassDialogController;
+import application.view.adresse.AdressUebersichtController;
+import application.view.person.PersonAnpassDialogController;
+import application.view.person.PersonUebersichtController;
+import application.view.root.RootLayoutController;
+import application.view.root.StartSeiteController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -201,5 +204,35 @@ public class MainApp extends Application {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
+	public boolean showAdressAnpassDialog(Adresse adresse) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+        	FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AdressAnpassDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Adresse Anpassen");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            AdressAnpassDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setAdresse(adresse);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+	}
 
 }

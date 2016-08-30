@@ -1,16 +1,18 @@
-package application.view;
+package application.view.adresse;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import application.MainApp;
 import application.controller.DBConnect;
-import application.model.Adresse;
-import application.model.Person;
+import application.model.adresse.AdressDB;
+import application.model.adresse.Adresse;
+import application.model.person.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -264,13 +266,94 @@ public class AdressUebersichtController {
 				}
 			});
 
-			// zeigt leeren ListView, wenn keine Adresse selektiert worden ist
+			// TODO zeigt leeren ListView, wenn keine Adresse selektiert worden ist
 		} else
 
 		{
 
 		}
 
+	}
+	
+    /**
+     * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
+     * @throws SQLException 
+     */
+    @FXML
+    public void handleAendern() throws SQLException {
+    	Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
+        if (selectedAdresse != null) {
+            boolean okClicked = mainApp.showAdressAnpassDialog(selectedAdresse);
+            if (okClicked) {
+            	AdressDB.aendereAdresse(selectedAdresse);
+                showWohnendePersonen(selectedAdresse);
+            }
+
+        } else {
+            // Nothing selected.
+        	keineAdresseSelektiert();
+        }
+    }
+    
+    /**
+     * Wird aufgerufen, wenn User Loeschen anklickt. Loescht Persondaten.
+     * @throws SQLException 
+     */
+    @FXML
+    public void handleLoeschen() throws SQLException {
+        //TODO Personauswahl und Indexauswahl zusammenfassen
+    	int selectedIndex = adressTable.getSelectionModel().getSelectedIndex();
+        Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
+        if (selectedIndex >= 0) {
+        	AdressDB.loescheAdresse(selectedAdresse);
+            adressTable.getItems().remove(selectedIndex);
+        } else {
+        	 // Nothing selected.
+        	keineAdresseSelektiert();
+        }
+    }
+    
+    /**
+     * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Adresse anzulegen.
+     * @throws SQLException 
+     */
+    @FXML
+    public void handleZuordnen() throws SQLException {
+        Adresse tempAdresse = new Adresse();
+        boolean okClicked = mainApp.showAdressAnpassDialog(tempAdresse);
+        if (okClicked) {
+        	AdressDB.zuordnenAdresse(tempAdresse);
+        	adressDaten.add(tempAdresse);
+        }
+    }
+    
+    /**
+     * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Adresse anzulegen.
+     * @throws SQLException 
+     */
+    @FXML
+    public void handleNeu() throws SQLException {
+        Adresse tempAdresse = new Adresse();
+        boolean okClicked = mainApp.showAdressAnpassDialog(tempAdresse);
+        if (okClicked) {
+        	if(flagUebersicht) {
+        	AdressDB.erstelleAdresseFuerPerson(tempAdresse,selectedPerson);
+        	} else {
+        	AdressDB.erstelleAdresse(tempAdresse);	
+        	}
+        	adressDaten.add(tempAdresse);
+        }
+    }
+
+	private void keineAdresseSelektiert() {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.initOwner(mainApp.getPrimaryStage());
+        alert.setTitle("Keine Auswahl");
+        alert.setHeaderText("Keine Adresse selektiert");
+        alert.setContentText("Bitte waehlen Sie eine Adresse in der Tabelle aus.");
+
+        alert.showAndWait();
+		
 	}
 
 }

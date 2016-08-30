@@ -1,4 +1,4 @@
-package application.model;
+package application.model.person;
 
 //import java.sql.Connection;
 //import java.sql.DriverManager;

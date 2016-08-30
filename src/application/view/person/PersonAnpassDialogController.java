@@ -1,6 +1,6 @@
-package application.view;
+package application.view.person;
 
-import application.model.Person;
+import application.model.person.Person;
 import application.util.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

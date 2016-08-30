@@ -1,11 +1,11 @@
-package application.view;
+package application.view.person;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import application.MainApp;
 import application.controller.DBConnect;
-import application.model.Person;
-import application.model.PersonDB;
+import application.model.person.Person;
+import application.model.person.PersonDB;
 import application.util.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -214,14 +214,8 @@ public class PersonUebersichtController {
         	PersonDB.loeschePerson(selectedPerson);
             personTable.getItems().remove(selectedIndex);
         } else {
-            // Nothing selected. (Error handling)
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
-
-            alert.showAndWait();
+        	 // Nothing selected.
+        	keinePersonSelektiert();
         }
     }
     

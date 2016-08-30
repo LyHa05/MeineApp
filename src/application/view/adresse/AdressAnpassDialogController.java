@@ -1,6 +1,7 @@
-package application.view;
+package application.view.adresse;
 
-import application.model.Adresse;
+import application.model.adresse.Adresse;
+import application.model.person.Person;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -16,6 +17,8 @@ public class AdressAnpassDialogController {
 	
 	// Referenz zu den Labeln
 	@FXML
+	private Label ueberschriftLabel;
+	@FXML
 	private Label adressIDLabel;
 	@FXML
 	private TextField strasseField;
@@ -30,9 +33,16 @@ public class AdressAnpassDialogController {
 	@FXML
 	private TextField festnetzNrField;
 	
+	// Flag fuer verschiedene Uebersichten (true: personweise, false: gesamt)
+	private boolean flagUebersicht;
+
+	// Ausgewaehlte Person fuer Adressansicht
+	private Person selectedPerson;
+	
 	private Stage dialogStage;
 	private Adresse adresse;
 	private boolean okClicked = false;
+	
 	
 	@FXML
 	private void initialize() {
@@ -48,7 +58,6 @@ public class AdressAnpassDialogController {
         this.dialogStage = dialogStage;
     }
 	
-    
 	/**
 	 * Selektierte Adresse wird in Dialog gesetzt.
 	 * 
@@ -139,5 +148,22 @@ public class AdressAnpassDialogController {
             return false;
         }
     }
+    
+	public void setFlagUebersicht(boolean fu) {
+		this.flagUebersicht = fu;
+	}
+
+	/**
+	 * @param sp
+	 *            the selectedPerson to set
+	 */
+	public void setSelectedPerson(Person sp) {
+		this.selectedPerson = sp;
+		if (sp.getPersonID() != 0) {
+			ueberschriftLabel.setText("Adressen von " + selectedPerson.getVorname1() + " " + selectedPerson.getName());
+		} else {
+			ueberschriftLabel.setText("Adressuebersicht");
+		}
+	}
 
 }

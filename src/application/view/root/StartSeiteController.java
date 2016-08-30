@@ -1,9 +1,9 @@
-package application.view;
+package application.view.root;
 
 import java.sql.SQLException;
 
 import application.MainApp;
-import application.model.Person;
+import application.model.person.Person;
 import javafx.fxml.FXML;
 
 public class StartSeiteController {

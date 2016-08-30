@@ -1,4 +1,6 @@
-package application.model;
+package application.model.adresse;
+
+import application.model.person.Person;
 
 /**
  * @author Lydia Pflug

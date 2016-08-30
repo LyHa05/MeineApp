@@ -8,9 +8,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import application.model.Adresse;
-import application.model.Person;
-import application.model.WohnhaftIn;
+import application.model.adresse.Adresse;
+import application.model.adresse.WohnhaftIn;
+import application.model.person.Person;
 
 /**
  * @author Lydia Pflug

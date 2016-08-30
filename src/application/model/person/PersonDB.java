@@ -1,10 +1,13 @@
-package application.model;
+package application.model.person;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import application.controller.DBConnect;
 
-
+/**
+ * @author Lydia Pflug
+ * @date 25.08.2016
+ */
 
 public class PersonDB {
 
@@ -13,7 +16,7 @@ public class PersonDB {
     public static void erstellePerson(Person p) throws SQLException {
     	
     	try {ps = DBConnect.connect().prepareStatement("INSERT INTO Person (PersonID, Name,"
-        	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, EMailAdresse1)"
+        	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, EMailAdresse1) "
         	 		+ "VALUES(NEXT VALUE FOR PersonIDSequence,?,?,?,?,?,?,?)");
         	 ps.setString(1, p.getName());
         	 ps.setString(2, p.getVorname1());
@@ -24,13 +27,12 @@ public class PersonDB {
         	 ps.setString(7, p.geteMailAdresse1());
         	 ps.executeUpdate();
         	 
-        	 System.out.println("Insert");
-        	 
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
 //            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
 //                    ex);
-        	System.out.println("Kein Insert");
+        	System.err.println("Error" + e);
+        	
         } finally {
         	if (ps != null) ps.close();
             DBConnect.close();
@@ -60,14 +62,11 @@ public class PersonDB {
         	 ps.setInt(8, p.getPersonID());
         	 ps.executeUpdate();
         	 
-        	 System.out.println("Update");
-        	 
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
 //            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
 //                    ex);
-        	System.out.println(ex.getMessage());
-        	System.out.println("Kein Update");
+        	System.err.println("Error" + e);
         } finally {
         	if (ps != null) ps.close();
             DBConnect.close();
@@ -81,14 +80,11 @@ public class PersonDB {
         	 ps.setInt(1, p.getPersonID());
         	 ps.executeUpdate();
         	 
-        	 System.out.println("Delete");
-        	 
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
 //            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
 //                    ex);
-        	System.out.println(ex.getMessage());
-        	System.out.println("Kein Delete");
+        	System.err.println("Error" + e);
         } finally {
         	if (ps != null) ps.close();
             DBConnect.close();
