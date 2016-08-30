@@ -19,7 +19,7 @@ public class PersonAnpassDialogController {
 	 * Definition der Instanzvariablen
 	 */
 	
-	 //Referenz zu den Labeln
+	// Referenz zu den Labeln
     @FXML
     private Label personIDLabel;
     @FXML

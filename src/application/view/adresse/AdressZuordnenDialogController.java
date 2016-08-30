@@ -1,0 +1,149 @@
+package application.view.adresse;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import application.controller.DBConnect;
+import application.model.adresse.Adresse;
+import application.model.person.Person;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+
+public class AdressZuordnenDialogController {
+	
+	/**
+	 * Definition der Instanzvariablen
+	 */
+	
+	 // Referenz zu dem Label
+	@FXML
+	private Label ueberschriftLabel;
+	@FXML
+	private ListView<Person> personList;
+	@FXML
+	private ListView<Adresse> adressList;
+	
+	// Daten als ObservableList fuer Adressen
+		private ObservableList<Adresse> adressDaten = FXCollections.observableArrayList();
+
+	// Daten als ObservableList fuer Personen
+	private ObservableList<Person> personDaten = FXCollections.observableArrayList();
+
+	// Flag fuer verschiedene Uebersichten (true: personweise, false: gesamt)
+	private boolean flagUebersicht;
+	
+    private Stage dialogStage;
+    
+    // Ausgewaehlte Adresse bzw. Person fuer Zuordnung
+    private Person person;
+    private Adresse adresse;
+    
+    private boolean zuordnenClicked = false;
+    
+	// Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
+	private ResultSet rs;
+	private PreparedStatement ps;
+
+	/**
+	 * The constructor is called before the initialize() method.
+	 */
+	public AdressZuordnenDialogController() {
+	}
+	
+	/**
+	 * Initializes the controller class. This method is automatically called
+	 * after the fxml file has been loaded.
+	 * 
+	 * @throws SQLException
+	 */
+	@FXML
+	private void initialize() throws SQLException {
+
+		if (flagUebersicht) {
+			
+			showAdressen();
+			
+			adressList.setVisible(true);
+			personList.setVisible(false);
+			
+		} else {
+			
+			showPersonen();
+			
+			personList.setVisible(true);
+			adressList.setVisible(false);
+			
+		}
+	}
+		
+		
+
+	private void showAdressen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void showPersonen() throws SQLException {
+		try {
+			 // Execute query and store result in a resultset
+            rs = DBConnect.connect().createStatement().executeQuery("SELECT * FROM Person");
+            while (rs.next()) {
+                //get string from db,whichever way 
+                personDaten.add(new Person(
+                		rs.getInt(1) 		//PersonID
+                		,rs.getString(2)	//Name
+                		,rs.getString(3)	//Vorname1
+                		,rs.getString(4)	//Vorname2
+                		,rs.getString(5)	//Geschlecht
+                		,rs.getDate(6)		//Geburtsdatum
+                		,rs.getString(7)	//HandyNr1
+                		,rs.getString(8)	//HandyNr2
+                		,rs.getString(9)	//EMailAdresse1
+                		,rs.getString(10)	//EMailAdresse2
+                		,rs.getString(11)	//EMailAdresse3
+                		,rs.getString(12)	//EMailAdresse4
+                		,rs.getString(13)	//EMailAdresse5
+                		));   
+            }
+
+					} catch (SQLException e) {
+						System.err.println("Error" + e);
+					} finally {
+						if (rs != null)
+							rs.close();
+						if (ps != null)
+							ps.close();
+						DBConnect.close();
+
+					}
+
+					personList.setItems(personDaten);
+					
+					personList.setCellFactory(new Callback<ListView<Person>, ListCell<Person>>() {
+
+						@Override
+						public ListCell<Person> call(ListView<Person> p) {
+							return new ListCell<Person>() {
+								@Override
+								protected void updateItem(Person person, boolean empty) {
+									super.updateItem(person, empty);
+									if (person != null) {
+										setText(person.getVorname1() + " " + person.getName());
+									} else {
+										setText(null);
+									}
+								}
+							};
+						}
+					});
+
+			}
+		
+}

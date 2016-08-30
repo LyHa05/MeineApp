@@ -228,6 +228,11 @@ public class MainApp extends Application {
 	    }
 	}
 
+	public boolean showAdressZuordnenDialog(Person selectedPerson, Adresse tempAdresse) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	/**
      * Gibt PrimaryStage zurueck.
      * @return primaryStage
