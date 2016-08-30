@@ -305,7 +305,8 @@ public class AdressUebersichtController {
     	int selectedIndex = adressTable.getSelectionModel().getSelectedIndex();
         Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
         if (selectedIndex >= 0) {
-        	AdressDB.loescheAdresseFuerPerson(selectedAdresse, selectedPerson);
+        	if (flagUebersicht) {AdressDB.loescheAdresseFuerPerson(selectedAdresse, selectedPerson);}
+        	if (!flagUebersicht) {AdressDB.loescheAdresse(selectedAdresse);}
             adressTable.getItems().remove(selectedIndex);
         } else {
         	 // Nothing selected.

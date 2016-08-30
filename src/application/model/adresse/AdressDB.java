@@ -172,4 +172,29 @@ public class AdressDB {
 		
 	}
 
+	public static void loescheAdresse(Adresse a) throws SQLException {
+		try {
+			
+			
+			// Adresse und alle Referenzen zu Personen loeschen
+				ps = DBConnect.connect().prepareStatement(""
+						+ "DELETE FROM WohnhaftIn WHERE AdressID = ? "
+						+ "DELETE FROM Adresse WHERE AdressID = ?");
+	      
+	        	 ps.setInt(1, a.getAdressID());
+	        	 ps.setInt(2, a.getAdressID());
+	        	 ps.executeUpdate();
+				 	 
+        } catch (SQLException e) {
+//        	TODO Fehlerbehandlung ordentlich einrichten
+//            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
+//                    ex);
+        	System.err.println("Error" + e);
+        } finally {
+        	if (ps != null) ps.close();
+            DBConnect.close();
+        }		
+		
+	}
+	
 }
