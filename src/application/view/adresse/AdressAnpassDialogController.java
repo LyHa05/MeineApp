@@ -51,33 +51,6 @@ public class AdressAnpassDialogController {
 	}
 	
     /**
-     * Sets the stage of this dialog.
-     * 
-     * @param dialogStage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-	
-	/**
-	 * Selektierte Adresse wird in Dialog gesetzt.
-	 * 
-	 * @param selectedAdresse
-	 */
-	public void setAdresse(Adresse selectedAdresse) {
-		this.adresse = selectedAdresse;
-		
-		adressIDLabel.setText(Integer.toString(adresse.getAdressID()));
-		strasseField.setText(adresse.getStrasse());
-		zusatzField.setText(adresse.getZusatz());
-		plzField.setText(adresse.getPlz());
-		ortField.setText(adresse.getOrt());
-		landField.setText(adresse.getLand());
-		festnetzNrField.setText(adresse.getFestnetzNr());
-		
-	}
-	
-    /**
      * Returns true if the user clicked OK, false otherwise.
      * 
      * @return
@@ -150,6 +123,33 @@ public class AdressAnpassDialogController {
         }
     }
     
+	/**
+	 * Sets the stage of this dialog.
+	 * 
+	 * @param dialogStage
+	 */
+	public void setDialogStage(Stage dialogStage) {
+	    this.dialogStage = dialogStage;
+	}
+
+	/**
+	 * Selektierte Adresse wird in Dialog gesetzt.
+	 * 
+	 * @param selectedAdresse
+	 */
+	public void setAdresse(Adresse selectedAdresse) {
+		this.adresse = selectedAdresse;
+		
+		adressIDLabel.setText(Integer.toString(adresse.getAdressID()));
+		strasseField.setText(adresse.getStrasse());
+		zusatzField.setText(adresse.getZusatz());
+		plzField.setText(adresse.getPlz());
+		ortField.setText(adresse.getOrt());
+		landField.setText(adresse.getLand());
+		festnetzNrField.setText(adresse.getFestnetzNr());
+		
+	}
+
 	public void setFlagUebersicht(boolean fu) {
 		this.flagUebersicht = fu;
 	}

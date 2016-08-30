@@ -145,5 +145,57 @@ public class AdressZuordnenDialogController {
 					});
 
 			}
+	
+    /**
+     * Returns true if the user clicked OK, false otherwise.
+     * 
+     * @return
+     */
+    public boolean isZuordnenClicked() {
+        return zuordnenClicked;
+    }
 		
+	/**
+	 * Sets the stage of this dialog.
+	 * 
+	 * @param dialogStage
+	 */
+	public void setDialogStage(Stage dialogStage) {
+	    this.dialogStage = dialogStage;
+	}
+
+	/**
+	 * Selektierte Adresse wird in Dialog gesetzt.
+	 * 
+	 * @param selectedAdresse
+	 */
+	public void setAdresse(Adresse selectedAdresse) {
+		this.adresse = selectedAdresse;
+		
+//		adressIDLabel.setText(Integer.toString(adresse.getAdressID()));
+//		strasseField.setText(adresse.getStrasse());
+//		zusatzField.setText(adresse.getZusatz());
+//		plzField.setText(adresse.getPlz());
+//		ortField.setText(adresse.getOrt());
+//		landField.setText(adresse.getLand());
+//		festnetzNrField.setText(adresse.getFestnetzNr());
+		
+	}
+
+	public void setFlagUebersicht(boolean fu) {
+		this.flagUebersicht = fu;
+	}
+
+	/**
+	 * @param sp
+	 *            the selectedPerson to set
+	 */
+	public void setPerson(Person p) {
+		this.person = p;
+		if (p.getPersonID() != 0) {
+			ueberschriftLabel.setText("Adresse von " + person.getVorname1() + " " + person.getName());
+		} else {
+			ueberschriftLabel.setText("Adresse");
+		}
+	}
 }
