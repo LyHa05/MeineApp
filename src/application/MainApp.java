@@ -197,7 +197,7 @@ public class MainApp extends Application {
         }
     }   
 	
-    public boolean showAdressAnpassDialog(Adresse adresse) {
+    public boolean showAdressAnpassDialog(Person person, Adresse adresse) {
 	    try {
 	       // Load the fxml file and create a new stage for the popup dialog.
 	    	FXMLLoader loader = new FXMLLoader();
@@ -216,6 +216,7 @@ public class MainApp extends Application {
 	        AdressAnpassDialogController controller = loader.getController();
 	        controller.setDialogStage(dialogStage);
 	        controller.setAdresse(adresse);
+	        controller.setSelectedPerson(person);
 	      	        
 	        // Show the dialog and wait until the user closes it
 	        dialogStage.showAndWait();

@@ -283,7 +283,7 @@ public class AdressUebersichtController {
     public void handleAendern() throws SQLException {
     	Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
         if (selectedAdresse != null) {
-            boolean okClicked = mainApp.showAdressAnpassDialog(selectedAdresse);
+            boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, selectedAdresse);
             if (okClicked) {
             	AdressDB.aendereAdresse(selectedAdresse);
                 showWohnendePersonen(selectedAdresse);
@@ -320,7 +320,7 @@ public class AdressUebersichtController {
     @FXML
     public void handleZuordnen() throws SQLException {
         Adresse tempAdresse = new Adresse();
-        boolean okClicked = mainApp.showAdressAnpassDialog(tempAdresse);
+        boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, tempAdresse);
         if (okClicked) {
         	AdressDB.zuordnenAdresse(tempAdresse);
         	adressDaten.add(tempAdresse);
@@ -334,7 +334,7 @@ public class AdressUebersichtController {
     @FXML
     public void handleNeu() throws SQLException {
         Adresse tempAdresse = new Adresse();
-        boolean okClicked = mainApp.showAdressAnpassDialog(tempAdresse);
+        boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, tempAdresse);
         if (okClicked) {
         	if(flagUebersicht) {
         	AdressDB.erstelleAdresseFuerPerson(tempAdresse,selectedPerson);

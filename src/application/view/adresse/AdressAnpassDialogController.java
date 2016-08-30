@@ -1,6 +1,5 @@
 package application.view.adresse;
 
-import application.MainApp;
 import application.model.adresse.Adresse;
 import application.model.person.Person;
 import javafx.fxml.FXML;
@@ -162,9 +161,9 @@ public class AdressAnpassDialogController {
 	public void setSelectedPerson(Person sp) {
 		this.selectedPerson = sp;
 		if (sp.getPersonID() != 0) {
-			ueberschriftLabel.setText("Adressen von " + selectedPerson.getVorname1() + " " + selectedPerson.getName());
+			ueberschriftLabel.setText("Adresse von " + selectedPerson.getVorname1() + " " + selectedPerson.getName());
 		} else {
-			ueberschriftLabel.setText("Adressuebersicht");
+			ueberschriftLabel.setText("Adresse");
 		}
 	}
 
