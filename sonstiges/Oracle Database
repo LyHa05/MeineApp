@@ -1,0 +1,17 @@
+This tutorial should help you:
+
+Getting Started with Oracle SQL Developer
+
+See the prerequisites:
+
+Install Oracle SQL Developer. You already have it.
+Install the Oracle Database. Download available here.
+Unlock the HR user. Login to SQL*Plus as the SYS user and execute the following command:
+
+alter user hr identified by hr account unlock;
+Download and unzip the sqldev_mngdb.zip file that contains all the files you need to perform this tutorial.
+Another version from May 2011: Getting Started with Oracle SQL Developer
+
+For more info check this related question:
+
+How to create a database after installing oracle database 11g Express Edition?
