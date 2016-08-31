@@ -88,7 +88,23 @@ public class AdressZuordnenDialogController {
 	private void showAdressen() throws SQLException {
 		try {
 			 // Execute query and store result in a resultset
-           rs = DBConnect.connect().createStatement().executeQuery("SELECT * FROM Adresse");
+           ps = DBConnect.connect().prepareStatement(""
+        		   	+"SELECT DISTINCT WohnhaftIn.AdressID "
+        		   	+",Adresse.Strasse "
+	       			+",Adresse.Zusatz "
+	       			+",Adresse.PLZ "
+	       			+",Adresse.Ort "
+	       			+",Adresse.Land "
+	       			+",Adresse.FestnetzNr "
+	       			+"FROM Adresse JOIN WohnhaftIn ON Adresse.AdressID = WohnhaftIn.AdressID "
+	       			+"WHERE WohnhaftIn.AdressID Not In (Select Adresse.AdressID FROM Adresse JOIN WohnhaftIn ON WohnhaftIn.AdressID = Adresse.AdressID "
+       														+"JOIN Person ON Person.PersonID = WohnhaftIn.PersonID "
+       														+"WHERE Person.PersonID = ?)");
+           ps.setInt(1, person.getPersonID());
+           rs = ps.executeQuery();
+           
+           System.out.println(person);
+           
            while (rs.next()) {
                //get string from db,whichever way 
                adressDaten.add(new Adresse(
@@ -138,12 +154,37 @@ public class AdressZuordnenDialogController {
 
 	private void showPersonen() throws SQLException {
 		
-//		// loescht Daten im ListView --> pruefen, ob später noch nötig
-//		personDaten.removeAll(personDaten);
+		// loescht Daten im ListView --> pruefen, ob später noch nötig
+		personDaten.removeAll(personDaten);
 		
 		try {
 			 // Execute query and store result in a resultset
-            rs = DBConnect.connect().createStatement().executeQuery("SELECT * FROM Person");
+            ps = DBConnect.connect().prepareStatement(""
+	        	+"SELECT DISTINCT WohnhaftIn.PersonID "
+				+",Person.Name "
+				+",Person.Vorname1 "
+				+",Person.Vorname2 "
+				+",Person.Geschlecht "
+				+",Person.Geburtsdatum "
+				+",Person.HandyNr1 "
+				+",Person.HandyNr2 "
+				+",Person.EMailAdresse1 "
+				+",Person.EMailAdresse2 "
+				+",Person.EMailAdresse3 "
+				+",Person.EMailAdresse4 "
+				+",Person.EMailAdresse5 "
+				+"FROM WohnhaftIn JOIN Person ON WohnhaftIn.PersonID = Person.PersonID "
+				+"WHERE WohnhaftIn.PersonID Not In (Select Person.PersonID FROM Person JOIN WohnhaftIn ON WohnhaftIn.PersonID = Person.PersonID "
+														+"JOIN Adresse ON Adresse.AdressID = WohnhaftIn.AdressID "
+														+"WHERE Adresse.AdressID = ?)");
+     
+            ps.setInt(1, adresse.getAdressID());
+            rs = ps.executeQuery();
+            
+            System.out.println(adresse);
+            
+            System.out.println(rs);
+            
             while (rs.next()) {
                 //get string from db,whichever way 
                 personDaten.add(new Person(
@@ -160,9 +201,10 @@ public class AdressZuordnenDialogController {
                 		,rs.getString(11)	//EMailAdresse3
                 		,rs.getString(12)	//EMailAdresse4
                 		,rs.getString(13)	//EMailAdresse5
-    		));   
+    		));
+                
         }
-
+            System.out.println(personDaten);
 		} catch (SQLException e) {
 			System.err.println("Error" + e);
 		} finally {
