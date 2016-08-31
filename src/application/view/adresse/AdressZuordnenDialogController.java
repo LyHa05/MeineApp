@@ -3,8 +3,6 @@ package application.view.adresse;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import application.MainApp;
 import application.controller.DBConnect;
 import application.model.adresse.Adresse;
 import application.model.person.Person;
@@ -69,8 +67,6 @@ public class AdressZuordnenDialogController {
 		
 	}
 		
-		
-
 	public void showZuordnung() throws SQLException {
 		
 		if (flagUebersicht) {
