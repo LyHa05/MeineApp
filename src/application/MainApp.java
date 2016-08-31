@@ -205,7 +205,7 @@ public class MainApp extends Application {
 	        loader.setLocation(MainApp.class.getResource("view/adresse/AdressAnpassDialog.fxml"));
 	        AnchorPane page = (AnchorPane) loader.load();
 	
-	          // Create the dialog Stage.
+	        // Create the dialog Stage.
 	        Stage dialogStage = new Stage();
 	        dialogStage.setTitle("Adresse Anpassen");
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -213,7 +213,7 @@ public class MainApp extends Application {
 	        Scene scene = new Scene(page);
 	        dialogStage.setScene(scene);
 	
-	         // Set the person into the controller.
+	        // Set the person into the controller.
 	        AdressAnpassDialogController controller = loader.getController();
 	        controller.setDialogStage(dialogStage);
 	        controller.setAdresse(adresse);
@@ -236,7 +236,7 @@ public class MainApp extends Application {
 		        loader.setLocation(MainApp.class.getResource("view/adresse/AdressZuordnenDialog.fxml"));
 		        AnchorPane page = (AnchorPane) loader.load();
 		
-		          // Create the dialog Stage.
+		        // Create the dialog Stage.
 		        Stage dialogStage = new Stage();
 		        dialogStage.setTitle("Adresse Zuordnen");
 		        dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -244,10 +244,10 @@ public class MainApp extends Application {
 		        Scene scene = new Scene(page);
 		        dialogStage.setScene(scene);
 		
-		         // Set the person into the controller.
+		        // Set the person into the controller.
 		        AdressZuordnenDialogController controller = loader.getController();
 		        controller.setDialogStage(dialogStage);
-		        controller.setAdresse(adresse);
+//		        controller.setAdresse(adresse);
 		        controller.setPerson(person);
 		      	        
 		        // Show the dialog and wait until the user closes it

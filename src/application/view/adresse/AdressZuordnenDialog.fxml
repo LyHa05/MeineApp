@@ -18,8 +18,8 @@
             </AnchorPane>
             <AnchorPane prefHeight="215.0" prefWidth="600.0">
                <children>
-                  <ListView fx:id="adressListe" layoutX="190.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <ListView fx:id="personListe" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <ListView fx:id="adressList" layoutX="190.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <ListView fx:id="personList" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="124.0" prefWidth="600.0">
