@@ -229,7 +229,7 @@ public class MainApp extends Application {
 	    }
 	}
 
-	public boolean showAdressZuordnenDialog(Person person, Adresse adresse) {
+	public boolean showAdressZuordnenDialog(Person person, Adresse adresse, boolean flagUebersicht) throws SQLException {
 	    try {
 		       // Load the fxml file and create a new stage for the popup dialog.
 		    	FXMLLoader loader = new FXMLLoader();
@@ -247,12 +247,14 @@ public class MainApp extends Application {
 		        // Set the person into the controller.
 		        AdressZuordnenDialogController controller = loader.getController();
 		        controller.setDialogStage(dialogStage);
-//		        controller.setAdresse(adresse);
+		        controller.setAdresse(adresse);
 		        controller.setPerson(person);
-		      	        
+		        controller.setFlagUebersicht(flagUebersicht);
+		        controller.showZuordnung();
+		        
 		        // Show the dialog and wait until the user closes it
 		        dialogStage.showAndWait();
-		
+		        
 		        return controller.isZuordnenClicked();
 		    } catch (IOException e) {
 		        e.printStackTrace();

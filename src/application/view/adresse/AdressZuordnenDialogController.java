@@ -8,7 +8,6 @@ import application.MainApp;
 import application.controller.DBConnect;
 import application.model.adresse.Adresse;
 import application.model.person.Person;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -67,7 +66,13 @@ public class AdressZuordnenDialogController {
 	 */
 	@FXML
 	private void initialize() throws SQLException {
+		
+	}
+		
+		
 
+	public void showZuordnung() throws SQLException {
+		
 		if (flagUebersicht) {
 			
 			showAdressen();
@@ -75,24 +80,64 @@ public class AdressZuordnenDialogController {
 			adressList.setVisible(true);
 			personList.setVisible(false);
 			
-		} else {
-			
+		} else if (!flagUebersicht){
 			
 			showPersonen();
-			System.out.println("showPersonen() ausgefuehrt");
-			
-//			personList.setVisible(true);
+				
+			personList.setVisible(true);
 			adressList.setVisible(false);
-			System.out.println("Sichtbarkeit gesetzt");
-			
 		}
 	}
-		
-		
 
-	private void showAdressen() {
-		// TODO Auto-generated method stub
-		
+	private void showAdressen() throws SQLException {
+		try {
+			 // Execute query and store result in a resultset
+           rs = DBConnect.connect().createStatement().executeQuery("SELECT * FROM Adresse");
+           while (rs.next()) {
+               //get string from db,whichever way 
+               adressDaten.add(new Adresse(
+            		   rs.getInt(1) // AdressID
+						, rs.getString(2) // Strasse
+						, rs.getString(3) // Zusatz
+						, rs.getString(4) // PLZ
+						, rs.getString(5) // Ort
+						, rs.getString(6) // Land
+						, rs.getString(7) // Festnetznr
+   		));   
+       }
+
+		} catch (SQLException e) {
+			System.err.println("Error" + e);
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (ps != null)
+				ps.close();
+			DBConnect.close();
+
+		}
+
+					adressList.setItems(adressDaten);
+						
+					adressList.setCellFactory(new Callback<ListView<Adresse>, ListCell<Adresse>>() {
+
+						@Override
+						public ListCell<Adresse> call(ListView<Adresse> a) {
+							return new ListCell<Adresse>() {
+								@Override
+								protected void updateItem(Adresse adresse, boolean empty) {
+									super.updateItem(adresse, empty);
+									if (adresse != null) {
+										setText(adresse.getStrasse() + ", " + adresse.getPlz() + ", "
+												+ adresse.getOrt());
+									} else {
+										setText(null);
+									}
+								}
+							};
+						}
+					});
+					
 	}
 
 	private void showPersonen() throws SQLException {
@@ -124,7 +169,6 @@ public class AdressZuordnenDialogController {
 
 		} catch (SQLException e) {
 			System.err.println("Error" + e);
-			System.out.println(e);
 		} finally {
 			if (rs != null)
 				rs.close();
@@ -134,13 +178,8 @@ public class AdressZuordnenDialogController {
 
 		}
 
-					System.out.println("personList: " + personList);
-					System.out.println("personDaten: " + personDaten);
-		
 					personList.setItems(personDaten);
-					
-					System.out.println("personList: " + personList);
-					
+						
 					personList.setCellFactory(new Callback<ListView<Person>, ListCell<Person>>() {
 
 						@Override
@@ -184,8 +223,8 @@ public class AdressZuordnenDialogController {
 	 * 
 	 * @param selectedAdresse
 	 */
-	public void setAdresse(Adresse selectedAdresse) {
-		this.adresse = selectedAdresse;
+	public void setAdresse(Adresse a) {
+		this.adresse = a;
 		
 //		adressIDLabel.setText(Integer.toString(adresse.getAdressID()));
 //		strasseField.setText(adresse.getStrasse());
@@ -209,8 +248,10 @@ public class AdressZuordnenDialogController {
 		this.person = p;
 		if (p.getPersonID() != 0) {
 			ueberschriftLabel.setText("Adresse von " + person.getVorname1() + " " + person.getName());
+			setFlagUebersicht(true);
 		} else {
 			ueberschriftLabel.setText("Adresse");
+			setFlagUebersicht(false);
 		}
 	}
 

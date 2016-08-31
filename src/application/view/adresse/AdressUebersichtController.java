@@ -321,7 +321,7 @@ public class AdressUebersichtController {
     @FXML
     public void handleZuordnen() throws SQLException {
         Adresse tempAdresse = new Adresse();
-        mainApp.showAdressZuordnenDialog(selectedPerson, tempAdresse);
+        mainApp.showAdressZuordnenDialog(selectedPerson, tempAdresse, flagUebersicht);
 
         	AdressDB.zuordnenAdresse(tempAdresse);
         	adressDaten.add(tempAdresse);
