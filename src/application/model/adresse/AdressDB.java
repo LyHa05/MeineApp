@@ -106,7 +106,25 @@ public class AdressDB {
 		
 	}
 
-	public static void zuordnenAdresse(Adresse a) {
+	public static void zuordnenAdresse(Adresse a, Person p) throws SQLException {
+		try {
+			ps = DBConnect.connect().prepareStatement(""
+					+ "INSERT INTO WohnhaftIn VALUES(?,?)");
+			ps.setInt(1, p.getPersonID());
+			ps.setInt(2, a.getAdressID());
+			ps.executeUpdate();
+			
+			
+        } catch (SQLException e) {
+//        	TODO Fehlerbehandlung ordentlich einrichten
+//            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
+//                    ex);
+        	System.err.println("Error" + e);
+        } finally {
+        	if (ps != null) ps.close();
+            DBConnect.close();
+        }	
+		
 		// TODO Auto-generated method stub zuordnenAdresse
 		
 	}

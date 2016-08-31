@@ -41,6 +41,7 @@ public class AdressAnpassDialogController {
 	
 	private Stage dialogStage;
 	private Adresse adresse;
+	// TODO Pruefen, ob entfernt werden kann
 	private boolean okClicked = false;
 //	private MainApp mainApp;
 	
@@ -50,6 +51,7 @@ public class AdressAnpassDialogController {
 		
 	}
 	
+	// TODO Pruefen, ob entfernt werden kann
     /**
      * Returns true if the user clicked OK, false otherwise.
      * 

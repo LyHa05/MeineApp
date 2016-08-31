@@ -301,7 +301,7 @@ public class AdressUebersichtController {
      */
     @FXML
     public void handleLoeschen() throws SQLException {
-        //TODO Personauswahl und Indexauswahl zusammenfassen
+        //TODO Adressauswahl und Indexauswahl zusammenfassen
     	int selectedIndex = adressTable.getSelectionModel().getSelectedIndex();
         Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
         if (selectedIndex >= 0) {
@@ -320,18 +320,31 @@ public class AdressUebersichtController {
      */
     @FXML
     public void handleZuordnen() throws SQLException {
-        Adresse tempAdresse = new Adresse();
-        mainApp.showAdressZuordnenDialog(selectedPerson, tempAdresse, flagUebersicht);
-
-        	AdressDB.zuordnenAdresse(tempAdresse);
-        	adressDaten.add(tempAdresse);
-        
-        
-//        boolean okClicked = mainApp.showAdressZuordnenDialog(selectedPerson, tempAdresse);
-//        if (okClicked) {
-//        	AdressDB.zuordnenAdresse(tempAdresse);
-//        	adressDaten.add(tempAdresse);
-//        }
+    	// Aufruf von Personstammdaten
+    	if (flagUebersicht) {
+    		Adresse tempAdresse = new Adresse();
+    		boolean okClicked = mainApp.showAdressZuordnenDialog(selectedPerson, tempAdresse, flagUebersicht);
+        	if (okClicked) {
+        		AdressDB.zuordnenAdresse(tempAdresse, selectedPerson);
+        		showWohnendePersonen(tempAdresse);
+        	}
+	    // Aufruf von Adressgesamtuebersicht
+    	} else {
+    		 //TODO Adressauswahl und Indexauswahl zusammenfassen
+	    	int selectedIndex = adressTable.getSelectionModel().getSelectedIndex();
+	        Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
+	        if (selectedIndex >= 0) {
+	        	// in diesem Fall zuordnenClicked X) 
+	        	boolean okClicked = mainApp.showAdressZuordnenDialog(selectedPerson, selectedAdresse, flagUebersicht);
+	        	if (okClicked) {
+	        		AdressDB.zuordnenAdresse(selectedAdresse, selectedPerson);
+	        		showWohnendePersonen(selectedAdresse);
+	        	}
+	        } else {
+	        	 // Nothing selected.
+	        	keineAdresseSelektiert();
+	        }
+    	}
     }
     
     /**

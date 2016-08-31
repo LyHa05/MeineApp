@@ -26,7 +26,7 @@
                <children>
                   <ButtonBar layoutX="209.0" layoutY="76.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Zuordnen" />
+                      <Button mnemonicParsing="false" onAction="#handleZuordnen" text="Zuordnen" />
                     </buttons>
                   </ButtonBar>
                </children>
