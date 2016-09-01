@@ -35,7 +35,10 @@ CREATE TABLE Adresse
 	,PLZ VARCHAR(24)
 	,Ort VARCHAR(50)
 	,Land VARCHAR(50)
-	,FestnetzNr Varchar(30));
+	,FestnetzNr Varchar(30)
+	,Druck INTEGER(1)
+	,Druckanrede VARCHAR(50));
+
 
 CREATE TABLE WohnhaftIn
 	(PersonID INTEGER REFERENCES Person(PersonID)

@@ -3,11 +3,38 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.root.StartSeiteController">
    <children>
-      <Button layoutX="451.0" layoutY="315.0" mnemonicParsing="false" onAction="#handlePersonUebersicht" text="Personenübersicht" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="10.0" />
-      <Label text="Herzlich Willkommen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <Button layoutX="452.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleAdressUebersicht" prefHeight="31.0" prefWidth="141.0" text="Adressübersicht" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label text="Herzlich Willkommen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="315.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handlePersonUebersicht" text="Personenübersicht" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="10.0" />
+                              <Button mnemonicParsing="false" onAction="#handleAdressUebersicht" prefHeight="31.0" prefWidth="141.0" text="Adressübersicht" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="288.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Adressetiketten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
