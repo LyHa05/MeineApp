@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import application.MainApp;
 import application.controller.DBConnect;
+import application.model.adresse.AdressDB;
 import application.model.adresse.Adresse;
 import application.model.person.Person;
 import javafx.collections.FXCollections;
@@ -92,7 +93,7 @@ public class AdressZuordnenDialogController {
 
 	private void showAdressen() throws SQLException {
 		try {
-			 // Execute query and store result in a resultset
+		// Execute query and store result in a resultset
            ps = DBConnect.connect().prepareStatement(""
         		   	+"SELECT DISTINCT WohnhaftIn.AdressID "
         		   	+",Adresse.Strasse "
@@ -111,7 +112,7 @@ public class AdressZuordnenDialogController {
            System.out.println(person);
            
            while (rs.next()) {
-               //get string from db,whichever way 
+               //get string from db, whichever way 
                adressDaten.add(new Adresse(
             		   rs.getInt(1) // AdressID
 						, rs.getString(2) // Strasse
@@ -251,8 +252,6 @@ public class AdressZuordnenDialogController {
     public boolean isZuordnenClicked() {
         return zuordnenClicked;
     }
-    
-    
 		
 	/**
 	 * Sets the stage of this dialog.
@@ -270,15 +269,6 @@ public class AdressZuordnenDialogController {
 	 */
 	public void setAdresse(Adresse a) {
 		this.adresse = a;
-		
-//		adressIDLabel.setText(Integer.toString(adresse.getAdressID()));
-//		strasseField.setText(adresse.getStrasse());
-//		zusatzField.setText(adresse.getZusatz());
-//		plzField.setText(adresse.getPlz());
-//		ortField.setText(adresse.getOrt());
-//		landField.setText(adresse.getLand());
-//		festnetzNrField.setText(adresse.getFestnetzNr());
-		
 	}
 
 	public void setFlagUebersicht(boolean fu) {
@@ -300,9 +290,44 @@ public class AdressZuordnenDialogController {
 		}
 	}
 
-	public void handleZuordnen() {
+	public void handleZuordnen() throws SQLException {
         if (isInputValid()) {
 //            okClicked = true;
+        	
+        	if (flagUebersicht) {
+        		
+        		// leeren tempAdresse müssen Daten der Auswahl zugeordnet werden
+        		
+        		Adresse selectedAdresse = adressList.getSelectionModel().getSelectedItem();
+        		
+        		adresse.setAdressID(selectedAdresse.getAdressID());
+        		adresse.setStrasse(selectedAdresse.getStrasse());
+        		adresse.setZusatz(selectedAdresse.getZusatz());
+        		adresse.setPlz(selectedAdresse.getPlz());
+        		adresse.setLand(selectedAdresse.getLand());
+        		adresse.setFestnetzNr(selectedAdresse.getFestnetzNr());       		
+        		
+        		AdressDB.zuordnenAdresse(adresse, person);
+        		
+        	} else {
+        		
+        		// leeren tempPerson müssen Daten der Auswahl zugeordnet werden
+        		
+        		Person selectedPerson = personList.getSelectionModel().getSelectedItem();
+        		
+        		person.setPersonID(selectedPerson.getPersonID());
+        		person.setName(selectedPerson.getName());
+        		person.setVorname1(selectedPerson.getVorname1());
+        		person.setVorname2(selectedPerson.getVorname2());
+        		person.setGeschlecht(selectedPerson.getGeschlecht());
+        		person.setGeburtsdatum(selectedPerson.getGeburtsdatum());
+        		person.setHandyNr1(selectedPerson.getHandyNr1());
+        		person.seteMailAdresse1(selectedPerson.geteMailAdresse1());
+        	
+        		AdressDB.zuordnenAdresse(adresse, person);
+        		
+        	}
+        	
             dialogStage.close();
         }
 	}

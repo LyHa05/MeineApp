@@ -7,13 +7,13 @@ import application.model.person.Person;
  * @date 19.08.2016
  */
 
-public class WohnhaftIn {
+public class DepricatedWohnhaftIn {
 	
 	private Person objPerson;
 	private Adresse objAdresse;
 
 	
-	public WohnhaftIn(Person oPerson, Adresse oAdresse) {
+	public DepricatedWohnhaftIn(Person oPerson, Adresse oAdresse) {
 		this.objPerson = oPerson;
 		this.objAdresse = oAdresse;
 	}

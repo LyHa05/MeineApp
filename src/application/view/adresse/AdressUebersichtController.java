@@ -314,6 +314,8 @@ public class AdressUebersichtController {
         }
     }
     
+    
+    //TODO Aktualisierung der Adressansicht nach Zuordnung
     /**
      * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Adresse anzulegen.
      * @throws SQLException 
@@ -333,11 +335,11 @@ public class AdressUebersichtController {
     		 //TODO Adressauswahl und Indexauswahl zusammenfassen
 	    	int selectedIndex = adressTable.getSelectionModel().getSelectedIndex();
 	        Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
+	        Person tempPerson = new Person();
 	        if (selectedIndex >= 0) {
 	        	// in diesem Fall zuordnenClicked X) 
-	        	boolean okClicked = mainApp.showAdressZuordnenDialog(selectedPerson, selectedAdresse, flagUebersicht);
+	        	boolean okClicked = mainApp.showAdressZuordnenDialog(tempPerson, selectedAdresse, flagUebersicht);
 	        	if (okClicked) {
-	        		AdressDB.zuordnenAdresse(selectedAdresse, selectedPerson);
 	        		showWohnendePersonen(selectedAdresse);
 	        	}
 	        } else {

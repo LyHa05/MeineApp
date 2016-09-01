@@ -124,9 +124,7 @@ public class AdressDB {
         	if (ps != null) ps.close();
             DBConnect.close();
         }	
-		
-		// TODO Auto-generated method stub zuordnenAdresse
-		
+				
 	}
 
 	public static void loescheAdresseFuerPerson(Adresse a, Person p) throws SQLException {
