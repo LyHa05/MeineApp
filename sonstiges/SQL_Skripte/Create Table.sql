@@ -34,9 +34,8 @@ CREATE TABLE Adresse
 	,Zusatz VARCHAR(50)
 	,PLZ VARCHAR(24)
 	,Ort VARCHAR(50)
-	,Land VARCHAR(3)
-	,FestnetzNr Varchar(30)
-	,CHECK (Land LIKE 'D' OR Land LIKE 'AT' OR Land LIKE 'CH'));
+	,Land VARCHAR(50)
+	,FestnetzNr Varchar(30));
 
 CREATE TABLE WohnhaftIn
 	(PersonID INTEGER REFERENCES Person(PersonID)

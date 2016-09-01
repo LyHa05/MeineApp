@@ -2,10 +2,14 @@ package application.view.adresse;
 
 import application.model.adresse.Adresse;
 import application.model.person.Person;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -29,9 +33,11 @@ public class AdressAnpassDialogController {
 	@FXML
 	private TextField ortField;
 	@FXML
-	private TextField landField;
-	@FXML
 	private TextField festnetzNrField;
+	
+    @FXML
+    private ComboBox<String> landComboBox;
+    private ObservableList<String> landComboBoxDaten = FXCollections.observableArrayList();
 	
 	// Flag fuer verschiedene Uebersichten (true: personweise, false: gesamt)
 	private boolean flagUebersicht;
@@ -48,7 +54,32 @@ public class AdressAnpassDialogController {
 	
 	@FXML
 	private void initialize() {
-		
+		// Add some sample data in landComboBox.
+    	landComboBoxDaten.addAll("D","AT","CH");
+    	landComboBox.setEditable(true); 
+    	// Init ComboBox items.
+    	landComboBox.setItems(landComboBoxDaten);
+    	// Define rendering of the list of values in ComboBox drop down. 
+    	landComboBox.setCellFactory((comboBox) -> {
+    	    return new ListCell<String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                  super.updateItem(item, empty);
+                  if (item != null) {
+                    setText(item);
+                    if (item.contains("D")) {
+                      setText("D");
+                    } else if (item.contains("AT")) {
+                      setText("AT");
+                    } else if (item.contains("CH")) {
+                        setText("CH");
+                      } 
+                  } else {
+                    setText(null);
+                  }
+                }
+              };
+    	});
 	}
 	
 	// TODO Pruefen, ob entfernt werden kann
@@ -72,7 +103,7 @@ public class AdressAnpassDialogController {
         	adresse.setZusatz(zusatzField.getText());
         	adresse.setPlz(plzField.getText());
         	adresse.setOrt(ortField.getText());
-        	adresse.setLand(landField.getText());
+        	adresse.setLand(landComboBox.getValue());
         	adresse.setFestnetzNr(festnetzNrField.getText());
 
             okClicked = true;
@@ -105,9 +136,13 @@ public class AdressAnpassDialogController {
         if (ortField.getText() == null || ortField.getText().length() == 0) {
             errorMessage += "Kein gueltiger Ort!\n"; 
         }
-        // TODO Combobox mit D und AT sowie ggf. Möglichkeit selbst etwas einzutragen und Beschränkung auf 3 Zeichen!
-        if (landField.getText() == null || landField.getText().length() == 0) {
-            errorMessage += "Kein gültiges Land!\n";
+        if (landComboBox.getValue() != "D" && landComboBox.getValue() != "AT"
+        		&& landComboBox.getValue() != "CH"
+        		&& landComboBox.getValue().isEmpty()) {
+            errorMessage += "Kein Land angegeben!\n"; 
+        }
+        if (landComboBox.getValue().length() > 3) {
+            errorMessage += "Das Land darf nur mit hoechstens 3 Buchstaben abgekuerzt werden!\n"; 
         }
         if (errorMessage.length() == 0) {
             return true;
@@ -147,7 +182,7 @@ public class AdressAnpassDialogController {
 		zusatzField.setText(adresse.getZusatz());
 		plzField.setText(adresse.getPlz());
 		ortField.setText(adresse.getOrt());
-		landField.setText(adresse.getLand());
+		landComboBox.setValue(adresse.getLand());
 		festnetzNrField.setText(adresse.getFestnetzNr());
 		
 	}
