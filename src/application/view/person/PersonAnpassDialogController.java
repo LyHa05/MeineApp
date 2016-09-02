@@ -148,9 +148,10 @@ public class PersonAnpassDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (nameField.getText() == null || nameField.getText().length() == 0) {
-            errorMessage += "Kein gueltiger Name!\n"; 
-        }
+        // Auskommentiert, da nicht von allen Personen der Nachname bekannt ist
+//        if (nameField.getText() == null || nameField.getText().length() == 0) {
+//            errorMessage += "Kein gueltiger Name!\n"; 
+//        }
         if (vname1Field.getText() == null || vname1Field.getText().length() == 0) {
             errorMessage += "Kein gueltiger Vorname!\n"; 
         }

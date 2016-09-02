@@ -1,0 +1,5 @@
+1.Zeile; 2.Zeile; 3.Zeile
+Karl Meier; Unter der Brücke 14; 12345 Berlin
+Karla Meier; Unter der Brücke 14; 12345 Berlin
+Karl Käfer; Im Wald 1; 05934 Waldhausen
+Karl Meier; Auf der Bank 1; 12355 Berlin

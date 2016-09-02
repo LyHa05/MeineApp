@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import application.controller.DBConnect;
 import application.model.person.Person;
+import application.tools.DBConnect;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 

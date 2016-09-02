@@ -2,7 +2,8 @@ package application.model.person;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import application.controller.DBConnect;
+
+import application.tools.DBConnect;
 
 /**
  * @author Lydia Pflug

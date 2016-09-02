@@ -1,14 +1,16 @@
 package application.view.druck;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.MainApp;
-import application.controller.DBConnect;
 import application.model.adresse.Adresse;
 import application.model.adresse.WohnhaftIn;
 import application.model.person.Person;
+import application.tools.AdressTextUmwandler;
+import application.tools.DBConnect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -225,14 +227,27 @@ public class AdressEtikettenAuswahlController {
 	
 	/**
      * Called when the user clicks ok.
+	 * @throws IOException 
      */
     @FXML
-    private void handleUebernehmen() {
+    private void handleUebernehmen() throws IOException {
         if (isInputValid()) {
         	
         	selectedDaten.addAll(personAdressAuswahlDaten);
         	System.out.println(selectedDaten);
-                        
+            
+        	AdressTextUmwandler.dateiErstellen();
+        	AdressTextUmwandler.dateiSchreiben(selectedDaten);
+        	mainApp.showStartSeite();
+        	
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Etikettendruck");
+            alert.setHeaderText("Die Datei fuer den Etikettendruck wurde erstellt");
+//            alert.setContentText(AdressTextUmwandler.);
+
+            alert.showAndWait();
+        	
 //            okClicked = true;
 //            dialogStage.close();
         }

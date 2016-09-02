@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.MainApp;
-import application.controller.DBConnect;
 import application.model.adresse.AdressDB;
 import application.model.adresse.Adresse;
 import application.model.person.Person;
+import application.tools.DBConnect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
