@@ -27,7 +27,7 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="288.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Adressetiketten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                              <Button mnemonicParsing="false" onAction="#handleAdressEtikettenAuswahl" text="Adressetiketten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                            </children>
                         </AnchorPane>
                      </children>

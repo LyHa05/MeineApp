@@ -40,5 +40,16 @@ public class StartSeiteController {
 		Person leerePerson = new Person();
 		mainApp.showAdressUebersicht(false, leerePerson);
 	}
+	
+	/**
+	 * Wird aufgerufen, wenn User Adressuebersicht anklickt. Oeffnet einen
+	 * Dialog mit allen Adressen in der Uebersicht.
+	 * 
+	 * @throws SQLException
+	 */
+	@FXML
+	private void handleAdressEtikettenAuswahl() throws SQLException {
+		mainApp.showAdressEtikettenAuswahlUebersicht();
+	}
 
 }

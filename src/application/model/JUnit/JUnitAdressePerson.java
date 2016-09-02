@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import application.model.adresse.Adresse;
-import application.model.adresse.DepricatedWohnhaftIn;
+import application.model.adresse.WohnhaftIn;
 import application.model.person.Person;
 
 /**
@@ -25,12 +25,12 @@ public class JUnitAdressePerson {
 	private Adresse a1;
 	private Adresse a2;
 	private Adresse a3;
-	private DepricatedWohnhaftIn ap1;
-	private DepricatedWohnhaftIn ap2;
-	private DepricatedWohnhaftIn ap3;
-	private DepricatedWohnhaftIn ap4;
-	private DepricatedWohnhaftIn ap5;
-	private DepricatedWohnhaftIn ap6;
+	private WohnhaftIn ap1;
+	private WohnhaftIn ap2;
+	private WohnhaftIn ap3;
+	private WohnhaftIn ap4;
+	private WohnhaftIn ap5;
+	private WohnhaftIn ap6;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -47,9 +47,9 @@ public class JUnitAdressePerson {
 
 	@Test
 	public void einePersonZuEinerAdresse() {
-		ap1 = new DepricatedWohnhaftIn(p1,a1);
-		ap2 = new DepricatedWohnhaftIn(p2,a2);
-		ap3 = new DepricatedWohnhaftIn(p1,a1);
+		ap1 = new WohnhaftIn(p1,a1);
+		ap2 = new WohnhaftIn(p2,a2);
+		ap3 = new WohnhaftIn(p1,a1);
 		assertNotSame(ap1,ap2);
 		assertEquals(ap1,ap3);
 	}

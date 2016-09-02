@@ -54,7 +54,7 @@ public class AdressUebersichtController {
 	@FXML
 	private Label ueberschriftLabel;
 
-	// Referenz zum ListView
+	// Referenz zum ListView fuer Bewohner
 	@FXML
 	private ListView<Person> personList;
 
