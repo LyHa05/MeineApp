@@ -1,6 +1,5 @@
 package application.model.gs;
 
-import application.model.person.Person;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;

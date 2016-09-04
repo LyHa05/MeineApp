@@ -10,24 +10,33 @@
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="200.0" prefWidth="600.0">
                <children>
-                  <Label text="Herzlich Willkommen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <Label text="Herzlich willkommen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <HBox prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="315.0">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handlePersonUebersicht" text="Personenübersicht" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="10.0" />
-                              <Button mnemonicParsing="false" onAction="#handleAdressUebersicht" prefHeight="31.0" prefWidth="141.0" text="Adressübersicht" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                              <Button mnemonicParsing="false" onAction="#handlePersonUebersicht" prefWidth="120.0" text="Personenübersicht" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="10.0" />
+                              <Button mnemonicParsing="false" onAction="#handleAdressUebersicht" prefWidth="120.0" text="Adressübersicht" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                              <Label layoutX="30.0" layoutY="6.0" text="Person-Adress-Datenbank" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="288.0">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleAdressEtikettenAuswahl" text="Adressetiketten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                              <Label text="Tolle Tools" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              <Button mnemonicParsing="false" onAction="#handleAdressEtikettenAuswahl" prefWidth="120.0" text="Adressetiketten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleGeschenkUebersicht" prefWidth="120.0" text="Gesch.übersicht" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                              <Label text="Person-Gesch.-Datenbank" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              <Button mnemonicParsing="false" onAction="#handleGeschenke" prefWidth="120.0" text="Gesch." AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="10.0" />
                            </children>
                         </AnchorPane>
                      </children>

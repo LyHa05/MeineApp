@@ -286,6 +286,16 @@ public class MainApp extends Application {
 
 	}
 
+	public void showGeschenke() {
+		// TODO Auto-generated method showGeschenke
+		
+	}
+
+	public void showGeschenkUebersicht() {
+		// TODO Auto-generated method showGeschenkUebersicht
+		
+	}
+
 	/**
 	 * Gibt PrimaryStage zurueck.
 	 * 

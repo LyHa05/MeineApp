@@ -48,6 +48,28 @@ public class StartSeiteController {
 	 * @throws SQLException
 	 */
 	@FXML
+	private void handleGeschenke() throws SQLException {
+		mainApp.showGeschenke();
+	}
+	
+	/**
+	 * Wird aufgerufen, wenn User Adressuebersicht anklickt. Oeffnet einen
+	 * Dialog mit allen Adressen in der Uebersicht.
+	 * 
+	 * @throws SQLException
+	 */
+	@FXML
+	private void handleGeschenkUebersicht() throws SQLException {
+		mainApp.showGeschenkUebersicht();
+	}
+	
+	/**
+	 * Wird aufgerufen, wenn User Adressuebersicht anklickt. Oeffnet einen
+	 * Dialog mit allen Adressen in der Uebersicht.
+	 * 
+	 * @throws SQLException
+	 */
+	@FXML
 	private void handleAdressEtikettenAuswahl() throws SQLException {
 		mainApp.showAdressEtikettenAuswahlUebersicht();
 	}
