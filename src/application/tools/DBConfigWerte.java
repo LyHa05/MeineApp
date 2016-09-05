@@ -19,7 +19,7 @@ public class DBConfigWerte {
 		
 	public static void dateiLesen() throws IOException {
 //		dateiPfad = MeinFileChooser.chooseFile().toPath();
-		dateiPfad = Paths.get("C:/Users/lpflug/Daten/LP/Test4/DBConfigWerte.txt");
+		dateiPfad = Paths.get("C:/Users/DBConfigWerte.txt");
 		geleseneZeilen = Files.lines(dateiPfad).collect(Collectors.toList());
 		for (String zeile : geleseneZeilen) {
 			String[] zeilenArray = zeile.split("=");
