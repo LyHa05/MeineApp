@@ -49,7 +49,7 @@ public class StartSeiteController {
 	 */
 	@FXML
 	private void handleGeschenke() throws SQLException {
-		mainApp.showGeschenke();
+		mainApp.showGeschenkeEinzelUebersicht();
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class StartSeiteController {
 	 */
 	@FXML
 	private void handleGeschenkUebersicht() throws SQLException {
-		mainApp.showGeschenkUebersicht();
+		mainApp.showGeschenkGesamtUebersicht();
 	}
 	
 	/**

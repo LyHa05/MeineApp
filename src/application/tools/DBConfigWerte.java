@@ -3,6 +3,8 @@ package application.tools;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +13,13 @@ import java.util.stream.Collectors;
 
 public class DBConfigWerte {
 	
-	private Path dateiPfad;
-	private List<String> geleseneZeilen;
-	private Map<String, String> configWerte = new HashMap<>();
-	private static String passwort;
-	private static String userName;
-	private static String treiber;
-	private static String url;
+	private static Path dateiPfad;
+	private static List<String> geleseneZeilen;
+	private static Map<String, String> configWerte = new HashMap<>();
 		
-	public DBConfigWerte() throws IOException {
-		dateiPfad = MeinFileChooser.chooseFile().toPath();
+	public static void dateiLesen() throws IOException {
+//		dateiPfad = MeinFileChooser.chooseFile().toPath();
+		dateiPfad = Paths.get("C:/Users/lpflug/Daten/LP/Test4/DBConfigWerte.txt");
 		geleseneZeilen = Files.lines(dateiPfad).collect(Collectors.toList());
 		for (String zeile : geleseneZeilen) {
 			String[] zeilenArray = zeile.split("=");
@@ -28,7 +27,7 @@ public class DBConfigWerte {
 		}
 	}
 
-	public String getValue(String property) {
+	public static String getValue(String property) {
 		pruefenObWertExisitiert(property);
 
 		return configWerte.get(property);
@@ -45,16 +44,25 @@ public class DBConfigWerte {
 		return 0;
 	}
 	
-	public void pruefenObWertExisitiert(String property) {
+	public static void pruefenObWertExisitiert(String property) {
 		if (!existiert(property)) {
 			throw new NoSuchElementException("Element existiert nicht!");
 		}
 	}
 	
-	public boolean existiert(String property) {
+	public static boolean existiert(String property) {
 		return configWerte.containsKey(property);
 	}
 	
-	// TODO DBConfigWerte
-	// Daten für Zugang a
+	public static void anmeldungsDatenUebergen() throws SQLException, IOException {
+		
+		dateiLesen();
+		
+		DBConnect.setUrl(getValue("url"));
+		DBConnect.setDriver(getValue("driver"));
+		DBConnect.setPass(getValue("passwort"));
+		DBConnect.setUser(getValue("userName"));
+		DBConnect.setDatabase(getValue("database"));
+	}
+
 }

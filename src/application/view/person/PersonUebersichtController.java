@@ -1,5 +1,6 @@
 package application.view.person;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import application.MainApp;
@@ -69,9 +70,10 @@ public class PersonUebersichtController {
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      * @throws SQLException 
+     * @throws IOException 
      */
     @FXML
-    private void initialize() throws SQLException {
+    private void initialize() throws SQLException, IOException {
     	 
         try {    	
             // Execute query and store result in a resultset

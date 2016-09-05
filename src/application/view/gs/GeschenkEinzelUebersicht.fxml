@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="application.view.gs.GeschenkEinzelUebersichtController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.gs.GeschenkEinzelUebersichtController">
    <children>
       <VBox layoutX="215.0" layoutY="22.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -59,16 +58,16 @@
             </AnchorPane>
             <AnchorPane prefHeight="100.0" prefWidth="600.0">
                <children>
-                  <ButtonBar layoutX="61.0" layoutY="30.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
+                  <ButtonBar layoutX="61.0" layoutY="30.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Neu" />
-                        <Button mnemonicParsing="false" text="Ändern" />
-                        <Button mnemonicParsing="false" text="Löschen" />
+                      <Button mnemonicParsing="false" onAction="#handleNeu" text="Neu" />
+                        <Button mnemonicParsing="false" onAction="#handleAendern" text="Ändern" />
+                        <Button mnemonicParsing="false" onAction="#handleLoeschen" text="Löschen" />
                     </buttons>
                   </ButtonBar>
                   <ButtonBar layoutX="386.0" layoutY="43.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="14.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Schließen" />
+                      <Button mnemonicParsing="false" onAction="#handleSchliessen" text="Schließen" />
                     </buttons>
                   </ButtonBar>
                </children>

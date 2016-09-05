@@ -9,6 +9,7 @@ import application.view.adresse.AdressAnpassDialogController;
 import application.view.adresse.AdressUebersichtController;
 import application.view.adresse.AdressZuordnenDialogController;
 import application.view.druck.AdressEtikettenAuswahlController;
+import application.view.gs.GeschenkEinzelUebersichtController;
 import application.view.person.PersonAnpassDialogController;
 import application.view.person.PersonUebersichtController;
 import application.view.root.RootLayoutController;
@@ -286,12 +287,28 @@ public class MainApp extends Application {
 
 	}
 
-	public void showGeschenke() {
-		// TODO Auto-generated method showGeschenke
+	public void showGeschenkeEinzelUebersicht() {
+		try {
+			// Laed Person und Adress Uebersicht.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/gs/GeschenkEinzelUebersicht.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(page);
+
+			// Give the controller access to the main app.
+			GeschenkEinzelUebersichtController controller = loader.getController();
+			controller.setMainApp(this);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		
 	}
 
-	public void showGeschenkUebersicht() {
+	public void showGeschenkGesamtUebersicht() {
 		// TODO Auto-generated method showGeschenkUebersicht
 		
 	}

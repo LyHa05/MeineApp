@@ -1,5 +1,6 @@
 package application.tools;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,17 +8,15 @@ import java.sql.SQLException;
 public class DBConnect {
 
 	private static Connection conn;
+	private static String url;
+	private static String user;
+	private static String pass;
+	private static String driver;
+	private static String database;
 
-	// TODO Dialog für Abfrage der Login-Daten in DB
-	// private static String url = "jdbc:mysql://localhost/company";
-	//
-	// private static String user = "root";
-	//
-	// private static String pass = "root";
-	
-	private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-
-	public static Connection connect() throws SQLException {
+	public static Connection connect() throws SQLException, IOException {
+		
+		DBConfigWerte.anmeldungsDatenUebergen();
 
 		try {
 
@@ -37,13 +36,15 @@ public class DBConnect {
 
 		}
 
-		conn = DriverManager.getConnection("jdbc:sqlserver://localhost;databasename=test4;user=sa;password=start123$");
+//		jdbc:sqlserver://localhost;databasename=test4;user=sa;password=start123$
+
+		conn = DriverManager.getConnection(url + ";databasename=" + database + ";user=" + user + ";password=" + pass);
 
 		return conn;
 
 	}
 
-	public static Connection getConnection() throws SQLException, ClassNotFoundException {
+	public static Connection getConnection() throws SQLException, ClassNotFoundException, IOException {
 
 		if (conn != null && !conn.isClosed())
 
@@ -55,6 +56,41 @@ public class DBConnect {
 
 	}
 	
+	/**
+	 * @param url the url to set
+	 */
+	public static void setUrl(String url) {
+		DBConnect.url = url;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public static void setUser(String user) {
+		DBConnect.user = user;
+	}
+
+	/**
+	 * @param pass the pass to set
+	 */
+	public static void setPass(String pass) {
+		DBConnect.pass = pass;
+	}
+
+	/**
+	 * @param driver the driver to set
+	 */
+	public static void setDriver(String driver) {
+		DBConnect.driver = driver;
+	}
+	
+	/**
+	 * @param database the database to set
+	 */
+	public static void setDatabase(String database) {
+		DBConnect.database = database;
+	}
+
 	public static void close() throws SQLException {
 		if (conn != null && !conn.isClosed())
 			conn.close();
