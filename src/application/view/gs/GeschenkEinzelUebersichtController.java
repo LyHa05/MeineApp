@@ -112,8 +112,8 @@ public class GeschenkEinzelUebersichtController {
                   super.updateItem(item, empty);
                   if (item != null) {
                     setText(item);
-                    if (item.contains(item)) {
-                      setText(item.getVorname1() + " " + item.getName());
+                    if (item.contains(item.toString())) {
+                      setText(item.toString());
                     } //else if (item.contains("Männlich")) {
 //                      setText("Männlich");
 //                    } 

@@ -320,5 +320,10 @@ public class Person {
     public StringProperty eMailAdresse5Property() {
         return eMailAdresse5;
     }
+    
+    // TODO toString in Lists ersetzen
+    public String toString() {
+    	return (getVorname1() + " " + getName());
+    }
 	
 }
