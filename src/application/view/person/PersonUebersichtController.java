@@ -162,9 +162,10 @@ public class PersonUebersichtController {
     /**
      * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Person anzulegen.
      * @throws SQLException 
+     * @throws IOException 
      */
     @FXML
-    public void handleNeu() throws SQLException {
+    public void handleNeu() throws SQLException, IOException {
         Person tempPerson = new Person();
         boolean okClicked = mainApp.showPersonAnpassDialog(tempPerson);
         if (okClicked) {
@@ -176,9 +177,10 @@ public class PersonUebersichtController {
     /**
      * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
      * @throws SQLException 
+     * @throws IOException 
      */
     @FXML
-    public void handleAendern() throws SQLException {
+    public void handleAendern() throws SQLException, IOException {
     	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showPersonAnpassDialog(selectedPerson);
@@ -196,9 +198,10 @@ public class PersonUebersichtController {
     /**
      * Wird aufgerufen, wenn User Loeschen anklickt. Loescht Persondaten.
      * @throws SQLException 
+     * @throws IOException 
      */
     @FXML
-    public void handleLoeschen() throws SQLException {
+    public void handleLoeschen() throws SQLException, IOException {
         //TODO Personauswahl und Indexauswahl zusammenfassen
     	int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
         Person selectedPerson = personTable.getSelectionModel().getSelectedItem();

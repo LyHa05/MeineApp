@@ -1,5 +1,6 @@
 package application.view.adresse;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -73,7 +74,7 @@ public class AdressZuordnenDialogController {
 		
 	}
 		
-	public void showZuordnung() throws SQLException {
+	public void showZuordnung() throws SQLException, IOException {
 		
 		if (flagUebersicht) {
 			
@@ -91,7 +92,7 @@ public class AdressZuordnenDialogController {
 		}
 	}
 
-	private void showAdressen() throws SQLException {
+	private void showAdressen() throws SQLException, IOException {
 		try {
 		// Execute query and store result in a resultset
            ps = DBConnect.connect().prepareStatement(""
@@ -158,7 +159,7 @@ public class AdressZuordnenDialogController {
 					
 	}
 
-	private void showPersonen() throws SQLException {
+	private void showPersonen() throws SQLException, IOException {
 		
 		// loescht Daten im ListView --> pruefen, ob später noch nötig
 		personDaten.removeAll(personDaten);
@@ -290,7 +291,7 @@ public class AdressZuordnenDialogController {
 		}
 	}
 
-	public void handleZuordnen() throws SQLException {
+	public void handleZuordnen() throws SQLException, IOException {
         if (isInputValid()) {
 //            okClicked = true;
         	

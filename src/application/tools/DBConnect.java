@@ -8,15 +8,16 @@ import java.sql.SQLException;
 public class DBConnect {
 
 	private static Connection conn;
-	private static String url;
+	private static String url = "jdbc:oracle:thin:@ora14.informatik.haw-hamburg.de:1521:inf14";
 	private static String user;
 	private static String pass;
-	private static String driver;
-	private static String database;
+	private static String driver = "oracle.jdbc.driver.OracleDriver";
+//	private static String database;
+
 
 	public static Connection connect() throws SQLException, IOException {
 		
-		DBConfigWerte.anmeldungsDatenUebergen();
+//		DBConfigWerte.anmeldungsDatenUebergen();
 
 		try {
 
@@ -38,7 +39,11 @@ public class DBConnect {
 
 //		jdbc:sqlserver://localhost;databasename=test4;user=sa;password=start123$
 
-		conn = DriverManager.getConnection(url + ";databasename=" + database + ";user=" + user + ";password=" + pass);
+		// MS SQL
+//		conn = DriverManager.getConnection(url + ";databasename=" + database + ";user=" + user + ";password=" + pass);
+		// Oracle SQL
+		conn = DriverManager.getConnection(url, "", "");
+//		conn = DriverManager.getConnection("jdbc:oracle:thin:@ora14.informatik.haw-hamburg.de:1521:inf14", "", "");
 
 		return conn;
 
@@ -84,12 +89,12 @@ public class DBConnect {
 		DBConnect.driver = driver;
 	}
 	
-	/**
-	 * @param database the database to set
-	 */
-	public static void setDatabase(String database) {
-		DBConnect.database = database;
-	}
+//	/**
+//	 * @param database the database to set
+//	 */
+//	public static void setDatabase(String database) {
+//		DBConnect.database = database;
+//	}
 
 	public static void close() throws SQLException {
 		if (conn != null && !conn.isClosed())

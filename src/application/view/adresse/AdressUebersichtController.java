@@ -1,5 +1,6 @@
 package application.view.adresse;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,9 +89,10 @@ public class AdressUebersichtController {
 	 * after the fxml file has been loaded.
 	 * 
 	 * @throws SQLException
+	 * @throws IOException 
 	 */
 	@FXML
-	private void initialize() throws SQLException {
+	private void initialize() throws SQLException, IOException {
 		// Clear person List.
 		showWohnendePersonen(null);
 
@@ -99,7 +101,7 @@ public class AdressUebersichtController {
 		adressTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			try {
 				showWohnendePersonen(newValue);
-			} catch (SQLException e) {
+			} catch (SQLException | IOException e) {
 				System.err.println("Error" + e);
 			}
 		});
@@ -136,8 +138,9 @@ public class AdressUebersichtController {
 	 * @param adressTable
 	 *            the adressTable to set
 	 * @throws SQLException
+	 * @throws IOException 
 	 */
-	public void setAdressTable(Person sp) throws SQLException {
+	public void setAdressTable(Person sp) throws SQLException, IOException {
 		try {
 			if (flagUebersicht) {
 				// Execute query and store result in a resultset
@@ -189,7 +192,7 @@ public class AdressUebersichtController {
 
 	}
 
-	private void showWohnendePersonen(Adresse selektierteAdresse) throws SQLException {
+	private void showWohnendePersonen(Adresse selektierteAdresse) throws SQLException, IOException {
 		
 		// loescht Daten im ListView
 			personDaten.removeAll(personDaten);
@@ -278,9 +281,10 @@ public class AdressUebersichtController {
     /**
 	 * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
 	 * @throws SQLException 
+     * @throws IOException 
 	 */
 	@FXML
-	public void handleAendern() throws SQLException {
+	public void handleAendern() throws SQLException, IOException {
 		Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
 	    if (selectedAdresse != null) {
 	        boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, selectedAdresse);
@@ -298,9 +302,10 @@ public class AdressUebersichtController {
 	/**
      * Wird aufgerufen, wenn User Loeschen anklickt. Loescht Persondaten.
      * @throws SQLException 
+	 * @throws IOException 
      */
     @FXML
-    public void handleLoeschen() throws SQLException {
+    public void handleLoeschen() throws SQLException, IOException {
         //TODO Adressauswahl und Indexauswahl zusammenfassen
     	int selectedIndex = adressTable.getSelectionModel().getSelectedIndex();
         Adresse selectedAdresse = adressTable.getSelectionModel().getSelectedItem();
@@ -319,9 +324,10 @@ public class AdressUebersichtController {
     /**
      * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Adresse anzulegen.
      * @throws SQLException 
+     * @throws IOException 
      */
     @FXML
-    public void handleZuordnen() throws SQLException {
+    public void handleZuordnen() throws SQLException, IOException {
     	// Aufruf von Personstammdaten
     	if (flagUebersicht) {
     		Adresse tempAdresse = new Adresse();
@@ -352,9 +358,10 @@ public class AdressUebersichtController {
     /**
      * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Adresse anzulegen.
      * @throws SQLException 
+     * @throws IOException 
      */
     @FXML
-    public void handleNeu() throws SQLException {
+    public void handleNeu() throws SQLException, IOException {
         Adresse tempAdresse = new Adresse();
         boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, tempAdresse);
         if (okClicked && flagUebersicht) {

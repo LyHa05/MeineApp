@@ -59,9 +59,10 @@ public class AdressEtikettenAuswahlController {
 	 * after the fxml file has been loaded.
 	 * 
 	 * @throws SQLException
+	 * @throws IOException 
 	 */
 	@FXML
-	private void initialize() throws SQLException {
+	private void initialize() throws SQLException, IOException {
 	
         try {    	
             // Execute query and store result in a resultset

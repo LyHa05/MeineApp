@@ -1,5 +1,6 @@
 package application.model.adresse;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,12 +21,12 @@ public class AdressDB {
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 
-	public static void erstelleAdresseFuerPerson(Adresse a, Person p) throws SQLException {
+	public static void erstelleAdresseFuerPerson(Adresse a, Person p) throws SQLException, IOException {
 		try {
 			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (AdressID, Strasse"
 					+ ", Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
-					+ "VALUES(NEXT VALUE FOR AdressIDSequence,?,?,?,?,?,?) "
-					+ "INSERT INTO WohnhaftIn VALUES(?,(SELECT MAX(AdressID) From Adresse))");
+					+ "VALUES(AdressIDSequence.NEXTVAL,?,?,?,?,?,?); "
+					+ "INSERT INTO WohnhaftIn VALUES(?,(SELECT MAX(AdressID) From Adresse),0);");
 			ps.setString(1, a.getStrasse());
 			ps.setString(2, a.getZusatz());
 			ps.setString(3, a.getPlz());
@@ -47,11 +48,11 @@ public class AdressDB {
         }
 	}
 
-	public static void erstelleAdresse(Adresse a) throws SQLException {
+	public static void erstelleAdresse(Adresse a) throws SQLException, IOException {
 		try {
 			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (AdressID, Strasse"
 					+ ", Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
-					+ "VALUES(NEXT VALUE FOR AdressIDSequence,?,?,?,?,?,?)");
+					+ "VALUES(AdressIDSequence.NEXTVAL,?,?,?,?,?,?);");
 			ps.setString(1, a.getStrasse());
 			ps.setString(2, a.getZusatz());
 			ps.setString(3, a.getPlz());
@@ -73,7 +74,7 @@ public class AdressDB {
 		
 	}
 
-	public static void aendereAdresse(Adresse a) throws SQLException {
+	public static void aendereAdresse(Adresse a) throws SQLException, IOException {
 		try {
 			ps = DBConnect.connect().prepareStatement("UPDATE Adresse SET "
 					+ "Strasse = ? "
@@ -106,10 +107,10 @@ public class AdressDB {
 		
 	}
 
-	public static void zuordnenAdresse(Adresse a, Person p) throws SQLException {
+	public static void zuordnenAdresse(Adresse a, Person p) throws SQLException, IOException {
 		try {
 			ps = DBConnect.connect().prepareStatement(""
-					+ "INSERT INTO WohnhaftIn VALUES(?,?)");
+					+ "INSERT INTO WohnhaftIn VALUES(?,?,0)");
 			ps.setInt(1, p.getPersonID());
 			ps.setInt(2, a.getAdressID());
 			ps.executeUpdate();
@@ -127,7 +128,7 @@ public class AdressDB {
 				
 	}
 
-	public static void loescheAdresseFuerPerson(Adresse a, Person p) throws SQLException {
+	public static void loescheAdresseFuerPerson(Adresse a, Person p) throws SQLException, IOException {
 		try {
 			// Pruefen, inwieweit andere Personen zur Adresse eine Referenz besitzen
 			ArrayList<Integer> personIDErgebnisse = new ArrayList<Integer>();
@@ -188,7 +189,7 @@ public class AdressDB {
 		
 	}
 
-	public static void loescheAdresse(Adresse a) throws SQLException {
+	public static void loescheAdresse(Adresse a) throws SQLException, IOException {
 		try {
 			
 			

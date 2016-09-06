@@ -58,11 +58,11 @@ public class DBConfigWerte {
 		
 		dateiLesen();
 		
-		DBConnect.setUrl(getValue("url"));
-		DBConnect.setDriver(getValue("driver"));
+//		DBConnect.setUrl(getValue("url"));
+//		DBConnect.setDriver(getValue("driver"));
 		DBConnect.setPass(getValue("passwort"));
 		DBConnect.setUser(getValue("userName"));
-		DBConnect.setDatabase(getValue("database"));
+//		DBConnect.setDatabase(getValue("database"));
 	}
 
 }
