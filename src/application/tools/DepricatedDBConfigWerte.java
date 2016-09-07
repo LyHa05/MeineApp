@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-public class DBConfigWerte {
+public class DepricatedDBConfigWerte {
 	
 	private static Path dateiPfad;
 	private static List<String> geleseneZeilen;

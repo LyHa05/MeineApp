@@ -1,19 +1,19 @@
 USE test4
 
 INSERT INTO Person (PersonID, Name, Vorname1, Geschlecht, Geburtsdatum, HandyNr1, EMailAdresse1)
-	VALUES (NEXT VALUE FOR PersonIDSequence, 'Meier', 'Karl', 'Männlich', '1988-10-30', '0123456', '123@web.de');
+	VALUES (PersonIDSequence.NEXTVAL, 'Meier', 'Karl', 'Männlich', '1988-10-30', '0123456', '123@web.de');
 GO
 
 INSERT INTO Person (PersonID, Name, Vorname1, Geschlecht, Geburtsdatum)
-	VALUES (NEXT VALUE FOR PersonIDSequence, 'Meier', 'Karla', 'Weiblich', '1990-07-14');
+	VALUES (PersonIDSequence.NEXTVAL, 'Meier', 'Karla', 'Weiblich', '1990-07-14');
 GO
 
 INSERT INTO Adresse
-	VALUES (NEXT VALUE FOR AdressIDSequence, 'Unter der Brücke 14', NULL, '12345', 'Berlin', 'D', NULL)
+	VALUES (AdressIDSequence.NEXTVAL, 'Unter der Brücke 14', NULL, '12345', 'Berlin', 'D', NULL)
 GO
 
 INSERT INTO Adresse
-	VALUES (NEXT VALUE FOR AdressIDSequence, 'Auf der Bank 1', NULL, '12355', 'Berlin', 'D', NULL)
+	VALUES (AdressIDSequence.NEXTVAL, 'Auf der Bank 1', NULL, '12355', 'Berlin', 'D', NULL)
 GO
 
 INSERT INTO WohnhaftIn
@@ -29,11 +29,11 @@ INSERT INTO WohnhaftIn
 GO
 
 INSERT INTO G
-	VALUES(NEXT VALUE FOR GIDSequence, 2016, 'G', NULL, 15, '1000')
+	VALUES(GIDSequence.NEXTVAL, 2016, 'G', NULL, 15, '1000')
 GO
 
 INSERT INTO GB
-	VALUES(NEXT VALUE FOR GBIDSequence
+	VALUES(GBIDSequence.NEXTVAL
 			,'Bl'
 			,NULL
 			,'GEB'
@@ -42,7 +42,7 @@ INSERT INTO GB
 GO
 
 INSERT INTO GB
-	VALUES(NEXT VALUE FOR GBIDSequence	
+	VALUES(GBIDSequence.NEXTVAL
 		,'Test-P2'
 		,NULL
 		,'GEK'
@@ -51,7 +51,7 @@ INSERT INTO GB
 GO
 
 INSERT INTO GB
-	VALUES(NEXT VALUE FOR GBIDSequence	
+	VALUES(GBIDSequence.NEXTVAL
 		,'Test-P'
 		,NULL
 		,'GEK'
@@ -60,11 +60,11 @@ INSERT INTO GB
 GO
 
 INSERT INTO G
-	VALUES(NEXT VALUE FOR GIDSequence, 2015, 'G', NULL, 20, '1000')
+	VALUES(GIDSequence.NEXTVAL, 2015, 'G', NULL, 20, '1000')
 GO
 
 INSERT INTO GB
-	VALUES(NEXT VALUE FOR GBIDSequence
+	VALUES(GBIDSequence.NEXTVAL
 			,'Ba'
 			,NULL
 			,'GEK'
@@ -73,7 +73,7 @@ INSERT INTO GB
 GO
 
 INSERT INTO GB
-	VALUES(NEXT VALUE FOR GBIDSequence	
+	VALUES(GBIDSequence.NEXTVAL
 		,'Test-P2'
 		,NULL
 		,'GEK'

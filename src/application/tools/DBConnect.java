@@ -15,10 +15,8 @@ public class DBConnect {
 //	private static String database;
 
 
-	public static Connection connect() throws SQLException, IOException {
+	public static Connection connect() throws SQLException {
 		
-//		DBConfigWerte.anmeldungsDatenUebergen();
-
 		try {
 
 			Class.forName(driver).newInstance();
@@ -37,14 +35,15 @@ public class DBConnect {
 
 		}
 
-//		jdbc:sqlserver://localhost;databasename=test4;user=sa;password=start123$
-
 		// MS SQL
 //		conn = DriverManager.getConnection(url + ";databasename=" + database + ";user=" + user + ";password=" + pass);
+//		jdbc:sqlserver://localhost;databasename=test4;user=sa;password=start123$
+		
 		// Oracle SQL
-		conn = DriverManager.getConnection(url, "", "");
-//		conn = DriverManager.getConnection("jdbc:oracle:thin:@ora14.informatik.haw-hamburg.de:1521:inf14", "", "");
+		conn = DriverManager.getConnection(url, user, pass);
 
+		System.out.println("Verbindung hergestellt.");
+		
 		return conn;
 
 	}

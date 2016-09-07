@@ -1,5 +1,6 @@
 package application.view.gs;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -67,9 +68,10 @@ public class GeschenkEinzelUebersichtController {
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      * @throws SQLException 
+     * @throws IOException 
      */
     @FXML
-    private void initialize() throws SQLException {
+    private void initialize() throws SQLException, IOException {
     	// TODO ComboBox laden (TableView wird erst nach Auswahl geladen)
     	
     	 try {    	
@@ -106,15 +108,15 @@ public class GeschenkEinzelUebersichtController {
     	personComboBox.setItems(personComboBoxDaten);
     	// Define rendering of the list of values in ComboBox drop down. 
     	personComboBox.setCellFactory((comboBox) -> {
-    	    return new ListCell<String>() {
+    	    return new ListCell<Person>() {
                 @Override
-                public void updateItem(Person item, boolean empty) {
-                  super.updateItem(item, empty);
-                  if (item != null) {
-                    setText(item);
-                    if (item.contains(item.toString())) {
-                      setText(item.toString());
-                    } //else if (item.contains("Männlich")) {
+                public void updateItem(Person person, boolean empty) {
+                  super.updateItem(person, empty);
+                  if (person != null) {
+                    setText(person.toString());
+//                    if (person.contains(person.toString())) {
+//                      setText(person.toString());
+//                    }else if (item.contains("Männlich")) {
 //                      setText("Männlich");
 //                    } 
                   } else {

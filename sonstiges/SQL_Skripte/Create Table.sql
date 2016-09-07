@@ -2,13 +2,13 @@ USE test4
 
 DROP TABLE WohnhaftIn;
 DROP TABLE Adresse;
-DROP TABLE GB;
-DROP TABLE G;
+DROP TABLE GeschenkBestandteil;
+DROP TABLE Geschenk;
 DROP TABLE Person;
 DROP SEQUENCE PersonIDSequence;
 DROP SEQUENCE AdressIDSequence;
-DROP SEQUENCE GIDSequence;
-DROP SEQUENCE GBIDSequence;
+DROP SEQUENCE GeschenkIDSequence;
+DROP SEQUENCE GeschenkBestandteilIDSequence;
 DROP VIEW PersonUebersicht;
 DROP VIEW GUebersicht;
 
@@ -42,7 +42,7 @@ CREATE TABLE WohnhaftIn
 	(PersonID INTEGER REFERENCES Person(PersonID)
 	,AdressID INTEGER REFERENCES Adresse(AdressID)
 	,PRIMARY KEY(PersonID, AdressID)
-	Hauptadresse Integer); -- Hauptadresse 1, Nebenadresse 0
+	,Hauptadresse INTEGER); -- Hauptadresse 1, Nebenadresse 0
 
 CREATE TABLE G
 	(GID INTEGER PRIMARY KEY

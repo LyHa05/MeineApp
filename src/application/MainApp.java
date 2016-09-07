@@ -14,14 +14,18 @@ import application.view.person.PersonAnpassDialogController;
 import application.view.person.PersonUebersichtController;
 import application.view.root.RootLayoutController;
 import application.view.root.StartSeiteController;
+import application.view.tools.DBAnmeldungController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class MainApp extends Application {
 
@@ -30,6 +34,7 @@ public class MainApp extends Application {
 	 */
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private Window dialogStage;
 
 	// Referenz zur Datenbankverbindnung.
 	// private DBConnect dbc;
@@ -104,9 +109,52 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			StartSeiteController controller = loader.getController();
 			controller.setMainApp(this);
+			
+			while (!showDBAnmeldung()) {
+	            // Show the error message.
+	            Alert alert = new Alert(AlertType.ERROR);
+	            alert.initOwner(dialogStage);
+	            alert.setTitle("Fehler bei Anmeldung");
+	            alert.setHeaderText("Bitte geben Sie die Daten erneut ein.");
+	            alert.setContentText("Fehler!");
+
+	            alert.showAndWait();
+	            
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+	}
+	
+	public boolean showDBAnmeldung() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/tools/DBAnmeldung.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Datenbank Anmeldung");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			DBAnmeldungController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApp(this);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 
 	}
