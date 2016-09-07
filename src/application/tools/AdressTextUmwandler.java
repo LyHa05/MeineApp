@@ -14,8 +14,6 @@ public class AdressTextUmwandler {
 	private static FileWriter fw;
 	private static File file;
 	
-	// TODO DirectoryChooser integrieren und File umwandlen
-	
 	public static void dateiErstellen() throws IOException {
 		
 //		File f = new File(MeinDirectoryChooser.chooseDirectory());
