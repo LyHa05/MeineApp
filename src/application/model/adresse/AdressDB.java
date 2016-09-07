@@ -26,7 +26,7 @@ public class AdressDB {
 			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (AdressID, Strasse"
 					+ ", Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
 					+ "VALUES(AdressIDSequence.NEXTVAL,?,?,?,?,?,?); "
-					+ "INSERT INTO WohnhaftIn VALUES(?,(SELECT MAX(AdressID) From Adresse),0);");
+					+ "INSERT INTO WohnhaftIn VALUES(?,(SELECT MAX(AdressID) From Adresse),0)");
 			ps.setString(1, a.getStrasse());
 			ps.setString(2, a.getZusatz());
 			ps.setString(3, a.getPlz());
@@ -50,9 +50,8 @@ public class AdressDB {
 
 	public static void erstelleAdresse(Adresse a) throws SQLException, IOException {
 		try {
-			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (AdressID, Strasse"
-					+ ", Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
-					+ "VALUES(AdressIDSequence.NEXTVAL,?,?,?,?,?,?);");
+			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (AdressID, Strasse, Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
+					+ "VALUES(AdressIDSequence.NEXTVAL,?,?,?,?,?,?)");
 			ps.setString(1, a.getStrasse());
 			ps.setString(2, a.getZusatz());
 			ps.setString(3, a.getPlz());
