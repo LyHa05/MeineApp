@@ -53,7 +53,6 @@ public class DBAnmeldungController {
     	}
     }
     
-    // TODO komplettes Programm beenden und schlieﬂen
     /**
      * Called when the user clicks cancel.
      */

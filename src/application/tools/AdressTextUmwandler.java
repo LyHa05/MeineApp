@@ -12,16 +12,15 @@ public class AdressTextUmwandler {
 	
 	private static BufferedWriter bw;
 	private static FileWriter fw;
+	private static File file;
 	
-	// TODO AdressTextUmwandler
-	// neue Datei erzeugen
-	// Text entsprechend Word Vorgabe in *.txt Datei schreiben
-	// Datei speichern und schlieﬂen
+	// TODO DirectoryChooser integrieren und File umwandlen
 	
 	public static void dateiErstellen() throws IOException {
+		
 //		File f = new File(MeinDirectoryChooser.chooseDirectory());
-//		fw = new FileWriter(f + "DatenAdressEtiketten.txt");
-		fw = new FileWriter("DatenAdressEtiketten.txt");
+		fw = new FileWriter(file.getAbsolutePath() +  "/" + "DatenAdressEtiketten.txt");
+//		fw = new FileWriter("DatenAdressEtiketten.txt");
 		bw = new BufferedWriter(fw);
 	}
 	
@@ -44,5 +43,14 @@ public class AdressTextUmwandler {
 		
 		bw.close();
 	}
+
+	/**
+	 * @param file the file to set
+	 */
+	public static void setFile(File file) {
+		AdressTextUmwandler.file = file;
+	}
+	
+	
 
 }
