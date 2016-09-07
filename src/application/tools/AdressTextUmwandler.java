@@ -13,7 +13,7 @@ public class AdressTextUmwandler {
 	private static BufferedWriter bw;
 	private static FileWriter fw;
 	private static File file;
-	
+		
 	public static void dateiErstellen() throws IOException {
 		
 //		File f = new File(MeinDirectoryChooser.chooseDirectory());
@@ -25,6 +25,19 @@ public class AdressTextUmwandler {
 	public static void dateiSchreiben(ArrayList<WohnhaftIn> datenAuswahl) throws IOException {
 		bw.append("1.Zeile; 2.Zeile; 3.Zeile");
 		bw.newLine();
+		
+		ArrayList<WohnhaftIn> druckDatenAuswahl = new ArrayList<>();
+		
+		for(WohnhaftIn wi1 : druckDatenAuswahl) {
+			for(WohnhaftIn wi2 : druckDatenAuswahl) {
+				if((new Integer(wi1.getObjAdresse().getAdressID())).equals(new Integer(wi2.getObjAdresse().getAdressID()))
+						&&
+						(!(new Integer(wi1.getObjPerson().getPersonID())).equals(new Integer(wi2.getObjAdresse().getAdressID())))) {
+					
+				}
+		
+			}
+		}
 		
 		for(WohnhaftIn wi : datenAuswahl) {
 			bw.append(wi.getObjPerson().getVorname1());

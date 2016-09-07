@@ -164,6 +164,83 @@ public class Adresse {
 	public void setFestnetzNr(String festnetzNr) {
 		this.festnetzNr.set(festnetzNr);
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((adressID == null) ? 0 : adressID.hashCode());
+		result = prime * result + ((land == null) ? 0 : land.hashCode());
+		result = prime * result + ((ort == null) ? 0 : ort.hashCode());
+		result = prime * result + ((plz == null) ? 0 : plz.hashCode());
+		result = prime * result + ((strasse == null) ? 0 : strasse.hashCode());
+		result = prime * result + ((zusatz == null) ? 0 : zusatz.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Adresse other = (Adresse) obj;
+		if (adressID == null) {
+			if (other.adressID != null) {
+				return false;
+			}
+		} else if (!adressID.equals(other.adressID)) {
+			return false;
+		}
+		if (land == null) {
+			if (other.land != null) {
+				return false;
+			}
+		} else if (!land.equals(other.land)) {
+			return false;
+		}
+		if (ort == null) {
+			if (other.ort != null) {
+				return false;
+			}
+		} else if (!ort.equals(other.ort)) {
+			return false;
+		}
+		if (plz == null) {
+			if (other.plz != null) {
+				return false;
+			}
+		} else if (!plz.equals(other.plz)) {
+			return false;
+		}
+		if (strasse == null) {
+			if (other.strasse != null) {
+				return false;
+			}
+		} else if (!strasse.equals(other.strasse)) {
+			return false;
+		}
+		if (zusatz == null) {
+			if (other.zusatz != null) {
+				return false;
+			}
+		} else if (!zusatz.equals(other.zusatz)) {
+			return false;
+		}
+		return true;
+	}
+
 	
 	
 }
