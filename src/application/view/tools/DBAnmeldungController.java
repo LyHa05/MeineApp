@@ -59,7 +59,8 @@ public class DBAnmeldungController {
      */
     @FXML
     private void handleSchliessen() {
-        dialogStage.close();
+    	okClicked = true;
+    	dialogStage.close();
         mainApp.getPrimaryStage().close();
     }
 	
