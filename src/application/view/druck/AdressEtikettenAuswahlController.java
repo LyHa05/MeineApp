@@ -237,6 +237,7 @@ public class AdressEtikettenAuswahlController {
         	selectedDaten.addAll(personAdressAuswahlDaten);
         	System.out.println(selectedDaten);
             
+        	mainApp.showDirectoryChooser();
         	AdressTextUmwandler.dateiErstellen();
         	AdressTextUmwandler.dateiSchreiben(selectedDaten);
         	mainApp.showStartSeite();

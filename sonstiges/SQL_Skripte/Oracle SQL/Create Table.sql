@@ -9,7 +9,7 @@ DROP VIEW PersonUebersicht;
 DROP VIEW GeschenkUebersicht;
 
 CREATE TABLE Person
-	(PersonID INTEGER PRIMARY KEY IDENTITY(1,1000) NOT NULL
+	(PersonID INTEGER PRIMARY KEY GENERATED AS IDENTITY(1,1) NOT NULL
 	,Name VARCHAR(50) NOT NULL
 	,Vorname1 VARCHAR(20) NOT NULL
 	,Vorname2 VARCHAR(20)
@@ -24,7 +24,7 @@ CREATE TABLE Person
 	,EMailAdresse5 VARCHAR(50));
 
 CREATE TABLE Adresse
-	(AdressID INTEGER PRIMARY KEY IDENTITY(1,2000) NOT NULL
+	(AdressID INTEGER PRIMARY KEY GENERATED AS IDENTITY(1,1) NOT NULL
 	,Strasse VARCHAR(50)
 	,Zusatz VARCHAR(50)
 	,PLZ VARCHAR(24)
@@ -40,7 +40,7 @@ CREATE TABLE WohnhaftIn
 	,Hauptadresse INTEGER); -- Hauptadresse 1, Nebenadresse 0
 
 CREATE TABLE Geschenk
-	(GeschenkID INTEGER PRIMARY KEY IDENTITY(1,3000) NOT NULL
+	(GeschenkID INTEGER PRIMARY KEY GENERATED AS IDENTITY(1,1) NOT NULL
 	,Jahr INTEGER
 	,Anlass VARCHAR(50)
 	,Memo VARCHAR
@@ -48,12 +48,14 @@ CREATE TABLE Geschenk
 	,Erhaelt INTEGER REFERENCES Person(PersonID));
 
 CREATE TABLE GeschenkBestandteil
-	(GeschenkBestandteilID INTEGER PRIMARY KEY IDENTITY(1,4000) NOT NULL
+	(GeschenkBestandteilID INTEGER PRIMARY KEY GENERATED AS IDENTITY(1,1) NOT NULL
 	,Beschreibung VARCHAR(100)
 	,Memo VARCHAR(255)
 	,Kategorie VARCHAR(50)
 	,Bestandteil VARCHAR(50)
-	,BestandteilVon INTEGER REFERENCES Geschenk(GeschenkID);
+	,BestandteilVon INTEGER REFERENCES Geschenk(GeschenkID))
+GO
+
 
 CREATE VIEW PersonUebersicht AS
 	SELECT Person.Name
@@ -69,7 +71,7 @@ CREATE VIEW PersonUebersicht AS
 	JOIN Adresse ON WohnhaftIn.AdressID = Adresse.AdressID
 GO
 
-CREATE VIEW GUebersicht AS
+CREATE VIEW GeschenkUebersicht AS
 	SELECT Person.Name
 		,Person.Vorname1 AS Vorname
 		,Geschenk.Jahr

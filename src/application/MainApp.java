@@ -366,7 +366,7 @@ public class MainApp extends Application {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/tools/DirectoyChooser.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/tools/DirectoryChooser.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.

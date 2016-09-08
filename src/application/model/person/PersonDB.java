@@ -17,9 +17,13 @@ public class PersonDB {
 	
     public static void erstellePerson(Person p) throws SQLException, IOException {
     	
-    	try {ps = DBConnect.connect().prepareStatement("INSERT INTO Person (PersonID, Name,"
+    	try {
+    		// AutoCommit ausgestellt
+    		DBConnect.connect().setAutoCommit(false);
+    		
+    		ps = DBConnect.connect().prepareStatement("INSERT INTO Person (Name,"
         	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, EMailAdresse1) "
-        	 		+ "VALUES(PersonIDSequence.NEXTVAL,?,?,?,?,?,?,?)");
+        	 		+ "VALUES(?,?,?,?,?,?,?)");
         	 ps.setString(1, p.getName());
         	 ps.setString(2, p.getVorname1());
         	 ps.setString(3, p.getVorname2());
@@ -29,11 +33,17 @@ public class PersonDB {
         	 ps.setString(7, p.geteMailAdresse1());
         	 ps.executeUpdate();
         	 
+        	 // Aenderungen commited
+        	 DBConnect.connect().commit();
+        	 
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
 //            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
 //                    ex);
         	System.err.println("Error" + e);
+        	
+        	// alle Aenderungen zurueckgerollt
+        	DBConnect.connect().rollback();
         	
         } finally {
         	if (ps != null) ps.close();
@@ -44,7 +54,11 @@ public class PersonDB {
 //    public static void aenderePerson(Connection verbindung, Person p) throws SQLException {
 	public static void aenderePerson(Person p) throws SQLException, IOException {
     	
-    	try {ps = DBConnect.connect().prepareStatement("UPDATE Person SET "
+    	try {
+    		// AutoCommit ausgestellt
+    		DBConnect.connect().setAutoCommit(false);
+    		
+    		ps = DBConnect.connect().prepareStatement("UPDATE Person SET "
     			+ "Name = ?,"
     			+ "Vorname1 = ?,"
     			+ "Vorname2 = ?,"
@@ -64,11 +78,18 @@ public class PersonDB {
         	 ps.setInt(8, p.getPersonID());
         	 ps.executeUpdate();
         	 
+        	 // Aenderungen commited
+        	 DBConnect.connect().commit();
+        	 
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
 //            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
 //                    ex);
         	System.err.println("Error" + e);
+        	
+        	// alle Aenderungen zurueckgerollt
+        	DBConnect.connect().rollback();
+        	
         } finally {
         	if (ps != null) ps.close();
             DBConnect.close();
@@ -76,17 +97,28 @@ public class PersonDB {
 	}
 
 	public static void loeschePerson(Person p) throws SQLException, IOException {
-		try {ps = DBConnect.connect().prepareStatement("DELETE FROM Person "
+		try {
+    		// AutoCommit ausgestellt
+    		DBConnect.connect().setAutoCommit(false);
+    		
+			ps = DBConnect.connect().prepareStatement("DELETE FROM Person "
     			+ "WHERE PersonID = ?");
       
         	 ps.setInt(1, p.getPersonID());
         	 ps.executeUpdate();
+        	 
+        	 // Aenderungen commited
+        	 DBConnect.connect().commit();
         	 
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
 //            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
 //                    ex);
         	System.err.println("Error" + e);
+        	
+        	// alle Aenderungen zurueckgerollt
+        	DBConnect.connect().rollback();
+        	
         } finally {
         	if (ps != null) ps.close();
             DBConnect.close();
