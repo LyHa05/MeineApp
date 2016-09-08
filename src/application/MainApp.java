@@ -81,6 +81,18 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 
 			primaryStage.show();
+			
+			while (!showDBAnmeldung()) {
+	            // Show the error message.
+	            Alert alert = new Alert(AlertType.ERROR);
+	            alert.initOwner(dialogStage);
+	            alert.setTitle("Fehler bei Anmeldung");
+	            alert.setHeaderText("Bitte geben Sie die Daten erneut ein.");
+	            alert.setContentText("Fehler!");
+
+	            alert.showAndWait();
+	            
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -111,18 +123,6 @@ public class MainApp extends Application {
 			StartSeiteController controller = loader.getController();
 			controller.setMainApp(this);
 			
-			while (!showDBAnmeldung()) {
-	            // Show the error message.
-	            Alert alert = new Alert(AlertType.ERROR);
-	            alert.initOwner(dialogStage);
-	            alert.setTitle("Fehler bei Anmeldung");
-	            alert.setHeaderText("Bitte geben Sie die Daten erneut ein.");
-	            alert.setContentText("Fehler!");
-
-	            alert.showAndWait();
-	            
-			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

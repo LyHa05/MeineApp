@@ -8,10 +8,10 @@ import java.sql.SQLException;
 public class DBConnect {
 
 	private static Connection conn;
-	private static String url = "jdbc:oracle:thin:@ora14.informatik.haw-hamburg.de:1521:inf14";
+	private static String url;
 	private static String user;
 	private static String pass;
-	private static String driver = "oracle.jdbc.driver.OracleDriver";
+	private static String driver;
 //	private static String database;
 
 
