@@ -35,13 +35,20 @@ public class AdressTextUmwandler {
 				if((new Integer(wi1.getObjAdresse().getAdressID())).equals(new Integer(wi2.getObjAdresse().getAdressID()))
 						&&
 						(!(new Integer(wi1.getObjPerson().getPersonID())).equals(new Integer(wi2.getObjAdresse().getAdressID())))) {
-					
+					if (!druckDatenAuswahlDoppel.contains(wi1)) {druckDatenAuswahlDoppel.add(wi1);}
+					if (!druckDatenAuswahlDoppel.contains(wi2)) {druckDatenAuswahlDoppel.add(wi2);}
 				}
-		
 			}
 		}
 		
-		for(WohnhaftIn wi : datenAuswahl) {
+		druckDatenAuswahlEinzel.addAll(datenAuswahl);
+		druckDatenAuswahlEinzel.removeAll(druckDatenAuswahlDoppel);
+		
+		System.out.println("druckDatenAuswahlEinzel: " + druckDatenAuswahlEinzel);
+		System.out.println("druckDatenAuswahlDoppel: " + druckDatenAuswahlDoppel);
+		
+		
+		for(WohnhaftIn wi : druckDatenAuswahlEinzel) {
 			bw.append(wi.getObjPerson().getVorname1());
 			bw.append(" ");
 			bw.append(wi.getObjPerson().getName());
