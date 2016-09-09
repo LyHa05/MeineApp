@@ -10,8 +10,8 @@ DROP VIEW GeschenkUebersicht;
 
 CREATE TABLE Person
 	(PersonID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
-	,Name VARCHAR(50) NOT NULL
-	,Vorname1 VARCHAR(20) NOT NULL
+	,Name VARCHAR(50) 
+	,Vorname1 VARCHAR(20)
 	,Vorname2 VARCHAR(20)
 	,Geschlecht VARCHAR(20)
 	,Geburtsdatum DATE

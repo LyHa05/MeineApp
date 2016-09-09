@@ -158,9 +158,10 @@ public class PersonAnpassDialogController {
         if (geschlComboBox.getValue() != "Männlich" && geschlComboBox.getValue() != "Weiblich") {
             errorMessage += "Kein Geschlecht angegeben!\n"; 
         } 
-        if ((gDatumField.getText() != null || gDatumField.getText().length() != 0) && (!DateUtil.validDate(gDatumField.getText()))) {
-            errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
-        }
+        // Auskommentiert, da nicht von allen Personen Geburtsdatum bekannt ist
+//        if ((gDatumField.getText() != null || gDatumField.getText().length() != 0) && (!DateUtil.validDate(gDatumField.getText()))) {
+//            errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
+//        }
         if (errorMessage.length() == 0) {
             return true;
         } else {

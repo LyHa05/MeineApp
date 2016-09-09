@@ -15,12 +15,14 @@ public class PersonDB {
 
     private static PreparedStatement ps;
 	
+    
+    // TODO Person ohne Geburtsdatum ermöglichen!!!
     public static void erstellePerson(Person p) throws SQLException, IOException {
     	
-    	try {
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-    		
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+    	
+    	try {	
     		ps = DBConnect.connect().prepareStatement("INSERT INTO Person (Name,"
         	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, EMailAdresse1) "
         	 		+ "VALUES(?,?,?,?,?,?,?)");
@@ -51,13 +53,12 @@ public class PersonDB {
         }
     }
 
-//    public static void aenderePerson(Connection verbindung, Person p) throws SQLException {
 	public static void aenderePerson(Person p) throws SQLException, IOException {
     	
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+		
     	try {
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-    		
     		ps = DBConnect.connect().prepareStatement("UPDATE Person SET "
     			+ "Name = ?,"
     			+ "Vorname1 = ?,"
@@ -97,11 +98,12 @@ public class PersonDB {
 	}
 
 	public static void loeschePerson(Person p) throws SQLException, IOException {
+		
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+		
 		try {
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-    		
-			ps = DBConnect.connect().prepareStatement("DELETE FROM Person "
+    		ps = DBConnect.connect().prepareStatement("DELETE FROM Person "
     			+ "WHERE PersonID = ?");
       
         	 ps.setInt(1, p.getPersonID());

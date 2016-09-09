@@ -22,10 +22,11 @@ public class AdressDB {
 	private static ResultSet rs;
 
 	public static void erstelleAdresseFuerPerson(Adresse a, Person p) throws SQLException, IOException {
+		
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+		
 		try {
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-			
 			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (Strasse"
 					+ ", Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
 					+ "VALUES(?,?,?,?,?,?)");
@@ -63,10 +64,11 @@ public class AdressDB {
 	}
 
 	public static void erstelleAdresse(Adresse a) throws SQLException, IOException {
-		try {
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-    		
+		
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+		
+		try {    		
 			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (Strasse, Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
 					+ "VALUES(?,?,?,?,?,?)");
 			ps.setString(1, a.getStrasse());
@@ -97,10 +99,11 @@ public class AdressDB {
 	}
 
 	public static void aendereAdresse(Adresse a) throws SQLException, IOException {
+		
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+		
 		try {
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-			
 			ps = DBConnect.connect().prepareStatement("UPDATE Adresse SET "
 					+ "Strasse = ? "
 					+ ", Zusatz = ? "
@@ -139,11 +142,11 @@ public class AdressDB {
 	}
 
 	public static void zuordnenAdresse(Adresse a, Person p) throws SQLException, IOException {
+		
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+		
 		try {
-			
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-			
 			ps = DBConnect.connect().prepareStatement(""
 					+ "INSERT INTO WohnhaftIn VALUES(?,?,0)");
 			ps.setInt(1, p.getPersonID());
@@ -170,11 +173,11 @@ public class AdressDB {
 	}
 
 	public static void loescheAdresseFuerPerson(Adresse a, Person p) throws SQLException, IOException {
+		
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+		
 		try {
-			
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-			
 			// Pruefen, inwieweit andere Personen zur Adresse eine Referenz besitzen
 			ArrayList<Integer> personIDErgebnisse = new ArrayList<Integer>();
 			
@@ -241,10 +244,11 @@ public class AdressDB {
 
 	// TODO Pruefen, ob ueberhaupt Verknuepfung besteht
 	public static void loescheAdresse(Adresse a) throws SQLException, IOException {
+		
+		// AutoCommit ausgestellt
+		DBConnect.connect().setAutoCommit(false);
+		
 		try {
-    		// AutoCommit ausgestellt
-    		DBConnect.connect().setAutoCommit(false);
-			
 			// Adresse und alle Referenzen zu Personen loeschen
 			ps = DBConnect.connect().prepareStatement(""
 					+ "DELETE FROM WohnhaftIn WHERE AdressID = ? "
