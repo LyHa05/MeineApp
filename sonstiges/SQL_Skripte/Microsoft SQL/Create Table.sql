@@ -5,6 +5,8 @@ DROP TABLE Adresse;
 DROP TABLE GeschenkBestandteil;
 DROP TABLE Geschenk;
 DROP TABLE Person;
+DROP TABLE StammdatenWerte;
+DROP TABLE StammdatenKategorie;
 DROP VIEW PersonUebersicht;
 DROP VIEW GeschenkUebersicht;
 
@@ -54,8 +56,16 @@ CREATE TABLE GeschenkBestandteil
 	,Kategorie VARCHAR(50)
 	,Bestandteil VARCHAR(50)
 	,BestandteilVon INTEGER REFERENCES Geschenk(GeschenkID))
-GO
 
+CREATE TABLE StammdatenKategorie
+	(KategorieID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
+	,Kategorie VARCHAR(100))
+
+CREATE TABLE StammdatenWerte
+	(WertID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
+	,KategorieID INTEGER REFERENCES StammdatenKategorie(KategorieID)
+	,Wert VARCHAR(100))
+GO
 
 CREATE VIEW PersonUebersicht AS
 	SELECT Person.Name
