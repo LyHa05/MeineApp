@@ -99,7 +99,6 @@ public class PersonUebersichtController {
 
         } catch (SQLException ex) {
             System.err.println("Error"+ex);
-            System.out.println(ex);
         } finally {
 			if (rs != null) rs.close();
         	DBConnect.close();

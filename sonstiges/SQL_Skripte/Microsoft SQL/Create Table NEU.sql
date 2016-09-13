@@ -1,7 +1,7 @@
 USE test5
 
-DROP TABLE StammdatenWerte;
-DROP TABLE StammdatenKategorie;
+--DROP TABLE StammdatenWerte;
+--DROP TABLE StammdatenKategorie;
 DROP TABLE WohnhaftIn;
 DROP TABLE Adresse;
 DROP TABLE GeschenkBestandteil;

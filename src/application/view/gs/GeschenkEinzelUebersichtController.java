@@ -9,6 +9,7 @@ import application.model.gs.Geschenk;
 import application.model.gs.GeschenkBestandteil;
 import application.model.person.Person;
 import application.tools.DBConnect;
+import application.util.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -114,20 +115,78 @@ public class GeschenkEinzelUebersichtController {
                   super.updateItem(person, empty);
                   if (person != null) {
                     setText(person.toString());
-//                    if (person.contains(person.toString())) {
-//                      setText(person.toString());
-//                    }else if (item.contains("Männlich")) {
-//                      setText("Männlich");
-//                    } 
                   } else {
                     setText(null);
                   }
                 }
               };
     	});
+    	
+    	// Handle ComboBox event.
+    	personComboBox.setOnAction((event) -> {
+    	    Person selectedPerson = personComboBox.getSelectionModel().getSelectedItem();
+    	    System.out.println("ComboBox Action (selected: " + selectedPerson.toString() + ")");
+    	    showGeschenkAnlass(selectedPerson);
+    	    
+    	    
+    	});
     }
     
-    /**
+    private void showGeschenkAnlass(Person person) {
+    	if (person != null) {
+    		//TableView mit GeschenkDaten fuellen
+    		
+//            try {    	
+//                // Execute query and store result in a resultset
+//                rs = DBConnect.connect().createStatement().executeQuery(""
+//                		+ "	SELECT Person.Name
+//		,Person.Vorname1 AS Vorname
+//		,Geschenk.Jahr
+//		,Geschenk.Anlass
+//		,GeschenkBestandteil.Beschreibung
+//		,Geschenk.Preis
+//		,GeschenkBestandteil.Kategorie
+//		,GeschenkBestandteil.Bestandteil
+//	FROM Person JOIN Geschenk ON Person.PersonID = Geschenk.Erhaelt
+//	JOIN GeschenkBestandteil ON GeschenkBestandteil.BestandteilVon = Geschenk.GeschenkID
+//	WHERE Person.PersonID = 1"
+//                		+ ""
+//                		+ ""
+//                		+ "SELECT * FROM Person");
+//                while (rs.next()) {
+//                    //get string from db,whichever way 
+//                    personDaten.add(new Person(
+//                    		rs.getInt(1) 		//PersonID
+//                    		,rs.getString(2)	//Name
+//                    		,rs.getString(3)	//Vorname1
+//                    		,rs.getString(4)	//Vorname2
+//                    		,rs.getString(5)	//Geschlecht
+//                    		,rs.getDate(6)		//Geburtsdatum
+//                    		,rs.getString(7)	//HandyNr1
+//                    		,rs.getString(8)	//HandyNr2
+//                    		,rs.getString(9)	//EMailAdresse1
+//                    		,rs.getString(10)	//EMailAdresse2
+//                    		,rs.getString(11)	//EMailAdresse3
+//                    		,rs.getString(12)	//EMailAdresse4
+//                    		,rs.getString(13)	//EMailAdresse5
+//                    		));   
+//                }
+//
+//            } catch (SQLException ex) {
+//                System.err.println("Error"+ex);
+//            } finally {
+//    			if (rs != null) rs.close();
+//            	DBConnect.close();
+//            }
+
+    		
+    	} else {
+    		// Person ist null: alle Daten von TableView entfernen.
+
+    	}
+	}
+
+	/**
      * Wird aufgerufen, wenn User Menue anklickt. Oeffnet die Startseite. 
      */
     @FXML
