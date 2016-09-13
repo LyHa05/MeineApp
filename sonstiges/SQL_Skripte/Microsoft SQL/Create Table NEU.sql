@@ -1,14 +1,24 @@
-USE test5
+USE test6
 
---DROP TABLE StammdatenWerte;
---DROP TABLE StammdatenKategorie;
 DROP TABLE WohnhaftIn;
 DROP TABLE Adresse;
 DROP TABLE GeschenkBestandteil;
 DROP TABLE Geschenk;
+DROP TABLE EMail;
 DROP TABLE Person;
+DROP TABLE StammdatenWert;
+DROP TABLE StammdatenKategorie;
 DROP VIEW PersonUebersicht;
 DROP VIEW GeschenkUebersicht;
+
+CREATE TABLE StammdatenKategorie
+	(KategorieID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
+	,Kategorie VARCHAR(100))
+
+CREATE TABLE StammdatenWert
+	(WertID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
+	,KategorieID INTEGER REFERENCES StammdatenKategorie(KategorieID)
+	,Wert VARCHAR(100))
 
 CREATE TABLE Person
 	(PersonID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
@@ -56,14 +66,7 @@ CREATE TABLE GeschenkBestandteil
 	,Bestandteil INTEGER REFERENCES StammdatenWert(WertID)
 	,BestandteilVon INTEGER REFERENCES Geschenk(GeschenkID))
 
-CREATE TABLE StammdatenKategorie
-	(KategorieID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
-	,Kategorie VARCHAR(100))
 
-CREATE TABLE StammdatenWert
-	(WertID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
-	,KategorieID INTEGER REFERENCES StammdatenKategorie(KategorieID)
-	,Wert VARCHAR(100))
 GO
 
 CREATE VIEW PersonUebersicht AS
