@@ -25,11 +25,6 @@ public class Person {
 	private ObjectProperty<LocalDate> geburtsdatum;
 	private StringProperty handyNr1;
 	private StringProperty handyNr2;
-	private StringProperty eMailAdresse1;
-	private StringProperty eMailAdresse2;
-	private StringProperty eMailAdresse3;
-	private StringProperty eMailAdresse4;
-	private StringProperty eMailAdresse5;
 	
 	
 	public Person() {
@@ -41,16 +36,10 @@ public class Person {
  		this.geburtsdatum = new SimpleObjectProperty<LocalDate>(null);
  		this.handyNr1 = new SimpleStringProperty(null);
  		this.handyNr2 = new SimpleStringProperty(null);
- 		this.eMailAdresse1 = new SimpleStringProperty(null);
- 		this.eMailAdresse2 = new SimpleStringProperty(null);
- 		this.eMailAdresse3 = new SimpleStringProperty(null);
- 		this.eMailAdresse4 = new SimpleStringProperty(null);
- 		this.eMailAdresse5 = new SimpleStringProperty(null);
 	}
 	
 	public Person(int pID, String name, String vname1, String vname2, String geschl,
-		int gJahr, int gMonat, int gTag, String handy1, String handy2, String eMail1, String eMail2,
-		String eMail3, String eMail4, String eMail5) {
+		int gJahr, int gMonat, int gTag, String handy1, String handy2) {
 		
 		this.personID = new SimpleIntegerProperty(pID);
  		this.name = new SimpleStringProperty(name);
@@ -60,16 +49,10 @@ public class Person {
  		this.geburtsdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(gJahr, gMonat, gTag));
  		this.handyNr1 = new SimpleStringProperty(handy1);
  		this.handyNr2 = new SimpleStringProperty(handy2);
- 		this.eMailAdresse1 = new SimpleStringProperty(eMail1);
- 		this.eMailAdresse2 = new SimpleStringProperty(eMail2);
- 		this.eMailAdresse3 = new SimpleStringProperty(eMail3);
- 		this.eMailAdresse4 = new SimpleStringProperty(eMail4);
- 		this.eMailAdresse5 = new SimpleStringProperty(eMail5);
 	}
 	
 	public Person(int pID, String name, String vname1, String vname2, String geschl,
-			Date gDatum, String handy1, String handy2, String eMail1, String eMail2,
-			String eMail3, String eMail4, String eMail5) {
+			Date gDatum, String handy1, String handy2) {
 			
 			this.personID = new SimpleIntegerProperty(pID);
 	 		this.name = new SimpleStringProperty(name);
@@ -79,11 +62,6 @@ public class Person {
 	 		this.geburtsdatum = new SimpleObjectProperty<LocalDate>(gDatum.toLocalDate());
 	 		this.handyNr1 = new SimpleStringProperty(handy1);
 	 		this.handyNr2 = new SimpleStringProperty(handy2);
-	 		this.eMailAdresse1 = new SimpleStringProperty(eMail1);
-	 		this.eMailAdresse2 = new SimpleStringProperty(eMail2);
-	 		this.eMailAdresse3 = new SimpleStringProperty(eMail3);
-	 		this.eMailAdresse4 = new SimpleStringProperty(eMail4);
-	 		this.eMailAdresse5 = new SimpleStringProperty(eMail5);
 		}
 
 	/**
@@ -231,97 +209,7 @@ public class Person {
         return handyNr2;
     }
 	
-	/**
-	 * @return the eMailAdresse1
-	 */
-	public String geteMailAdresse1() {
-		return eMailAdresse1.get();
-	}
-
-	/**
-	 * @param eMailAdresse1 the eMailAdresse1 to set
-	 */
-	public void seteMailAdresse1(String eMailAdresse1) {
-		this.eMailAdresse1.set(eMailAdresse1);
-	}
-	
-    public StringProperty eMailAdresse1Property() {
-        return eMailAdresse1;
-    }
-
-	/**
-	 * @return the eMailAdresse2
-	 */
-	public String geteMailAdresse2() {
-		return eMailAdresse2.get();
-	}
-
-	/**
-	 * @param eMailAdresse2 the eMailAdresse2 to set
-	 */
-	public void seteMailAdresse2(String eMailAdresse2) {
-		this.eMailAdresse2.set(eMailAdresse2);
-	}
-
-    public StringProperty eMailAdresse2Property() {
-        return eMailAdresse2;
-    }
-	
-	/**
-	 * @return the eMailAdresse3
-	 */
-	public String geteMailAdresse3() {
-		return eMailAdresse3.get();
-	}
-
-	/**
-	 * @param eMailAdresse3 the eMailAdresse3 to set
-	 */
-	public void seteMailAdresse3(String eMailAdresse3) {
-		this.eMailAdresse3.set(eMailAdresse3);
-	}
-	
-    public StringProperty eMailAdresse3Property() {
-        return eMailAdresse3;
-    }
-
-	/**
-	 * @return the eMailAdresse4
-	 */
-	public String geteMailAdresse4() {
-		return eMailAdresse4.get();
-	}
-
-	/**
-	 * @param eMailAdresse4 the eMailAdresse4 to set
-	 */
-	public void seteMailAdresse4(String eMailAdresse4) {
-		this.eMailAdresse4.set(eMailAdresse4);
-	}
-
-    public StringProperty eMailAdresse4Property() {
-        return eMailAdresse4;
-    }
-	
-	/**
-	 * @return the eMailAdresse5
-	 */
-	public String geteMailAdresse5() {
-		return eMailAdresse5.get();
-	}
-
-	/**
-	 * @param eMailAdresse5 the eMailAdresse5 to set
-	 */
-	public void seteMailAdresse5(String eMailAdresse5) {
-		this.eMailAdresse5.set(eMailAdresse5);
-	}
-	
-    public StringProperty eMailAdresse5Property() {
-        return eMailAdresse5;
-    }
-    
-    // TODO toString in Lists ersetzen
+	// TODO toString in Lists ersetzen
     public String toString() {
     	return (getVorname1() + " " + getName());
     }

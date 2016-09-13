@@ -17,23 +17,33 @@ public class PersonDB {
 	
     
     // TODO Person ohne Geburtsdatum ermöglichen!!!
-    public static void erstellePerson(Person p) throws SQLException, IOException {
+    public static void erstellePerson(Person p, EMail eM) throws SQLException, IOException {
     	
 		// AutoCommit ausgestellt
 		DBConnect.connect().setAutoCommit(false);
     	
     	try {	
     		ps = DBConnect.connect().prepareStatement("INSERT INTO Person (Name,"
-        	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, EMailAdresse1) "
-        	 		+ "VALUES(?,?,?,?,?,?,?)");
+        	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, HandyNr2) "
+        	 		+ "VALUES(?,?,?,?,?,?,'')");
         	 ps.setString(1, p.getName());
         	 ps.setString(2, p.getVorname1());
         	 ps.setString(3, p.getVorname2());
         	 ps.setString(4, p.getGeschlecht());
         	 ps.setDate(5, java.sql.Date.valueOf(p.getGeburtsdatum()));
         	 ps.setString(6, p.getHandyNr1());
-        	 ps.setString(7, p.geteMailAdresse1());
+        	 // TODO hier Umsetzung fuer 2. Handynummer einfuegen
         	 ps.executeUpdate();
+        	 
+        	 // Statement geloescht
+        	 ps.close();
+        	 
+        	 // TODO E-Mails extra 
+        	 ps = DBConnect.connect().prepareStatement("INSERT INTO EMail (EMailAdresse, Gehoert) "
+         	 		+ "VALUES(?,?)");
+         	 ps.setString(1, eM.getEMailAdresse());
+         	 ps.setObject(2, eM.getGehoert());
+         	 ps.executeUpdate();
         	 
         	 // Aenderungen commited
         	 DBConnect.connect().commit();
@@ -53,6 +63,8 @@ public class PersonDB {
         }
     }
 
+    // TODO weiter anpassen
+    
 	public static void aenderePerson(Person p) throws SQLException, IOException {
     	
 		// AutoCommit ausgestellt
