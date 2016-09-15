@@ -34,15 +34,15 @@
             <Label text="zweiter Vorname" GridPane.rowIndex="3" />
             <Label text="Geschlecht" GridPane.rowIndex="4" />
             <Label text="Geburtsdatum" GridPane.rowIndex="5" />
-            <Label text="Handynummer" GridPane.rowIndex="6" />
-            <Label text="E-Mail-Adresse" GridPane.rowIndex="7" />
+            <Label text="Handynummer 1" GridPane.rowIndex="6" />
+            <Label text="Handynummer 2" GridPane.rowIndex="7" />
             <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="vname1Field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="vname2Field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="gDatumField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="handyNr1Field" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="eMail1Field" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="handyNr2Field" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label fx:id="personIDLabel" text="Label" GridPane.columnIndex="1" />
             <ComboBox fx:id="geschlComboBox" prefHeight="31.0" prefWidth="190.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>

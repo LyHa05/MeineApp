@@ -1,7 +1,11 @@
-USE test5
+USE test6
 
-INSERT INTO Person (Name, Vorname1, Geschlecht, Geburtsdatum, HandyNr1, EMailAdresse1)
-	VALUES ('Meier', 'Karl', 'Männlich', '1988-10-30', '0123456', '123@web.de');
+INSERT INTO Person (Name, Vorname1, Geschlecht, Geburtsdatum, HandyNr1)
+	VALUES ('Meier', 'Karl', 'Männlich', '1988-10-30', '0123456');
+GO
+
+Insert INTO EMail (EMailAdresse, Gehoert)
+	VALUES ('123@web.de',1);
 GO
 
 INSERT INTO Person (Name, Vorname1, Geschlecht, Geburtsdatum)

@@ -3,7 +3,9 @@ package application.view.person;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import application.MainApp;
+import application.model.person.EMail;
 import application.model.person.Person;
 import application.model.person.PersonDB;
 import application.tools.DBConnect;
@@ -49,7 +51,7 @@ public class PersonUebersichtController {
     @FXML
     private Label handyNr1Label;
     @FXML
-    private Label eMail1Label;
+    private Label handyNr2Label;
     
     // Reference to the main application.
     private MainApp mainApp;
@@ -89,11 +91,11 @@ public class PersonUebersichtController {
                 		,rs.getDate(6)		//Geburtsdatum
                 		,rs.getString(7)	//HandyNr1
                 		,rs.getString(8)	//HandyNr2
-                		,rs.getString(9)	//EMailAdresse1
-                		,rs.getString(10)	//EMailAdresse2
-                		,rs.getString(11)	//EMailAdresse3
-                		,rs.getString(12)	//EMailAdresse4
-                		,rs.getString(13)	//EMailAdresse5
+//                		,rs.getString(9)	//EMailAdresse1
+//                		,rs.getString(10)	//EMailAdresse2
+//                		,rs.getString(11)	//EMailAdresse3
+//                		,rs.getString(12)	//EMailAdresse4
+//                		,rs.getString(13)	//EMailAdresse5
                 		));   
             }
 
@@ -135,7 +137,7 @@ public class PersonUebersichtController {
     		geschlLabel.setText(person.getGeschlecht());
     		gDatumLabel.setText(DateUtil.format(person.getGeburtsdatum()));
     		handyNr1Label.setText(person.getHandyNr1());
-    		eMail1Label.setText(person.geteMailAdresse1());
+    		handyNr2Label.setText(person.getHandyNr2());
     		
     	} else {
     		// Person is null, remove all the text.
@@ -146,7 +148,7 @@ public class PersonUebersichtController {
     		geschlLabel.setText("");
     		gDatumLabel.setText("");
     		handyNr1Label.setText("");
-    		eMail1Label.setText("");
+    		handyNr2Label.setText("");
     	}
     }
     
@@ -166,9 +168,10 @@ public class PersonUebersichtController {
     @FXML
     public void handleNeu() throws SQLException, IOException {
         Person tempPerson = new Person();
+        EMail tempEMail = new EMail();
         boolean okClicked = mainApp.showPersonAnpassDialog(tempPerson);
         if (okClicked) {
-        	PersonDB.erstellePerson(tempPerson);
+        	PersonDB.erstellePerson(tempPerson, tempEMail);
         	personDaten.add(tempPerson);
         }
     }

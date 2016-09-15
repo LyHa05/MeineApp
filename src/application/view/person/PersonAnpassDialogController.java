@@ -33,7 +33,7 @@ public class PersonAnpassDialogController {
     @FXML
     private TextField handyNr1Field;
     @FXML
-    private TextField eMail1Field;
+    private TextField handyNr2Field;
 	
     private Stage dialogStage;
     private Person person;
@@ -99,7 +99,7 @@ public class PersonAnpassDialogController {
 		gDatumField.setText(DateUtil.format(person.getGeburtsdatum()));
 		gDatumField.setPromptText("dd.mm.yyyy");
 		handyNr1Field.setText(person.getHandyNr1());
-		eMail1Field.setText(person.geteMailAdresse1());
+		handyNr2Field.setText(person.getHandyNr2());
 
     }
     
@@ -125,7 +125,7 @@ public class PersonAnpassDialogController {
             person.setGeschlecht(geschlComboBox.getValue());
             person.setGeburtsdatum(DateUtil.parse(gDatumField.getText()));
             person.setHandyNr1(handyNr1Field.getText());
-            person.seteMailAdresse1(eMail1Field.getText());
+            person.setHandyNr2(handyNr2Field.getText());
                         
             okClicked = true;
             dialogStage.close();

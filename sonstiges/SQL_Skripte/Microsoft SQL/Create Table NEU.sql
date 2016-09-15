@@ -13,19 +13,19 @@ DROP VIEW GeschenkUebersicht;
 
 CREATE TABLE StammdatenKategorie
 	(KategorieID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
-	,Kategorie VARCHAR(100))
+	,Kategorie VARCHAR(100));
 
 CREATE TABLE StammdatenWert
 	(WertID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
 	,KategorieID INTEGER REFERENCES StammdatenKategorie(KategorieID)
-	,Wert VARCHAR(100))
+	,Wert VARCHAR(100));
 
 CREATE TABLE Person
 	(PersonID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
 	,Name VARCHAR(50) 
 	,Vorname1 VARCHAR(20)
 	,Vorname2 VARCHAR(20)
-	,Geschlecht INTEGER REFERENCES StammdatenWert(WertID)
+	,Geschlecht VARCHAR(20)
 	,Geburtsdatum DATE
 	,HandyNr1 VARCHAR(30)
 	,HandyNr2 VARCHAR(30));
@@ -41,7 +41,7 @@ CREATE TABLE Adresse
 	,Zusatz VARCHAR(50)
 	,PLZ VARCHAR(24)
 	,Ort VARCHAR(50)
-	,Land INTEGER REFERENCES StammdatenWert(WertID)
+	,Land VARCHAR(100)
 	,FestnetzNr Varchar(30));
 
 CREATE TABLE WohnhaftIn
@@ -53,8 +53,8 @@ CREATE TABLE WohnhaftIn
 CREATE TABLE Geschenk
 	(GeschenkID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
 	,Jahr INTEGER
-	,Anlass INTEGER REFERENCES StammdatenWert(WertID)
-	,Memo VARCHAR
+	,Anlass VARCHAR(100)
+	,Memo VARCHAR(255)
 	,Preis INTEGER
 	,Erhaelt INTEGER REFERENCES Person(PersonID));
 
@@ -62,9 +62,9 @@ CREATE TABLE GeschenkBestandteil
 	(GeschenkBestandteilID INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL
 	,Beschreibung VARCHAR(100)
 	,Memo VARCHAR(255)
-	,Kategorie INTEGER REFERENCES StammdatenWert(WertID)
-	,Bestandteil INTEGER REFERENCES StammdatenWert(WertID)
-	,BestandteilVon INTEGER REFERENCES Geschenk(GeschenkID))
+	,Kategorie VARCHAR(100)
+	,Bestandteil VARCHAR(100)
+	,BestandteilVon INTEGER REFERENCES Geschenk(GeschenkID));
 
 
 GO
@@ -81,7 +81,7 @@ CREATE VIEW PersonUebersicht AS
 		,EMail.EMailAdresse
 	FROM Person JOIN WohnhaftIn ON Person.PersonID = WohnhaftIn.PersonID
 	JOIN Adresse ON WohnhaftIn.AdressID = Adresse.AdressID
-	JOIN EMail ON Person.PersonID = EMail.Gehoert
+	JOIN EMail ON Person.PersonID = EMail.Gehoert;
 GO
 
 CREATE VIEW GeschenkUebersicht AS
@@ -94,6 +94,6 @@ CREATE VIEW GeschenkUebersicht AS
 		,GeschenkBestandteil.Kategorie
 		,GeschenkBestandteil.Bestandteil
 	FROM Person JOIN Geschenk ON Person.PersonID = Geschenk.Erhaelt
-	JOIN GeschenkBestandteil ON GeschenkBestandteil.BestandteilVon = Geschenk.GeschenkID
+	JOIN GeschenkBestandteil ON GeschenkBestandteil.BestandteilVon = Geschenk.GeschenkID;
 GO
 

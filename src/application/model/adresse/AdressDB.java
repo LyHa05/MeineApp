@@ -45,7 +45,7 @@ public class AdressDB {
 			ps.executeUpdate();
 			ps.close();
 			
-	       	 // Aenderungen commited
+	       	 // Aenderungen committed
 	       	 DBConnect.connect().commit();
 			
 		} catch (SQLException e) {

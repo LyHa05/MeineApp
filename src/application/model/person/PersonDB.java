@@ -25,25 +25,15 @@ public class PersonDB {
     	try {	
     		ps = DBConnect.connect().prepareStatement("INSERT INTO Person (Name,"
         	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, HandyNr2) "
-        	 		+ "VALUES(?,?,?,?,?,?,'')");
+        	 		+ "VALUES(?,?,?,?,?,?,?)");
         	 ps.setString(1, p.getName());
         	 ps.setString(2, p.getVorname1());
         	 ps.setString(3, p.getVorname2());
         	 ps.setString(4, p.getGeschlecht());
         	 ps.setDate(5, java.sql.Date.valueOf(p.getGeburtsdatum()));
         	 ps.setString(6, p.getHandyNr1());
-        	 // TODO hier Umsetzung fuer 2. Handynummer einfuegen
+        	 ps.setString(7, p.getHandyNr1());
         	 ps.executeUpdate();
-        	 
-        	 // Statement geloescht
-        	 ps.close();
-        	 
-        	 // TODO E-Mails extra 
-        	 ps = DBConnect.connect().prepareStatement("INSERT INTO EMail (EMailAdresse, Gehoert) "
-         	 		+ "VALUES(?,?)");
-         	 ps.setString(1, eM.getEMailAdresse());
-         	 ps.setObject(2, eM.getGehoert());
-         	 ps.executeUpdate();
         	 
         	 // Aenderungen commited
         	 DBConnect.connect().commit();
@@ -78,7 +68,7 @@ public class PersonDB {
     			+ "Geschlecht = ?,"
     			+ "Geburtsdatum = ?,"
     			+ "HandyNr1 = ?,"
-    			+ "EMailAdresse1 = ? "
+    			+ "HandyNr2 = ?,"
     			+ "WHERE PersonID = ?");
       
         	 ps.setString(1, p.getName());
@@ -87,7 +77,7 @@ public class PersonDB {
         	 ps.setString(4, p.getGeschlecht());
         	 ps.setDate(5, java.sql.Date.valueOf(p.getGeburtsdatum()));
         	 ps.setString(6, p.getHandyNr1());
-        	 ps.setString(7, p.geteMailAdresse1());
+        	 ps.setString(7, p.getHandyNr2());
         	 ps.setInt(8, p.getPersonID());
         	 ps.executeUpdate();
         	 

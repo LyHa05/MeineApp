@@ -102,12 +102,12 @@ public class AdressEtikettenAuswahlController {
                 		,rs.getDate(6)		//Geburtsdatum
                 		,rs.getString(7)	//HandyNr1
                 		,rs.getString(8)	//HandyNr2
-                		,rs.getString(9)	//EMailAdresse1
-                		,rs.getString(10)	//EMailAdresse2
-                		,rs.getString(11)	//EMailAdresse3
-                		,rs.getString(12)	//EMailAdresse4
-                		,rs.getString(13));	//EMailAdresse5
-            	
+//                		,rs.getString(9)	//EMailAdresse1
+//                		,rs.getString(10)	//EMailAdresse2
+//                		,rs.getString(11)	//EMailAdresse3
+//                		,rs.getString(12)	//EMailAdresse4
+//                		,rs.getString(13)	//EMailAdresse5
+            			);
             	Adresse tempAdresse = new Adresse(
             			rs.getInt(14) 		// AdressID
 						, rs.getString(15) 	// Strasse

@@ -19,6 +19,12 @@ public class EMail {
 		this.gehoert = new SimpleObjectProperty(p);
 	}
 	
+	public EMail() {
+		this.eMailID = new SimpleIntegerProperty(0);
+		this.eMailAdresse = new SimpleStringProperty(null);
+		this.gehoert = new SimpleObjectProperty(null);
+	}
+
 	/**
 	 * @return the personID
 	 */

@@ -203,11 +203,11 @@ public class AdressZuordnenDialogController {
                 		,rs.getDate(6)		//Geburtsdatum
                 		,rs.getString(7)	//HandyNr1
                 		,rs.getString(8)	//HandyNr2
-                		,rs.getString(9)	//EMailAdresse1
-                		,rs.getString(10)	//EMailAdresse2
-                		,rs.getString(11)	//EMailAdresse3
-                		,rs.getString(12)	//EMailAdresse4
-                		,rs.getString(13)	//EMailAdresse5
+//                		,rs.getString(9)	//EMailAdresse1
+//                		,rs.getString(10)	//EMailAdresse2
+//                		,rs.getString(11)	//EMailAdresse3
+//                		,rs.getString(12)	//EMailAdresse4
+//                		,rs.getString(13)	//EMailAdresse5
     		));
                 
         }
@@ -323,7 +323,7 @@ public class AdressZuordnenDialogController {
         		person.setGeschlecht(selectedPerson.getGeschlecht());
         		person.setGeburtsdatum(selectedPerson.getGeburtsdatum());
         		person.setHandyNr1(selectedPerson.getHandyNr1());
-        		person.seteMailAdresse1(selectedPerson.geteMailAdresse1());
+        		person.setHandyNr2(selectedPerson.getHandyNr2());
         	
         		AdressDB.zuordnenAdresse(adresse, person);
         		
