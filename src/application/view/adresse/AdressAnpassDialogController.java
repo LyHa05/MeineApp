@@ -1,13 +1,18 @@
 package application.view.adresse;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import application.model.adresse.Adresse;
 import application.model.person.Person;
+import application.tools.DBConnect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
@@ -51,12 +56,41 @@ public class AdressAnpassDialogController {
 	private boolean okClicked = false;
 //	private MainApp mainApp;
 	
+    // Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
+    private PreparedStatement ps;
+    private ResultSet rs;
+	
 	
 	@FXML
-	private void initialize() {
-		// Add some sample data in landComboBox.
-    	landComboBoxDaten.addAll("D","AT","CH");
-    	landComboBox.setEditable(true); 
+	private void initialize() throws SQLException {
+		
+		try {    	
+	        // Execute query and store result in a resultset
+	        ps = DBConnect.connect().prepareStatement(""
+	        		+ "Select StammdatenWert.Wert "
+	        		+ "FROM StammdatenWert "
+	        		+ "JOIN StammdatenKategorie ON StammdatenWert.KategorieID = StammdatenKategorie.KategorieID "
+	        		+ "WHERE StammdatenKategorie.Kategorie = ?"
+	        		);
+	        ps.setString(1, "Land");
+	        rs = ps.executeQuery();
+	        while (rs.next()) {
+	            //get string from db,whichever way and add some sample data in personComboBoxDaten
+	        	landComboBoxDaten.add(rs.getString(1));
+	        }
+		} catch (SQLException e) {
+			System.err.println("Error" + e);
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (ps != null)
+				ps.close();
+			DBConnect.close();
+		}
+		
+//		// Add some sample data in landComboBox.
+//    	landComboBoxDaten.addAll("D","AT","CH");
+//    	landComboBox.setEditable(true); 
     	// Init ComboBox items.
     	landComboBox.setItems(landComboBoxDaten);
     	// Define rendering of the list of values in ComboBox drop down. 
@@ -67,13 +101,6 @@ public class AdressAnpassDialogController {
                   super.updateItem(item, empty);
                   if (item != null) {
                     setText(item);
-                    if (item.contains("D")) {
-                      setText("D");
-                    } else if (item.contains("AT")) {
-                      setText("AT");
-                    } else if (item.contains("CH")) {
-                        setText("CH");
-                      } 
                   } else {
                     setText(null);
                   }
@@ -136,13 +163,8 @@ public class AdressAnpassDialogController {
         if (ortField.getText() == null || ortField.getText().length() == 0) {
             errorMessage += "Kein gueltiger Ort!\n"; 
         }
-        if (landComboBox.getValue() != "D" && landComboBox.getValue() != "AT"
-        		&& landComboBox.getValue() != "CH"
-        		&& landComboBox.getValue().isEmpty()) {
+        if (landComboBox.getValue() == null) {
             errorMessage += "Kein Land angegeben!\n"; 
-        }
-        if (landComboBox.getValue().length() > 3) {
-            errorMessage += "Das Land darf nur mit hoechstens 3 Buchstaben abgekuerzt werden!\n"; 
         }
         if (errorMessage.length() == 0) {
             return true;

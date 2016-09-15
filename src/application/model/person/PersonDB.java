@@ -1,6 +1,7 @@
 package application.model.person;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -14,16 +15,19 @@ import application.tools.DBConnect;
 public class PersonDB {
 
     private static PreparedStatement ps;
-	
+	private static Connection conn;
+    
+	public static void verbinden() throws SQLException {
+		conn = DBConnect.connect();
+	}
     
     // TODO Person ohne Geburtsdatum ermöglichen!!!
     public static void erstellePerson(Person p, EMail eM) throws SQLException, IOException {
     	
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+    	verbinden();
     	
     	try {	
-    		ps = DBConnect.connect().prepareStatement("INSERT INTO Person (Name,"
+    		ps = conn.prepareStatement("INSERT INTO Person (Name,"
         	 		+ "Vorname1, Vorname2, Geschlecht,Geburtsdatum, HandyNr1, HandyNr2) "
         	 		+ "VALUES(?,?,?,?,?,?,?)");
         	 ps.setString(1, p.getName());
@@ -36,7 +40,7 @@ public class PersonDB {
         	 ps.executeUpdate();
         	 
         	 // Aenderungen commited
-        	 DBConnect.connect().commit();
+        	 conn.commit();
         	 
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -45,30 +49,27 @@ public class PersonDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }
     }
-
-    // TODO weiter anpassen
     
 	public static void aenderePerson(Person p) throws SQLException, IOException {
-    	
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+		
+		verbinden();
 		
     	try {
-    		ps = DBConnect.connect().prepareStatement("UPDATE Person SET "
+    		ps = conn.prepareStatement("UPDATE Person SET "
     			+ "Name = ?,"
     			+ "Vorname1 = ?,"
     			+ "Vorname2 = ?,"
     			+ "Geschlecht = ?,"
     			+ "Geburtsdatum = ?,"
     			+ "HandyNr1 = ?,"
-    			+ "HandyNr2 = ?,"
+    			+ "HandyNr2 = ?, "
     			+ "WHERE PersonID = ?");
       
         	 ps.setString(1, p.getName());
@@ -82,7 +83,7 @@ public class PersonDB {
         	 ps.executeUpdate();
         	 
         	 // Aenderungen commited
-        	 DBConnect.connect().commit();
+        	 conn.commit();
         	 
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -91,28 +92,27 @@ public class PersonDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }		
 	}
 
 	public static void loeschePerson(Person p) throws SQLException, IOException {
 		
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+		verbinden();
 		
 		try {
-    		ps = DBConnect.connect().prepareStatement("DELETE FROM Person "
+    		ps = conn.prepareStatement("DELETE FROM Person "
     			+ "WHERE PersonID = ?");
       
         	 ps.setInt(1, p.getPersonID());
         	 ps.executeUpdate();
         	 
         	 // Aenderungen commited
-        	 DBConnect.connect().commit();
+        	 conn.commit();
         	 
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -121,11 +121,11 @@ public class PersonDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }		
 		
 	}

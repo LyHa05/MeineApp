@@ -44,6 +44,9 @@ public class DBConnect {
 
 		System.out.println("Verbindung hergestellt.");
 		
+		// AutoCommit ausgestellt
+		conn.setAutoCommit(false);
+		
 		return conn;
 
 	}

@@ -1,6 +1,7 @@
 package application.model.adresse;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,14 +21,19 @@ public class AdressDB {
 	
 	private static PreparedStatement ps;
 	private static ResultSet rs;
+	private static Connection conn;
+	
+	public static void verbinden() throws SQLException {
+		conn = DBConnect.connect();
+	}
 
 	public static void erstelleAdresseFuerPerson(Adresse a, Person p) throws SQLException, IOException {
 		
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+		verbinden();
 		
+		System.out.println("erstelleAdresseFuerPerson() gestartet");
 		try {
-			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (Strasse"
+			ps = conn.prepareStatement("INSERT INTO Adresse (Strasse"
 					+ ", Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
 					+ "VALUES(?,?,?,?,?,?)");
 			ps.setString(1, a.getStrasse());
@@ -37,16 +43,24 @@ public class AdressDB {
 			ps.setString(5, a.getLand());
 			ps.setString(6, a.getFestnetzNr());
 			ps.executeUpdate();
-			ps.close();
-			
-			ps = DBConnect.connect().prepareStatement(""
+
+			System.out.println(ps);
+			System.out.println("insert Adresse fertig");
+
+			ps = conn.prepareStatement(""
 					+ "INSERT INTO WohnhaftIn VALUES(?,(SELECT MAX(AdressID) From Adresse),0)");
 			ps.setInt(1, p.getPersonID());
 			ps.executeUpdate();
-			ps.close();
+
+			
+			System.out.println("insert WohnhaftIn fertig");
 			
 	       	 // Aenderungen committed
-	       	 DBConnect.connect().commit();
+			conn.commit();
+	       	 
+	       	 System.out.println("commit");
+	       	 
+	       	ps.close();
 			
 		} catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -55,21 +69,20 @@ public class AdressDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }
 	}
 
 	public static void erstelleAdresse(Adresse a) throws SQLException, IOException {
 		
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+		verbinden();
 		
 		try {    		
-			ps = DBConnect.connect().prepareStatement("INSERT INTO Adresse (Strasse, Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
+			ps = conn.prepareStatement("INSERT INTO Adresse (Strasse, Zusatz, PLZ ,Ort ,Land ,FestnetzNr) "
 					+ "VALUES(?,?,?,?,?,?)");
 			ps.setString(1, a.getStrasse());
 			ps.setString(2, a.getZusatz());
@@ -80,7 +93,7 @@ public class AdressDB {
 			ps.executeUpdate();
 			
 	       	 // Aenderungen commited
-	       	 DBConnect.connect().commit();
+	       	 conn.commit();
 			
 		} catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -89,22 +102,21 @@ public class AdressDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }
 		
 	}
 
 	public static void aendereAdresse(Adresse a) throws SQLException, IOException {
 		
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+		verbinden();
 		
 		try {
-			ps = DBConnect.connect().prepareStatement("UPDATE Adresse SET "
+			ps = conn.prepareStatement("UPDATE Adresse SET "
 					+ "Strasse = ? "
 					+ ", Zusatz = ? "
 					+ ", PLZ = ? "
@@ -123,7 +135,7 @@ public class AdressDB {
 			ps.executeUpdate();
 			
 	       	 // Aenderungen commited
-	       	 DBConnect.connect().commit();
+			conn.commit();
 			
 		} catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -132,29 +144,28 @@ public class AdressDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }
 		
 	}
 
 	public static void zuordnenAdresse(Adresse a, Person p) throws SQLException, IOException {
 		
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+		verbinden();
 		
 		try {
-			ps = DBConnect.connect().prepareStatement(""
+			ps = conn.prepareStatement(""
 					+ "INSERT INTO WohnhaftIn VALUES(?,?,0)");
 			ps.setInt(1, p.getPersonID());
 			ps.setInt(2, a.getAdressID());
 			ps.executeUpdate();
 			
 	       	 // Aenderungen commited
-	       	 DBConnect.connect().commit();
+			conn.commit();
 			
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -163,25 +174,24 @@ public class AdressDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }	
 				
 	}
 
 	public static void loescheAdresseFuerPerson(Adresse a, Person p) throws SQLException, IOException {
 		
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+		verbinden();
 		
 		try {
 			// Pruefen, inwieweit andere Personen zur Adresse eine Referenz besitzen
 			ArrayList<Integer> personIDErgebnisse = new ArrayList<Integer>();
 			
-			ps = DBConnect.connect().prepareStatement("SELECT PersonID FROM WohnhaftIn"
+			ps = conn.prepareStatement("SELECT PersonID FROM WohnhaftIn"
 					+ " WHERE AdressID = ?");
 			ps.setInt(1, a.getAdressID());
 			rs = ps.executeQuery();
@@ -193,11 +203,12 @@ public class AdressDB {
 			// Verbindungen schliessen
 			rs.close();
 			ps.close();
-			DBConnect.close();
+			conn.close();
 			
+			// TODO Fehler suchen
 			// Adresse und Referenz fuer Person loeschen
 			if (personIDErgebnisse.size() == 1) {
-				ps = DBConnect.connect().prepareStatement(""
+				ps = conn.prepareStatement(""
 						+ "DELETE FROM WohnhaftIn WHERE AdressID = ? "
 						+ "DELETE FROM Adresse WHERE AdressID = ?");
 	      
@@ -207,24 +218,24 @@ public class AdressDB {
 				
 			// Referenz der Person zur Adresse loeschen
 			} else if (personIDErgebnisse.size() > 1) {
-				ps = DBConnect.connect().prepareStatement(""
+				ps = conn.prepareStatement(""
 						+ "DELETE FROM WohnhaftIn WHERE PersonID = ? AND AdressID = ?");
 	      
 	        	ps.setInt(1, p.getPersonID()); 
 				ps.setInt(2, a.getAdressID());
-	        	 ps.executeUpdate();
+	        	ps.executeUpdate();
 	        	 
-	             Alert alert = new Alert(AlertType.ERROR);
-	             alert.setTitle("Error");
-	             alert.setHeaderText("Adresse konnte nicht vollstaendig geloescht werden");
-	             // TODO Personen, bei denen Referenz noch besteht, auflisten
-	             alert.setContentText("Die Adresse ist noch bei ... hinterlegt");
-
-	             alert.showAndWait();
+	            Alert alert = new Alert(AlertType.ERROR);
+	            alert.setTitle("Error");
+	            alert.setHeaderText("Adresse konnte nicht vollstaendig geloescht werden");
+	            // TODO Personen, bei denen Referenz noch besteht, auflisten
+	            alert.setContentText("Die Adresse ist noch bei ... hinterlegt");
+	
+	            alert.showAndWait();
 			}
 			
 	       	 // Aenderungen commited
-	       	 DBConnect.connect().commit();
+			conn.commit();
 		 	 
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -233,11 +244,11 @@ public class AdressDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }		
 		
 	}
@@ -245,12 +256,11 @@ public class AdressDB {
 	// TODO Pruefen, ob ueberhaupt Verknuepfung besteht
 	public static void loescheAdresse(Adresse a) throws SQLException, IOException {
 		
-		// AutoCommit ausgestellt
-		DBConnect.connect().setAutoCommit(false);
+		verbinden();
 		
 		try {
 			// Adresse und alle Referenzen zu Personen loeschen
-			ps = DBConnect.connect().prepareStatement(""
+			ps = conn.prepareStatement(""
 					+ "DELETE FROM WohnhaftIn WHERE AdressID = ? "
 					+ "DELETE FROM Adresse WHERE AdressID = ?");
       
@@ -259,7 +269,7 @@ public class AdressDB {
         	 ps.executeUpdate();
 	        	 
 	       	 // Aenderungen commited
-	       	 DBConnect.connect().commit();
+        	 conn.commit();
 				 	 
         } catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -268,11 +278,11 @@ public class AdressDB {
         	System.err.println("Error" + e);
         	
         	// alle Aenderungen zurueckgerollt
-        	DBConnect.connect().rollback();
+        	conn.rollback();
         	
         } finally {
         	if (ps != null) ps.close();
-            DBConnect.close();
+        	conn.close();
         }		
 		
 	}

@@ -81,7 +81,7 @@ public class DBAnmeldungController {
     			DBConnect.setUrl("jdbc:oracle:thin:@ora14.informatik.haw-hamburg.de:1521:inf14");
     			DBConnect.setDriver("oracle.jdbc.driver.OracleDriver");
     		} else if (datenbankComboBox.getValue() == "Microsoft SQL") {
-    			DBConnect.setUrl("jdbc:sqlserver://localhost;databasename=test5");
+    			DBConnect.setUrl("jdbc:sqlserver://localhost;databasename=test6");
     			DBConnect.setDriver("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     		}
     		

@@ -210,11 +210,11 @@ public class AdressUebersichtController {
 								+ ", Person.Geburtsdatum "
 								+ ", Person.HandyNr1 "
 								+ ", Person.HandyNr2 "
-								+ ", Person.EMailAdresse1 "
-								+ ", Person.EMailAdresse2 "
-								+ ", Person.EMailAdresse3 "
-								+ ", Person.EMailAdresse4 "
-								+ ", Person.EMailAdresse5 "
+//								+ ", Person.EMailAdresse1 "
+//								+ ", Person.EMailAdresse2 "
+//								+ ", Person.EMailAdresse3 "
+//								+ ", Person.EMailAdresse4 "
+//								+ ", Person.EMailAdresse5 "
 								+ "FROM Person JOIN WohnhaftIn ON Person.PersonID = WohnhaftIn.PersonID "
 								+ "JOIN Adresse ON WohnhaftIn.AdressID = ?");
 				ps.setInt(1, selektierteAdresse.getAdressID());
