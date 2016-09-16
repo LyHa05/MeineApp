@@ -4,19 +4,23 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import application.MainApp;
 import application.model.eMail.EMail;
 import application.model.eMail.EMailDB;
 import application.model.person.Person;
+import application.model.stammdaten.StammdatenKategorie;
+import application.model.stammdaten.StammdatenWert;
+import application.model.stammdaten.StammdatenWertDB;
 import application.tools.DBConnect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.util.Callback;
 
 /**
@@ -30,17 +34,21 @@ public class StammdatenUebersichtController {
 	 * Definition der Instanzvariablen
 	 */
 	
+	// Referenz zur Stammdaten ComboBox
+		@FXML
+	    private ComboBox<StammdatenKategorie> stammdatenComboBox;
+	    private ObservableList<StammdatenKategorie> stammdatenComboBoxDaten = FXCollections.observableArrayList();
+	    
+	
 	// Referenz zu FX Elementen
 	@FXML
-	private Label ueberschriftLabel;
-	@FXML
-	private ListView<String> wertList;
+	private ListView<StammdatenWert> wertList;
 	
 	// Daten als ObservableList fuer Adressen
-	private ObservableList<EMail> wertDaten = FXCollections.observableArrayList();
+	private ObservableList<StammdatenWert> stammDaten = FXCollections.observableArrayList();
 	
 	// Ausgewaehlte Person fuer Adressansicht
-	private Person selectedKategorie;
+	private StammdatenKategorie selectedKategorie;
 	
 //	private Stage dialogStage;
 	
@@ -58,36 +66,88 @@ public class StammdatenUebersichtController {
 	/**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
+	 * @throws SQLException 
 	 */
 	@FXML
-	private void initialize() {
+	private void initialize() throws SQLException {
+		
+		 try {    	
+	         // Execute query and store result in a resultset
+	         rs = DBConnect.connect().createStatement().executeQuery("SELECT * FROM StammdatenKategorie");
+	         while (rs.next()) {
+	             //get string from db,whichever way and add some sample data in personComboBoxDaten
+	        	 stammdatenComboBoxDaten.add(new StammdatenKategorie(
+	        			 rs.getInt(1)		//KategorieID
+	        			 ,rs.getString(2)	//Kategorie
+	             		));   
+	         }
+
+         } catch (SQLException ex) {
+             System.err.println("Error"+ex);
+         } finally {
+ 			if (rs != null) rs.close();
+         	DBConnect.close();
+         }
+    	   	
+    	// Init ComboBox items.
+		 stammdatenComboBox.setItems(stammdatenComboBoxDaten);
+    	// Define rendering of the list of values in ComboBox drop down. 
+		 stammdatenComboBox.setCellFactory((comboBox) -> {
+    	    return new ListCell<StammdatenKategorie>() {
+                @Override
+                public void updateItem(StammdatenKategorie stdKategorie, boolean empty) {
+                  super.updateItem(stdKategorie, empty);
+                  if (stdKategorie != null) {
+                    setText(stdKategorie.getKategorie());
+                  } else {
+                    setText(null);
+                  }
+                }
+              };
+    	});
+    	
+    	// Handle ComboBox event.
+		 stammdatenComboBox.setOnAction((event) -> {
+    	    StammdatenKategorie selectedKategorie = stammdatenComboBox.getSelectionModel().getSelectedItem();
+    	    System.out.println("ComboBox Action selected: " + selectedKategorie.getKategorie() );
+    	    try {
+				showStammdaten(selectedKategorie);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	    
+    	    
+    	});
+		
+		
 	}
 	
-	public void showEMailAdressen() throws SQLException {
+	public void showStammdaten(StammdatenKategorie stdKategorie) throws SQLException {
 		
 		// loescht Daten im ListView
-		eMailDaten.removeAll(eMailDaten);
+		stammDaten.removeAll(stammDaten);
 		
 		try {
 			// Execute query and store result in a resultset
 	           ps = DBConnect.connect().prepareStatement(""
-	        		   	+ "SELECT EMailID "
-	        		   	+ ",EMailAdresse "
-	        		   	+ ",Gehoert "
-	        		   	+ "FROM EMail "
-	        		   	+ "WHERE Gehoert = ?");
-	           ps.setInt(1, selectedPerson.getPersonID());
+	        		   	+ "SELECT WertID "
+	        		   	+ ",KategorieID "
+	        		   	+ ",Wert "
+	        		   	+ "FROM StammdatenWert "
+	        		   	+ "WHERE KategorieID = ?");
+	           ps.setInt(1, selectedKategorie.getKategorieID());
 	           rs = ps.executeQuery();
 	           
-	           System.out.println(selectedPerson);
+	           System.out.println(selectedKategorie);
 	           
 	           while (rs.next()) {
 	               //get string from db, whichever way 
-	               eMailDaten.add(new EMail(
-	            		   	rs.getInt(1) 		// eMailID
-							, rs.getString(2) 	// EMailAdresse
-							, rs.getObject(3) 	// Gehoert
-	   		));   
+	               stammDaten.add(new StammdatenWert(
+	            		   	rs.getInt(1) 		// WertID
+							, rs.getObject(2) 	// KategorieID
+							, rs.getString(3) 	// Wert
+	            		   ));   
 	       }
 
 			} catch (SQLException e) {
@@ -101,18 +161,18 @@ public class StammdatenUebersichtController {
 
 			}
 
-						eMailList.setItems(eMailDaten);
+						wertList.setItems(stammDaten);
 							
-						eMailList.setCellFactory(new Callback<ListView<EMail>, ListCell<EMail>>() {
+						wertList.setCellFactory(new Callback<ListView<StammdatenWert>, ListCell<StammdatenWert>>() {
 
 							@Override
-							public ListCell<EMail> call(ListView<EMail> e) {
-								return new ListCell<EMail>() {
+							public ListCell<StammdatenWert> call(ListView<StammdatenWert> e) {
+								return new ListCell<StammdatenWert>() {
 									@Override
-									protected void updateItem(EMail eMail, boolean empty) {
-										super.updateItem(eMail, empty);
-										if (eMail != null) {
-											setText(eMail.getEMailAdresse());
+									protected void updateItem(StammdatenWert stammdatenWert, boolean empty) {
+										super.updateItem(stammdatenWert, empty);
+										if (stammdatenWert != null) {
+											setText(stammdatenWert.getWert());
 										} else {
 											setText(null);
 										}
@@ -131,11 +191,11 @@ public class StammdatenUebersichtController {
 	 */
 	@FXML
 	public void handleNeu() throws SQLException, IOException {
-	    EMail tempEMail = new EMail();
-	    boolean okClicked = mainApp.showEMailAnpassDialog(tempEMail, selectedPerson);
+	    StammdatenWert tempWert = new StammdatenWert();
+	    boolean okClicked = mainApp.showStammdatenAnpassDialog(tempWert);
 	    if (okClicked) {
-	    	EMailDB.erstelleEMail(selectedPerson, tempEMail);
-	    	eMailDaten.add(tempEMail);
+	    	StammdatenWertDB.erstelleWert(tempWert);
+	    	stammDaten.add(tempWert);
 	    }	
 	}
 	
@@ -146,12 +206,12 @@ public class StammdatenUebersichtController {
 	 */
 	@FXML
 	public void handleAendern() throws SQLException, IOException {
-		EMail selectedEMail = eMailList.getSelectionModel().getSelectedItem();
-	    if (selectedEMail != null) {
-	        boolean okClicked = mainApp.showEMailAnpassDialog(selectedEMail, selectedPerson);
+		StammdatenWert selectedStdWert = wertList.getSelectionModel().getSelectedItem();
+	    if (selectedStdWert != null) {
+	        boolean okClicked = mainApp.showStammdatenAnpassDialog(selectedStdWert);
 	        if (okClicked) {
-	        	EMailDB.aendereEMail(selectedPerson, selectedEMail);
-	            showEMailAdressen();
+	        	StammdatenWertDB.aendereWert(selectedStdWert);
+	            showStammdaten(selectedKategorie);
 	        }
 	
 	    } else {
@@ -168,11 +228,11 @@ public class StammdatenUebersichtController {
     @FXML
     public void handleLoeschen() throws SQLException, IOException {
         //TODO Adressauswahl und Indexauswahl zusammenfassen
-    	int selectedIndex = eMailList.getSelectionModel().getSelectedIndex();
-        EMail selectedEMail = eMailList.getSelectionModel().getSelectedItem();
+    	int selectedIndex = wertList.getSelectionModel().getSelectedIndex();
+        StammdatenWert selectedStdWert = wertList.getSelectionModel().getSelectedItem();
         if (selectedIndex >= 0) {
-        	EMailDB.loescheEMail(selectedEMail);
-        	eMailList.getItems().remove(selectedIndex);
+        	StammdatenWertDB.loescheEMail(selectedStdWert);
+        	wertList.getItems().remove(selectedIndex);
         } else {
         	 // Nothing selected.
         	keineAdresseSelektiert();
@@ -190,15 +250,6 @@ public class StammdatenUebersichtController {
 		
 	}
 
-	/**
-	 * @param sp
-	 *            the selectedPerson to set
-	 */
-	public void setSelectedPerson(Person sp) {
-		this.selectedPerson = sp;
-		ueberschriftLabel.setText("E-MailAdressen von " + selectedPerson.toString());
-	}
-
     /**
      * Is called by the main application to give a reference back to itself.
      * 
@@ -207,7 +258,6 @@ public class StammdatenUebersichtController {
      */
     public void setMainApp(MainApp mainApp) throws SQLException {
         this.mainApp = mainApp;
-		showEMailAdressen();
     }
 		
 	

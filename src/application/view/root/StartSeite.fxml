@@ -13,6 +13,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="600.0">
                <children>
                   <Label text="Herzlich willkommen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <Button layoutX="55.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleStammdatenUebersicht" text="Stammdaten" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">

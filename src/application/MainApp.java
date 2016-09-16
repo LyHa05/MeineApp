@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import application.model.adresse.Adresse;
 import application.model.eMail.EMail;
 import application.model.person.Person;
+import application.model.stammdaten.StammdatenWert;
 import application.view.adresse.AdressAnpassDialogController;
 import application.view.adresse.AdressUebersichtController;
 import application.view.adresse.AdressZuordnenDialogController;
@@ -17,6 +18,7 @@ import application.view.person.PersonAnpassDialogController;
 import application.view.person.PersonUebersichtController;
 import application.view.root.RootLayoutController;
 import application.view.root.StartSeiteController;
+import application.view.stammdaten.StammdatenUebersichtController;
 import application.view.tools.DBAnmeldungController;
 import application.view.tools.DirectoryChooserController;
 import javafx.application.Application;
@@ -163,15 +165,34 @@ public class MainApp extends Application {
 
 	}
 
+	public void showStammdatenUebersicht() throws SQLException {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/stammdaten/StammdatenUebersicht.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(page);
+
+			// Give the controller access to the main app.
+			StammdatenUebersichtController controller = loader.getController();
+			controller.setMainApp(this);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void showPersonUebersicht() {
 		try {
 			// Load person overview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/person/PersonUebersicht.fxml"));
-			AnchorPane PersonOverview = (AnchorPane) loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 
 			// Set person overview into the center of root layout.
-			rootLayout.setCenter(PersonOverview);
+			rootLayout.setCenter(page);
 
 			// Give the controller access to the main app.
 			PersonUebersichtController controller = loader.getController();
@@ -241,6 +262,11 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public boolean showStammdatenAnpassDialog(StammdatenWert selectedStdWert) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**

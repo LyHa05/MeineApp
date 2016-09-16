@@ -23,6 +23,16 @@ public class StartSeiteController {
 	/**
 	 * Wird aufgerufen, wenn User Personenuebersicht anklickt. Oeffnet einen
 	 * Dialog mit allen Personen in der Uebersicht.
+	 * @throws SQLException 
+	 */
+	@FXML
+	private void handleStammdatenUebersicht() throws SQLException {
+		mainApp.showStammdatenUebersicht();
+	}
+	
+	/**
+	 * Wird aufgerufen, wenn User Personenuebersicht anklickt. Oeffnet einen
+	 * Dialog mit allen Personen in der Uebersicht.
 	 */
 	@FXML
 	private void handlePersonUebersicht() {

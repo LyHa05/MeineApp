@@ -73,8 +73,7 @@ public class GeschenkEinzelUebersichtController {
      */
     @FXML
     private void initialize() throws SQLException, IOException {
-    	// TODO ComboBox laden (TableView wird erst nach Auswahl geladen)
-    	
+    	    	
     	 try {    	
              // Execute query and store result in a resultset
              rs = DBConnect.connect().createStatement().executeQuery("SELECT * FROM Person");
