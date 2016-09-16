@@ -30,7 +30,10 @@ public class EMail {
 		this.eMailAdresse = new SimpleStringProperty(null);
 		this.gehoert = new SimpleObjectProperty<Person>(null);
 	}
-
+	
+	// Typ muss fuer Person nicht geprueft werden, da nur Person uebergeben wird
+	// und da Instanzvariable gehoert nur eine Person zugewiesen werden kann 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public EMail(int eID, String eAdresse, Object p) {
 		this.eMailID = new SimpleIntegerProperty(eID);
 		this.eMailAdresse = new SimpleStringProperty(eAdresse);
@@ -90,5 +93,14 @@ public class EMail {
     public ObjectProperty<Person> gehoertProperty() {
         return gehoert;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return eMailAdresse.get();
+	}
+    
     
 }

@@ -2,9 +2,7 @@ package application.model.eMail;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import application.model.person.Person;
 import application.tools.DBConnect;
 
@@ -16,7 +14,6 @@ import application.tools.DBConnect;
 public class EMailDB {
 	
 	private static PreparedStatement ps;
-	private static ResultSet rs;
 	private static Connection conn;
 	
 	public static void verbinden() throws SQLException {

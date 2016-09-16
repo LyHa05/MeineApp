@@ -1,12 +1,9 @@
 package application.view.adresse;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import application.model.adresse.Adresse;
 import application.model.person.Person;
-import application.tools.DBConnect;
+import application.model.stammDaten.StammDatenDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -56,39 +53,11 @@ public class AdressAnpassDialogController {
 	private boolean okClicked = false;
 //	private MainApp mainApp;
 	
-    // Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
-    private PreparedStatement ps;
-    private ResultSet rs;
-	
-	
 	@FXML
 	private void initialize() throws SQLException {
 		
-		//ComboBoxDaten fuer "Land" einfuegen
-		try {    	
-	        // Execute query and store result in a resultset
-	        ps = DBConnect.connect().prepareStatement(""
-	        		+ "Select StammdatenWert.Wert "
-	        		+ "FROM StammdatenWert "
-	        		+ "JOIN StammdatenKategorie ON StammdatenWert.KategorieID = StammdatenKategorie.KategorieID "
-	        		+ "WHERE StammdatenKategorie.Kategorie = ?"
-	        		);
-	        ps.setString(1, "Land");
-	        rs = ps.executeQuery();
-	        while (rs.next()) {
-	            //get string from db,whichever way and add some sample data in personComboBoxDaten
-	        	landComboBoxDaten.add(rs.getString(1));
-	        }
-		} catch (SQLException e) {
-			System.err.println("Error" + e);
-		} finally {
-			if (rs != null)
-				rs.close();
-			if (ps != null)
-				ps.close();
-			DBConnect.close();
-		}
-
+		// Strings für landComboBoxDaten
+		landComboBoxDaten.addAll(StammDatenDB.comboBoxDatenLesen("Land"));
     	// Init ComboBox items.
     	landComboBox.setItems(landComboBoxDaten);
     	// Define rendering of the list of values in ComboBox drop down. 

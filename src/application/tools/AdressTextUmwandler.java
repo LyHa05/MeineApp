@@ -6,12 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map.Entry;
-
-import application.model.adresse.Adresse;
 import application.model.adresse.WohnhaftIn;
-import application.model.person.Person;
 
 public class AdressTextUmwandler {
 	
@@ -90,65 +86,49 @@ public class AdressTextUmwandler {
 		    for (WohnhaftIn wi1 : value) {
 		    	for (WohnhaftIn wi2 : value) {
 		    
-			    	if (wi1.getObjPerson().getName() == wi2.getObjPerson().getName()) {
+			    	if (wi1.getObjPerson().getName() == wi2.getObjPerson().getName() && wi1.getObjPerson().getVorname1() != wi2.getObjPerson().getVorname1()) {
 			    		gleicherNachName = true;
 			    	}
 			    	
 		    	}
 		    }
-		    
-	    	Iterator<WohnhaftIn> vIter = value.iterator();
-	    	
+		    	    	
+	    	// Personen mit gleichem Nachnamen
 		    if (gleicherNachName) {
-		    	
-//			    int i = 0;
-//		    	while (vIter.hasNext()) {
-//		    		System.out.println("Name: " + value.get(i).getObjPerson().getVorname1());
-//		    		System.out.println("i: " + i);
-//		    		bw.append(value.get(i).getObjPerson().getVorname1());
-//		    		if (vIter.hasNext()) {bw.append(" & ");} 
-//		    		i++;
-//		    	}
 		    	
 		    	for (int j = 0; j < value.size(); j++) {
 		    		System.out.println("Name: " + value.get(j).getObjPerson().getVorname1());
 		    		System.out.println("j: " + j);
 		    		bw.append(value.get(j).getObjPerson().getVorname1());
-		    		if (j < value.size()-1) {bw.append(" & ");} 
-					
+		    		if (j < value.size()-1) {
+		    			bw.append(" & ");
+		    		} else {
+		    			bw.append(" " + value.get(j).getObjPerson().getName());
+		    		}
 				}
 		    	
-		    	
+		    // Personen mit verschiedenen Nachnamen
 		    } else {
-		    	
-		    	int k = 0;
-		    	while (vIter.hasNext()) {
+		    	// mit eingetragenem Nachname
+		    	for (int k = 0; k < value.size(); k++) {
 		    		
 		    		if (value.get(k).getObjPerson().getName() != "") {
 			    		bw.append(value.get(k).getObjPerson().getVorname1());
 			    		bw.append(" ");
 			    		bw.append(value.get(k).getObjPerson().getName());
-			    		if (vIter.hasNext()) {bw.append(" & ");} 
+			    		if (k < value.size()-1) {bw.append(" & ");} 
 		    		}
-		    		k++;
-		    		
+		    				    		
 		    	}
-		    	
-		    	int m = 0;
-		    	while (vIter.hasNext()) {
+		    	// ohne eingetragenem Nachname
+		       	for (int m = 0; m < value.size(); m++) {
 		    		
 		    		if (value.get(m).getObjPerson().getName() == "") {
 			    		bw.append(value.get(m).getObjPerson().getVorname1());
-			    		bw.append(" ");
-			    		bw.append(value.get(m).getObjPerson().getName());
 		    		}
-		    		m++;
-		    		
+		    				    		
 		    	}
 		    }
-		    
-//		    
-//		    Integer key = eintrag.getKey();
 		    
 		    
 			bw.append("; ");

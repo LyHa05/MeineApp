@@ -1,9 +1,5 @@
 package application.view.eMail;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import application.model.adresse.Adresse;
 import application.model.eMail.EMail;
 import application.model.person.Person;
 import javafx.fxml.FXML;
@@ -12,6 +8,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+/**
+ * @author Lydia Pflug
+ * @date 16.09.2016
+ */
 
 public class EMailAnpassDialogController {
 	
@@ -34,10 +35,7 @@ public class EMailAnpassDialogController {
 	// TODO Pruefen, ob entfernt werden kann
 	private boolean okClicked = false;
 	
-    // Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
-    private PreparedStatement ps;
-    private ResultSet rs;
-    
+   
     /**
      * Returns true if the user clicked OK, false otherwise.
      * 

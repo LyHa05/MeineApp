@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import application.MainApp;
-import application.model.adresse.AdressDB;
-import application.model.adresse.Adresse;
 import application.model.eMail.EMail;
 import application.model.eMail.EMailDB;
 import application.model.person.Person;
@@ -20,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
@@ -46,7 +42,7 @@ public class EMailUebersichtController {
 	// Ausgewaehlte Person fuer Adressansicht
 	private Person selectedPerson;
 	
-	private Stage dialogStage;
+//	private Stage dialogStage;
 	
 	// Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
 	private ResultSet rs;

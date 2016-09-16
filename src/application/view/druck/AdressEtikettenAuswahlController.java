@@ -75,11 +75,11 @@ public class AdressEtikettenAuswahlController {
             		+ ",Person.Geburtsdatum "
             		+ ",Person.HandyNr1 "
             		+ ",Person.HandyNr2 "
-            		+ ",Person.EMailAdresse1 "
-            		+ ",Person.EMailAdresse2 "
-            		+ ",Person.EMailAdresse3 "
-            		+ ",Person.EMailAdresse4 "
-            		+ ",Person.EMailAdresse5 "
+//            		+ ",Person.EMailAdresse1 "
+//            		+ ",Person.EMailAdresse2 "
+//            		+ ",Person.EMailAdresse3 "
+//            		+ ",Person.EMailAdresse4 "
+//            		+ ",Person.EMailAdresse5 "
             		+ ",Adresse.AdressID "
             		+ ",Adresse.Strasse "
             		+ ",Adresse.Zusatz "
@@ -109,21 +109,23 @@ public class AdressEtikettenAuswahlController {
 //                		,rs.getString(13)	//EMailAdresse5
             			);
             	Adresse tempAdresse = new Adresse(
-            			rs.getInt(14) 		// AdressID
-						, rs.getString(15) 	// Strasse
-						, rs.getString(16) 	// Zusatz
-						, rs.getString(17) 	// PLZ
-						, rs.getString(18) 	// Ort
-						, rs.getString(19) 	// Land
-						, rs.getString(20));// Festnetznr
+            			rs.getInt(9) 		// AdressID
+						, rs.getString(10) 	// Strasse
+						, rs.getString(11) 	// Zusatz
+						, rs.getString(12) 	// PLZ
+						, rs.getString(13) 	// Ort
+						, rs.getString(14) 	// Land
+						, rs.getString(15));// Festnetznr
             	
                 personAdressDaten.add(new WohnhaftIn(tempPerson, tempAdresse));
                 		
             }
 
-        } catch (SQLException ex) {
-            System.err.println("Error"+ex);
-            System.out.println(ex);
+        } catch (SQLException e) {
+            System.err.println("Error "+e);
+            System.err.println("Error "+e.getMessage());
+            System.err.println("Error "+e.getSQLState());
+            System.err.println("Error "+e.getErrorCode());
         } finally {
 			if (rs != null) rs.close();
         	DBConnect.close();
@@ -226,6 +228,8 @@ public class AdressEtikettenAuswahlController {
         
 	}
 	
+	
+	// TODO Fehlermeldung fuer noch geoeffnete Datei u.ae.
 	/**
      * Called when the user clicks ok.
 	 * @throws IOException 
@@ -284,8 +288,8 @@ public class AdressEtikettenAuswahlController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Ungueltige Felder");
-            alert.setHeaderText("Bitte korrigieren Sie die ungueltigen Felder");
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText("Bitte waehlen Sie Adressen fuer die Etiketten aus.");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();

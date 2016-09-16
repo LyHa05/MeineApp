@@ -1,6 +1,9 @@
 package application.view.person;
 
+import java.sql.SQLException;
+
 import application.model.person.Person;
+import application.model.stammDaten.StammDatenDB;
 import application.util.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,11 +49,13 @@ public class PersonAnpassDialogController {
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
+     * @throws SQLException 
      */
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
+    	
     	// Add some sample data in geschlComboBox.
-    	geschlComboBoxDaten.addAll("Männlich","Weiblich");
+    	geschlComboBoxDaten.addAll(StammDatenDB.comboBoxDatenLesen("Geschlecht"));
     	// Init ComboBox items.
     	geschlComboBox.setItems(geschlComboBoxDaten);
     	// Define rendering of the list of values in ComboBox drop down. 
@@ -61,11 +66,6 @@ public class PersonAnpassDialogController {
                   super.updateItem(item, empty);
                   if (item != null) {
                     setText(item);
-                    if (item.contains("Weiblich")) {
-                      setText("Weiblich");
-                    } else if (item.contains("Männlich")) {
-                      setText("Männlich");
-                    } 
                   } else {
                     setText(null);
                   }
