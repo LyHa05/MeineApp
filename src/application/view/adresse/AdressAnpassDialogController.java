@@ -3,7 +3,7 @@ package application.view.adresse;
 import java.sql.SQLException;
 import application.model.adresse.Adresse;
 import application.model.person.Person;
-import application.model.stammDaten.StammDatenDB;
+import application.model.stammdaten.StammdatenDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,7 +57,7 @@ public class AdressAnpassDialogController {
 	private void initialize() throws SQLException {
 		
 		// Strings für landComboBoxDaten
-		landComboBoxDaten.addAll(StammDatenDB.comboBoxDatenLesen("Land"));
+		landComboBoxDaten.addAll(StammdatenDB.comboBoxDatenLesen("Land"));
     	// Init ComboBox items.
     	landComboBox.setItems(landComboBoxDaten);
     	// Define rendering of the list of values in ComboBox drop down. 

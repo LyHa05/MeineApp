@@ -1,4 +1,4 @@
-package application.model.stammDaten;
+package application.model.stammdaten;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import application.tools.DBConnect;
 
-public class StammDatenDB {
+public class StammdatenDB {
 	
     // Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
     private static PreparedStatement ps;

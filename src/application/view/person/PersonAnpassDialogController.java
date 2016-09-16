@@ -3,7 +3,7 @@ package application.view.person;
 import java.sql.SQLException;
 
 import application.model.person.Person;
-import application.model.stammDaten.StammDatenDB;
+import application.model.stammdaten.StammdatenDB;
 import application.util.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +55,7 @@ public class PersonAnpassDialogController {
     private void initialize() throws SQLException {
     	
     	// Add some sample data in geschlComboBox.
-    	geschlComboBoxDaten.addAll(StammDatenDB.comboBoxDatenLesen("Geschlecht"));
+    	geschlComboBoxDaten.addAll(StammdatenDB.comboBoxDatenLesen("Geschlecht"));
     	// Init ComboBox items.
     	geschlComboBox.setItems(geschlComboBoxDaten);
     	// Define rendering of the list of values in ComboBox drop down. 
