@@ -187,8 +187,8 @@ public class EMailUebersichtController {
         Alert alert = new Alert(AlertType.WARNING);
         alert.initOwner(mainApp.getPrimaryStage());
         alert.setTitle("Keine Auswahl");
-        alert.setHeaderText("Keine Adresse selektiert");
-        alert.setContentText("Bitte waehlen Sie eine Adresse in der Tabelle aus.");
+        alert.setHeaderText("Keine E-Mail selektiert");
+        alert.setContentText("Bitte waehlen Sie eine E-Mail-Adresse in der Liste aus.");
 
         alert.showAndWait();
 		

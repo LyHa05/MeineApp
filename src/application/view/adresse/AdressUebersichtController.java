@@ -260,7 +260,7 @@ public class AdressUebersichtController {
 						protected void updateItem(Person person, boolean empty) {
 							super.updateItem(person, empty);
 							if (person != null) {
-								setText(person.getVorname1() + " " + person.getName());
+								setText(person.toString());
 							} else {
 								setText(null);
 							}

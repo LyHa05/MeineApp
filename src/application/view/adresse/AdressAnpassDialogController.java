@@ -218,7 +218,7 @@ public class AdressAnpassDialogController {
 	public void setSelectedPerson(Person sp) {
 		this.selectedPerson = sp;
 		if (sp.getPersonID() != 0) {
-			ueberschriftLabel.setText("Adresse von " + selectedPerson.getVorname1() + " " + selectedPerson.getName());
+			ueberschriftLabel.setText("Adresse von " + selectedPerson.toString());
 		} else {
 			ueberschriftLabel.setText("Adresse");
 		}
