@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import application.model.eMail.EMail;
 import application.tools.DBConnect;
 
 /**
@@ -69,7 +70,7 @@ public class PersonDB {
     			+ "Geschlecht = ?,"
     			+ "Geburtsdatum = ?,"
     			+ "HandyNr1 = ?,"
-    			+ "HandyNr2 = ?, "
+    			+ "HandyNr2 = ? "
     			+ "WHERE PersonID = ?");
       
         	 ps.setString(1, p.getName());

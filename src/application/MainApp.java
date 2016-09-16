@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import application.model.adresse.Adresse;
+import application.model.eMail.EMail;
 import application.model.person.Person;
 import application.view.adresse.AdressAnpassDialogController;
 import application.view.adresse.AdressUebersichtController;
 import application.view.adresse.AdressZuordnenDialogController;
 import application.view.druck.AdressEtikettenAuswahlController;
+import application.view.eMail.EMailAnpassDialogController;
+import application.view.eMail.EMailUebersichtController;
 import application.view.gs.GeschenkEinzelUebersichtController;
 import application.view.person.PersonAnpassDialogController;
 import application.view.person.PersonUebersichtController;
@@ -211,6 +214,35 @@ public class MainApp extends Application {
 		}
 	}
 
+	public void showEMailUebersicht(Person person) throws SQLException {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/eMail/EMailUebersicht.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("E-Mail-Adress-Uebersicht");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			EMailUebersichtController controller = loader.getController();
+			controller.setSelectedPerson(person);
+			controller.setMainApp(this);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 	/**
 	 * Opens a dialog to edit details for the specified person. If the user
 	 * clicks OK, the changes are saved into the provided person object and true
@@ -274,6 +306,37 @@ public class MainApp extends Application {
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean showEMailAnpassDialog(EMail eMail, Person person) {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/eMail/EMailAnpassDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+	
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("E-Mail Anpassen");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+	
+			// Set the person into the controller.
+			EMailAnpassDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setEMail(eMail);
+			controller.setSelectedPerson(person);
+	
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+	
 			return controller.isOkClicked();
 		} catch (IOException e) {
 			e.printStackTrace();

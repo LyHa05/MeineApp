@@ -36,7 +36,7 @@ public class AdressZuordnenDialogController {
 	private ListView<Adresse> adressList;
 	
 	// Daten als ObservableList fuer Adressen
-		private ObservableList<Adresse> adressDaten = FXCollections.observableArrayList();
+	private ObservableList<Adresse> adressDaten = FXCollections.observableArrayList();
 
 	// Daten als ObservableList fuer Personen
 	private ObservableList<Person> personDaten = FXCollections.observableArrayList();
@@ -175,11 +175,11 @@ public class AdressZuordnenDialogController {
 				+",Person.Geburtsdatum "
 				+",Person.HandyNr1 "
 				+",Person.HandyNr2 "
-				+",Person.EMailAdresse1 "
-				+",Person.EMailAdresse2 "
-				+",Person.EMailAdresse3 "
-				+",Person.EMailAdresse4 "
-				+",Person.EMailAdresse5 "
+//				+",Person.EMailAdresse1 "
+//				+",Person.EMailAdresse2 "
+//				+",Person.EMailAdresse3 "
+//				+",Person.EMailAdresse4 "
+//				+",Person.EMailAdresse5 "
 				+"FROM WohnhaftIn JOIN Person ON WohnhaftIn.PersonID = Person.PersonID "
 				+"WHERE WohnhaftIn.PersonID Not In (Select Person.PersonID FROM Person JOIN WohnhaftIn ON WohnhaftIn.PersonID = Person.PersonID "
 														+"JOIN Adresse ON Adresse.AdressID = WohnhaftIn.AdressID "

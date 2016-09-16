@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.MainApp;
-import application.model.person.EMail;
+import application.model.eMail.EMail;
 import application.model.person.Person;
 import application.model.person.PersonDB;
 import application.tools.DBConnect;
@@ -225,6 +225,23 @@ public class PersonUebersichtController {
     	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             mainApp.showAdressUebersicht(true, selectedPerson); //Flag fuer PersonAdressAnsicht
+            showPersonDetails(selectedPerson);
+
+        } else {
+            // Nothing selected.
+        	keinePersonSelektiert();
+        }    	
+   }
+    
+    /**
+     * Wird aufgerufen, wenn User Adresse anklickt. Oeffnet Adressuebersichtdialog.
+     * @throws SQLException 
+     */
+    @FXML
+    public void handleEMail() throws SQLException {
+    	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            mainApp.showEMailUebersicht(selectedPerson); //Flag fuer PersonAdressAnsicht
             showPersonDetails(selectedPerson);
 
         } else {

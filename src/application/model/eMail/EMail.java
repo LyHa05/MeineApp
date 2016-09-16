@@ -1,11 +1,17 @@
-package application.model.person;
+package application.model.eMail;
 
+import application.model.person.Person;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
+/**
+ * @author Lydia Pflug
+ * @date 16.09.2016
+ */
 
 public class EMail {
 	
@@ -16,13 +22,19 @@ public class EMail {
 	public EMail(int eID, String eAdresse, Person p) {
 		this.eMailID = new SimpleIntegerProperty(eID);
 		this.eMailAdresse = new SimpleStringProperty(eAdresse);
-		this.gehoert = new SimpleObjectProperty(p);
+		this.gehoert = new SimpleObjectProperty<Person>(p);
 	}
 	
 	public EMail() {
 		this.eMailID = new SimpleIntegerProperty(0);
 		this.eMailAdresse = new SimpleStringProperty(null);
-		this.gehoert = new SimpleObjectProperty(null);
+		this.gehoert = new SimpleObjectProperty<Person>(null);
+	}
+
+	public EMail(int eID, String eAdresse, Object p) {
+		this.eMailID = new SimpleIntegerProperty(eID);
+		this.eMailAdresse = new SimpleStringProperty(eAdresse);
+		this.gehoert = new SimpleObjectProperty(p);
 	}
 
 	/**

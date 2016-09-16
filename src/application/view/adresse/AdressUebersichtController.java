@@ -279,6 +279,23 @@ public class AdressUebersichtController {
 	}
 	
     /**
+	 * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Adresse anzulegen.
+	 * @throws SQLException 
+	 * @throws IOException 
+	 */
+	@FXML
+	public void handleNeu() throws SQLException, IOException {
+	    Adresse tempAdresse = new Adresse();
+	    boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, tempAdresse);
+	    if (okClicked && flagUebersicht) {
+	    	AdressDB.erstelleAdresseFuerPerson(tempAdresse,selectedPerson);
+		} else  if (okClicked && !flagUebersicht) { 
+	    	AdressDB.erstelleAdresse(tempAdresse);	
+	    }
+	    	adressDaten.add(tempAdresse);
+	}
+
+	/**
 	 * Wird aufgerufen, wenn User Aendern anklickt. Oeffnet einen Dialog, um ausgewaehlte Person zu aendern.
 	 * @throws SQLException 
      * @throws IOException 
@@ -355,24 +372,7 @@ public class AdressUebersichtController {
     	}
     }
     
-    /**
-     * Wird aufgerufen, wenn User Neu anklickt. Oeffnet einen Dialog, um neue Adresse anzulegen.
-     * @throws SQLException 
-     * @throws IOException 
-     */
-    @FXML
-    public void handleNeu() throws SQLException, IOException {
-        Adresse tempAdresse = new Adresse();
-        boolean okClicked = mainApp.showAdressAnpassDialog(selectedPerson, tempAdresse);
-        if (okClicked && flagUebersicht) {
-        	AdressDB.erstelleAdresseFuerPerson(tempAdresse,selectedPerson);
-    	} else  if (okClicked && !flagUebersicht) { 
-        	AdressDB.erstelleAdresse(tempAdresse);	
-        }
-        	adressDaten.add(tempAdresse);
-    }
-
-	private void keineAdresseSelektiert() {
+    private void keineAdresseSelektiert() {
         Alert alert = new Alert(AlertType.WARNING);
         alert.initOwner(mainApp.getPrimaryStage());
         alert.setTitle("Keine Auswahl");

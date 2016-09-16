@@ -60,7 +60,7 @@ public class AdressDB {
 	       	 
 	       	 System.out.println("commit");
 	       	 
-	       	ps.close();
+//	       	ps.close();
 			
 		} catch (SQLException e) {
 //        	TODO Fehlerbehandlung ordentlich einrichten
@@ -186,7 +186,7 @@ public class AdressDB {
 	public static void loescheAdresseFuerPerson(Adresse a, Person p) throws SQLException, IOException {
 		
 		verbinden();
-		
+			
 		try {
 			// Pruefen, inwieweit andere Personen zur Adresse eine Referenz besitzen
 			ArrayList<Integer> personIDErgebnisse = new ArrayList<Integer>();
@@ -199,22 +199,18 @@ public class AdressDB {
 			while (rs.next()) {
 				personIDErgebnisse.add(rs.getInt(1));
 			}
-			
-			// Verbindungen schliessen
-			rs.close();
-			ps.close();
-			conn.close();
-			
-			// TODO Fehler suchen
+
 			// Adresse und Referenz fuer Person loeschen
 			if (personIDErgebnisse.size() == 1) {
-				ps = conn.prepareStatement(""
-						+ "DELETE FROM WohnhaftIn WHERE AdressID = ? "
-						+ "DELETE FROM Adresse WHERE AdressID = ?");
+				ps = conn.prepareStatement("DELETE FROM WohnhaftIn WHERE AdressID = ");
 	      
-	        	 ps.setInt(1, a.getAdressID());
-	        	 ps.setInt(2, a.getAdressID());
-	        	 ps.executeUpdate();
+				ps.setInt(1, a.getAdressID());
+	        	ps.executeUpdate();
+	        	 
+	        	ps = conn.prepareStatement("DELETE FROM Adresse WHERE AdressID = ?");
+	      
+	        	ps.setInt(1, a.getAdressID());
+	        	ps.executeUpdate();
 				
 			// Referenz der Person zur Adresse loeschen
 			} else if (personIDErgebnisse.size() > 1) {
@@ -224,7 +220,7 @@ public class AdressDB {
 	        	ps.setInt(1, p.getPersonID()); 
 				ps.setInt(2, a.getAdressID());
 	        	ps.executeUpdate();
-	        	 
+	        	
 	            Alert alert = new Alert(AlertType.ERROR);
 	            alert.setTitle("Error");
 	            alert.setHeaderText("Adresse konnte nicht vollstaendig geloescht werden");
@@ -242,6 +238,9 @@ public class AdressDB {
 //            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null,
 //                    ex);
         	System.err.println("Error" + e);
+        	System.err.println("Error" + e.getSQLState());
+        	System.err.println("Error" + e.getErrorCode());
+        	System.err.println("Error" + e.getMessage());
         	
         	// alle Aenderungen zurueckgerollt
         	conn.rollback();
@@ -260,12 +259,14 @@ public class AdressDB {
 		
 		try {
 			// Adresse und alle Referenzen zu Personen loeschen
-			ps = conn.prepareStatement(""
-					+ "DELETE FROM WohnhaftIn WHERE AdressID = ? "
-					+ "DELETE FROM Adresse WHERE AdressID = ?");
+			ps = conn.prepareStatement("DELETE FROM WohnhaftIn WHERE AdressID = ?");
       
         	 ps.setInt(1, a.getAdressID());
-        	 ps.setInt(2, a.getAdressID());
+        	 ps.executeUpdate();
+        	 
+ 			ps = conn.prepareStatement("DELETE FROM Adresse WHERE AdressID = ?");
+      
+        	 ps.setInt(1, a.getAdressID());
         	 ps.executeUpdate();
 	        	 
 	       	 // Aenderungen commited

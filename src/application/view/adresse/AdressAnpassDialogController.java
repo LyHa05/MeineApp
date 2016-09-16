@@ -64,6 +64,7 @@ public class AdressAnpassDialogController {
 	@FXML
 	private void initialize() throws SQLException {
 		
+		//ComboBoxDaten fuer "Land" einfuegen
 		try {    	
 	        // Execute query and store result in a resultset
 	        ps = DBConnect.connect().prepareStatement(""
@@ -87,10 +88,7 @@ public class AdressAnpassDialogController {
 				ps.close();
 			DBConnect.close();
 		}
-		
-//		// Add some sample data in landComboBox.
-//    	landComboBoxDaten.addAll("D","AT","CH");
-//    	landComboBox.setEditable(true); 
+
     	// Init ComboBox items.
     	landComboBox.setItems(landComboBoxDaten);
     	// Define rendering of the list of values in ComboBox drop down. 

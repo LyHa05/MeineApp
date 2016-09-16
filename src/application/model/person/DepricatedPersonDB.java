@@ -59,11 +59,11 @@ public class DepricatedPersonDB {
 	         rowSet.updateDate("Geburtsdatum", java.sql.Date.valueOf(p.getGeburtsdatum()));
 	         rowSet.updateString("HandyNr1", p.getHandyNr1());
 	         rowSet.updateString("HandyNr2", p.getHandyNr2());
-	         rowSet.updateString("EMailAdresse1",p.geteMailAdresse1());
-	         rowSet.updateString("EMailAdresse2",p.geteMailAdresse2());
-	         rowSet.updateString("EMailAdresse3",p.geteMailAdresse3());
-	         rowSet.updateString("EMailAdresse4",p.geteMailAdresse4());
-	         rowSet.updateString("EMailAdresse5",p.geteMailAdresse5());
+//	         rowSet.updateString("EMailAdresse1",p.geteMailAdresse1());
+//	         rowSet.updateString("EMailAdresse2",p.geteMailAdresse2());
+//	         rowSet.updateString("EMailAdresse3",p.geteMailAdresse3());
+//	         rowSet.updateString("EMailAdresse4",p.geteMailAdresse4());
+//	         rowSet.updateString("EMailAdresse5",p.geteMailAdresse5());
 	         rowSet.insertRow();
 	         rowSet.moveToCurrentRow();
 	      } catch (SQLException ex) {
@@ -88,11 +88,11 @@ public class DepricatedPersonDB {
 		         rowSet.updateDate("Geburtsdatum", java.sql.Date.valueOf(p.getGeburtsdatum()));
 		         rowSet.updateString("HandyNr1", p.getHandyNr1());
 		         rowSet.updateString("HandyNr2", p.getHandyNr2());
-		         rowSet.updateString("EMailAdresse1",p.geteMailAdresse1());
-		         rowSet.updateString("EMailAdresse2",p.geteMailAdresse2());
-		         rowSet.updateString("EMailAdresse3",p.geteMailAdresse3());
-		         rowSet.updateString("EMailAdresse4",p.geteMailAdresse4());
-		         rowSet.updateString("EMailAdresse5",p.geteMailAdresse5());
+//		         rowSet.updateString("EMailAdresse1",p.geteMailAdresse1());
+//		         rowSet.updateString("EMailAdresse2",p.geteMailAdresse2());
+//		         rowSet.updateString("EMailAdresse3",p.geteMailAdresse3());
+//		         rowSet.updateString("EMailAdresse4",p.geteMailAdresse4());
+//		         rowSet.updateString("EMailAdresse5",p.geteMailAdresse5());
 		         rowSet.insertRow();	         
 		         rowSet.updateRow();
 	         rowSet.moveToCurrentRow();
@@ -132,11 +132,11 @@ public class DepricatedPersonDB {
 	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
 	         p.setHandyNr1(rowSet.getString("HandyNr1"));
 	         p.setHandyNr2(rowSet.getString("HandyNr2"));
-	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
-	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
-	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
-	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
-	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
+//	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+//	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+//	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+//	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+//	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
 	      }
@@ -155,11 +155,11 @@ public class DepricatedPersonDB {
 	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
 	         p.setHandyNr1(rowSet.getString("HandyNr1"));
 	         p.setHandyNr2(rowSet.getString("HandyNr2"));
-	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
-	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
-	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
-	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
-	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
+//	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+//	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+//	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+//	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+//	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
@@ -180,11 +180,11 @@ public class DepricatedPersonDB {
 	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
 	         p.setHandyNr1(rowSet.getString("HandyNr1"));
 	         p.setHandyNr2(rowSet.getString("HandyNr2"));
-	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
-	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
-	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
-	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
-	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
+//	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+//	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+//	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+//	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+//	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
@@ -205,11 +205,11 @@ public class DepricatedPersonDB {
 	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
 	         p.setHandyNr1(rowSet.getString("HandyNr1"));
 	         p.setHandyNr2(rowSet.getString("HandyNr2"));
-	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
-	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
-	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
-	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
-	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
+//	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+//	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+//	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+//	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+//	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
@@ -229,11 +229,11 @@ public class DepricatedPersonDB {
 	         p.setGeburtsdatum(rowSet.getDate("Geburtsdatum").toLocalDate());
 	         p.setHandyNr1(rowSet.getString("HandyNr1"));
 	         p.setHandyNr2(rowSet.getString("HandyNr2"));
-	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
-	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
-	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
-	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
-	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
+//	         p.seteMailAdresse1(rowSet.getString("EMailAdresse1"));
+//	         p.seteMailAdresse2(rowSet.getString("EMailAdresse2"));
+//	         p.seteMailAdresse3(rowSet.getString("EMailAdresse3"));
+//	         p.seteMailAdresse4(rowSet.getString("EMailAdresse4"));
+//	         p.seteMailAdresse5(rowSet.getString("EMailAdresse5"));
 	      } catch (SQLException ex) {
 	         ex.printStackTrace();
 	      }
