@@ -35,6 +35,18 @@ public class Geschenk {
 		this.erhaelt = new SimpleObjectProperty<Person>(person);
 	}
 	
+	// Typ muss fuer Person nicht geprueft werden, da nur Person uebergeben wird
+	// und da Instanzvariable gehoert nur eine Person zugewiesen werden kann 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Geschenk(int gID, int jahr, String anlass, String memo, int preis, Object person) {
+		this.geschenkID = new SimpleIntegerProperty(gID);
+		this.jahr = new SimpleIntegerProperty(jahr);
+		this.anlass = new SimpleStringProperty(anlass);
+		this.memo = new SimpleStringProperty(memo);
+		this.preis = new SimpleIntegerProperty(preis);
+		this.erhaelt = new SimpleObjectProperty(person);
+	}
+	
 	public int getGeschenkID() {
 		return geschenkID.get();
 	}

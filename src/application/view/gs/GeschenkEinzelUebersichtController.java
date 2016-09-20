@@ -3,7 +3,6 @@ package application.view.gs;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import application.MainApp;
 import application.model.gs.Geschenk;
 import application.model.gs.GeschenkBestandteil;
@@ -53,6 +52,10 @@ public class GeschenkEinzelUebersichtController {
     @FXML
     private TableColumn<GeschenkBestandteil, Integer> memoBestandteilColumn;
 	
+    // The data as an observable list of Geschenk bzw. GeschenkBestandteil.
+    private ObservableList<Geschenk> geschenkDaten = FXCollections.observableArrayList();
+    private ObservableList<GeschenkBestandteil> geschenkBestandteilDaten = FXCollections.observableArrayList();
+        
     // Reference to the main application.
     private MainApp mainApp;
     
@@ -125,63 +128,52 @@ public class GeschenkEinzelUebersichtController {
     	personComboBox.setOnAction((event) -> {
     	    Person selectedPerson = personComboBox.getSelectionModel().getSelectedItem();
     	    System.out.println("ComboBox Action (selected: " + selectedPerson.toString() + ")");
-    	    showGeschenkAnlass(selectedPerson);
+    	    try {
+				showGeschenkAnlass(selectedPerson);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	    
     	    
     	});
     }
     
-    private void showGeschenkAnlass(Person person) {
+    private void showGeschenkAnlass(Person person) throws SQLException {
     	if (person != null) {
     		//TableView mit GeschenkDaten fuellen
     		
-//            try {    	
-//                // Execute query and store result in a resultset
-//                rs = DBConnect.connect().createStatement().executeQuery(""
-//                		+ "	SELECT Person.Name
-//		,Person.Vorname1 AS Vorname
-//		,Geschenk.Jahr
-//		,Geschenk.Anlass
-//		,GeschenkBestandteil.Beschreibung
-//		,Geschenk.Preis
-//		,GeschenkBestandteil.Kategorie
-//		,GeschenkBestandteil.Bestandteil
-//	FROM Person JOIN Geschenk ON Person.PersonID = Geschenk.Erhaelt
-//	JOIN GeschenkBestandteil ON GeschenkBestandteil.BestandteilVon = Geschenk.GeschenkID
-//	WHERE Person.PersonID = 1"
-//                		+ ""
-//                		+ ""
-//                		+ "SELECT * FROM Person");
-//                while (rs.next()) {
-//                    //get string from db,whichever way 
-//                    personDaten.add(new Person(
-//                    		rs.getInt(1) 		//PersonID
-//                    		,rs.getString(2)	//Name
-//                    		,rs.getString(3)	//Vorname1
-//                    		,rs.getString(4)	//Vorname2
-//                    		,rs.getString(5)	//Geschlecht
-//                    		,rs.getDate(6)		//Geburtsdatum
-//                    		,rs.getString(7)	//HandyNr1
-//                    		,rs.getString(8)	//HandyNr2
-//                    		,rs.getString(9)	//EMailAdresse1
-//                    		,rs.getString(10)	//EMailAdresse2
-//                    		,rs.getString(11)	//EMailAdresse3
-//                    		,rs.getString(12)	//EMailAdresse4
-//                    		,rs.getString(13)	//EMailAdresse5
-//                    		));   
-//                }
-//
-//            } catch (SQLException ex) {
-//                System.err.println("Error"+ex);
-//            } finally {
-//    			if (rs != null) rs.close();
-//            	DBConnect.close();
-//            }
+            try {    	
+            // Execute query and store result in a resultset
+            	rs = DBConnect.connect().createStatement().executeQuery(""
+                		+ "	SELECT Geschenk.GeschenkID "
+                		+ ",Geschenk.Jahr "
+                		+ ",Geschenk.Anlass "
+                		+ ",Geschenk.Memo "
+                		+ ",Geschenk.Preis "
+                		+ ",Geschenk.Erhaelt "
+                		+ "FROM Geschenk "
+                		+ "WHERE Geschenk.Erhaelt = ?"
+            			);
+            	
+                while (rs.next()) {
+                    //get string from db,whichever way 
+                    geschenkDaten.add(new Geschenk(
+                    		rs.getInt(1) 		//GeschenkID
+                    		,rs.getInt(2)		//Jahr
+                    		,rs.getString(3)	//Anlass
+                    		,rs.getString(4)	//Memo
+                    		,rs.getInt(5)		//Preis
+                    		,rs.getObject(6)	//Erhaelt
+                    		));   
+                }
 
-    		
-    	} else {
-    		// Person ist null: alle Daten von TableView entfernen.
-
+            } catch (SQLException ex) {
+                System.err.println("Error"+ex);
+            } finally {
+    			if (rs != null) rs.close();
+            	DBConnect.close();
+            }	
     	}
 	}
 
