@@ -27,6 +27,20 @@ public class GeschenkBestandteil {
 		this.bestandteilVon = new SimpleObjectProperty<Geschenk>(bestandteilVon);
 	}
 	
+	// Typ muss fuer Person nicht geprueft werden, da nur Person uebergeben wird
+	// und da Instanzvariable gehoert nur eine Person zugewiesen werden kann 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public GeschenkBestandteil(int geschenkBestandteilID, String beschreibung, String memo,
+			String kategorie, String bestandteil, Object bestandteilVon) {
+		
+		this.geschenkBestandteilID = new SimpleIntegerProperty(geschenkBestandteilID);
+		this.beschreibung = new SimpleStringProperty(beschreibung);
+		this.memo = new SimpleStringProperty(memo);
+		this.kategorie = new SimpleStringProperty(kategorie);
+		this.bestandteil = new SimpleStringProperty(bestandteil);
+		this.bestandteilVon = new SimpleObjectProperty(bestandteilVon);
+	}
+	
 	public int getGeschenkBestandteilID() {
 		return geschenkBestandteilID.get();
 	}

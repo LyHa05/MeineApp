@@ -4,13 +4,18 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import application.MainApp;
+import application.model.adresse.WohnhaftIn;
 import application.model.gs.Geschenk;
 import application.model.gs.GeschenkBestandteil;
 import application.model.person.Person;
 import application.tools.DBConnect;
 import application.util.DateUtil;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -137,12 +142,27 @@ public class GeschenkEinzelUebersichtController {
     	    
     	    
     	});
+    	
+    	geschenkTable.setOnMouseClicked(new EventHandler<Event>() {
+
+            @Override
+            public void handle(Event event) {
+                ObservableList<Geschenk> selectedItems =  geschenkTable.getSelectionModel().getSelectedItems();
+
+                for(Geschenk g : selectedItems){
+                    System.out.println("selected item " + g);
+                    showGeschenkBestandteil(g);
+                }
+
+            }
+
+        });
+
     }
     
     private void showGeschenkAnlass(Person person) throws SQLException {
     	if (person != null) {
     		//TableView mit GeschenkDaten fuellen
-    		
             try {    	
             // Execute query and store result in a resultset
             	rs = DBConnect.connect().createStatement().executeQuery(""
@@ -175,6 +195,43 @@ public class GeschenkEinzelUebersichtController {
             	DBConnect.close();
             }	
     	}
+	}
+
+	private void showGeschenkBestandteil(Geschenk geschenk) {
+		if (geschenk != null) {
+    		//TableView mit GeschenkBestandateilDaten fuellen
+    		try {    	
+            // Execute query and store result in a resultset
+            	rs = DBConnect.connect().createStatement().executeQuery(""
+                		+ "	SELECT GeschenkBestandteil.GeschenkBestandteilID "
+                		+ ",GeschenkBestandteil.Beschreibung "
+                		+ ",GeschenkBestandteil.Memo "
+                		+ ",GeschenkBestandteil.Kategorie "
+                		+ ",GeschenkBestandteil.Bestandteil "
+                		+ ",GeschenkBestandteil.BestandteilVon "
+                		+ "FROM GeschenkBestandteil "
+                		+ "WHERE GeschenkBestandteil.BestandteilVon = ?"
+            			);
+            	            	
+                while (rs.next()) {
+                    //get string from db,whichever way 
+                    geschenkBestandteilDaten.add(new GeschenkBestandteil(
+                    		rs.getInt(1) 		//GeschenkBestandteilID
+                    		,rs.getString(2)	//Beschreibung
+                    		,rs.getString(3)	//Memo
+                    		,rs.getString(4)	//Kategorie
+                    		,rs.getString(5)	//Bestandteil
+                    		,rs.getObject(6)	//Bestandteilon
+                    		));   
+                }
+
+            } catch (SQLException ex) {
+                System.err.println("Error"+ex);
+            } finally {
+    			if (rs != null) rs.close();
+            	DBConnect.close();
+            }	
+
 	}
 
 	/**
