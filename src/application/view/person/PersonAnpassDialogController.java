@@ -155,7 +155,7 @@ public class PersonAnpassDialogController {
         if (vname1Field.getText() == null || vname1Field.getText().length() == 0) {
             errorMessage += "Kein gueltiger Vorname!\n"; 
         }
-        if (geschlComboBox.getValue() != "Männlich" && geschlComboBox.getValue() != "Weiblich") {
+        if (geschlComboBox.getValue() == null) { // "Männlich" && geschlComboBox.getValue() != "Weiblich") {
             errorMessage += "Kein Geschlecht angegeben!\n"; 
         } 
         // Auskommentiert, da nicht von allen Personen Geburtsdatum bekannt ist

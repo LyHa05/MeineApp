@@ -351,6 +351,7 @@ public class AdressUebersichtController {
     		boolean okClicked = mainApp.showAdressZuordnenDialog(selectedPerson, tempAdresse, flagUebersicht);
         	if (okClicked) {
         		AdressDB.zuordnenAdresse(tempAdresse, selectedPerson);
+        		
         		showWohnendePersonen(tempAdresse);
         	}
 	    // Aufruf von Adressgesamtuebersicht
