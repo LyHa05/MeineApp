@@ -2,6 +2,8 @@ package application.view.stammdaten;
 
 import application.model.eMail.EMail;
 import application.model.person.Person;
+import application.model.stammdaten.StammdatenKategorie;
+import application.model.stammdaten.StammdatenWert;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,7 +26,7 @@ public class StammdatenAnpassDialogController {
 	@FXML
 	private Label ueberschriftLabel;
 	@FXML
-	private TextField eMailField;
+	private TextField stdWertField;
 	
 	// Ausgewaehlte Person fuer Adressansicht
 	private Person selectedPerson;
@@ -34,8 +36,9 @@ public class StammdatenAnpassDialogController {
 	private Stage dialogStage;
 	// TODO Pruefen, ob entfernt werden kann
 	private boolean okClicked = false;
+	private StammdatenWert stammdatenWert;
+	private StammdatenKategorie stammdatenKategorie;
 	
-   
     /**
      * Returns true if the user clicked OK, false otherwise.
      * 
@@ -52,8 +55,8 @@ public class StammdatenAnpassDialogController {
     private void handleOk() {
         if (isInputValid()) {
         	
-        	eMail.setEMailAdresse(eMailField.getText());
-        	eMail.setGehoert(selectedPerson);
+        	stammdatenWert.setWert(stdWertField.getText());
+        	stammdatenWert.setKategorieID(stammdatenKategorie);
 
             okClicked = true;
             dialogStage.close();
@@ -76,8 +79,8 @@ public class StammdatenAnpassDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (eMailField.getText() == null || eMailField.getText().length() == 0) {
-        	errorMessage += "Kein E-Mail angegeben!\n";
+        if (stdWertField.getText() == null || stdWertField.getText().length() == 0) {
+        	errorMessage += "Kein Wert angegeben!\n";
         }
         if (errorMessage.length() == 0) {
             return true;
@@ -105,24 +108,26 @@ public class StammdatenAnpassDialogController {
 	}
 	
 	/**
-	 * @param sp
-	 *            the selectedPerson to set
+	 * Selektierter Stammdatenwert wird in Dialog gesetzt.
+	 * 
+	 * @param stdWert
 	 */
-	public void setSelectedPerson(Person sp) {
-		this.selectedPerson = sp;
-		ueberschriftLabel.setText("E-Mail-Adresse von " + selectedPerson.toString());
+	public void setStammdatenWert(StammdatenWert stdWert) {
+		this.stammdatenWert = stdWert;
+		stdWertField.setText(stdWert.getWert());
 	}
 
 	/**
 	 * Selektierte Adresse wird in Dialog gesetzt.
 	 * 
-	 * @param selectedAdresse
+	 * @param stdKategorie
 	 */
-	public void setEMail(EMail selectedEMail) {
-		this.eMail = selectedEMail;
-		
-		eMailField.setText(eMail.getEMailAdresse());
+	public void setStammdatenKategorie(StammdatenKategorie stdKategorie) {
+		this.stammdatenKategorie = stdKategorie;
+		ueberschriftLabel.setText("Kategorie " + stammdatenKategorie.getKategorie());
 		
 	}
+	
+	
 	
 }

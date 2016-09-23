@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import application.model.adresse.Adresse;
 import application.model.eMail.EMail;
 import application.model.person.Person;
+import application.model.stammdaten.StammdatenKategorie;
 import application.model.stammdaten.StammdatenWert;
 import application.view.adresse.AdressAnpassDialogController;
 import application.view.adresse.AdressUebersichtController;
@@ -18,6 +19,7 @@ import application.view.person.PersonAnpassDialogController;
 import application.view.person.PersonUebersichtController;
 import application.view.root.RootLayoutController;
 import application.view.root.StartSeiteController;
+import application.view.stammdaten.StammdatenAnpassDialogController;
 import application.view.stammdaten.StammdatenUebersichtController;
 import application.view.tools.DBAnmeldungController;
 import application.view.tools.DirectoryChooserController;
@@ -264,9 +266,36 @@ public class MainApp extends Application {
 		
 	}
 
-	public boolean showStammdatenAnpassDialog(StammdatenWert selectedStdWert) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean showStammdatenAnpassDialog(StammdatenWert stdWert, StammdatenKategorie stdKategorie) {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/stammdaten/StammdatenAnpassDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+	
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Stammdaten Anpassen");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+	
+			// Set the person into the controller.
+			StammdatenAnpassDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setStammdatenKategorie(stdKategorie);
+			controller.setStammdatenWert(stdWert);
+			
+	
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+	
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**

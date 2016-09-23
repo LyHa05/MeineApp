@@ -4,11 +4,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import application.MainApp;
-import application.model.eMail.EMail;
-import application.model.eMail.EMailDB;
-import application.model.person.Person;
 import application.model.stammdaten.StammdatenKategorie;
 import application.model.stammdaten.StammdatenWert;
 import application.model.stammdaten.StammdatenWertDB;
@@ -108,10 +104,10 @@ public class StammdatenUebersichtController {
     	
     	// Handle ComboBox event.
 		 stammdatenComboBox.setOnAction((event) -> {
-    	    StammdatenKategorie selectedKategorie = stammdatenComboBox.getSelectionModel().getSelectedItem();
+    	    selectedKategorie = stammdatenComboBox.getSelectionModel().getSelectedItem();
     	    System.out.println("ComboBox Action selected: " + selectedKategorie.getKategorie() );
     	    try {
-				showStammdaten(selectedKategorie);
+				showStammdaten();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -123,7 +119,7 @@ public class StammdatenUebersichtController {
 		
 	}
 	
-	public void showStammdaten(StammdatenKategorie stdKategorie) throws SQLException {
+	public void showStammdaten() throws SQLException {
 		
 		// loescht Daten im ListView
 		stammDaten.removeAll(stammDaten);
@@ -139,7 +135,7 @@ public class StammdatenUebersichtController {
 	           ps.setInt(1, selectedKategorie.getKategorieID());
 	           rs = ps.executeQuery();
 	           
-	           System.out.println(selectedKategorie);
+	           System.out.println(selectedKategorie.getKategorie());
 	           
 	           while (rs.next()) {
 	               //get string from db, whichever way 
@@ -174,7 +170,7 @@ public class StammdatenUebersichtController {
 										if (stammdatenWert != null) {
 											setText(stammdatenWert.getWert());
 										} else {
-											setText(null);
+											setText("");
 										}
 									}
 								};
@@ -192,9 +188,9 @@ public class StammdatenUebersichtController {
 	@FXML
 	public void handleNeu() throws SQLException, IOException {
 	    StammdatenWert tempWert = new StammdatenWert();
-	    boolean okClicked = mainApp.showStammdatenAnpassDialog(tempWert);
+	    boolean okClicked = mainApp.showStammdatenAnpassDialog(tempWert, selectedKategorie);
 	    if (okClicked) {
-	    	StammdatenWertDB.erstelleWert(tempWert);
+	    	StammdatenWertDB.erstelleWert(selectedKategorie, tempWert);
 	    	stammDaten.add(tempWert);
 	    }	
 	}
@@ -208,15 +204,15 @@ public class StammdatenUebersichtController {
 	public void handleAendern() throws SQLException, IOException {
 		StammdatenWert selectedStdWert = wertList.getSelectionModel().getSelectedItem();
 	    if (selectedStdWert != null) {
-	        boolean okClicked = mainApp.showStammdatenAnpassDialog(selectedStdWert);
+	        boolean okClicked = mainApp.showStammdatenAnpassDialog(selectedStdWert, selectedKategorie);
 	        if (okClicked) {
-	        	StammdatenWertDB.aendereWert(selectedStdWert);
-	            showStammdaten(selectedKategorie);
+	        	StammdatenWertDB.aendereWert(selectedKategorie, selectedStdWert);
+	            showStammdaten();
 	        }
 	
 	    } else {
 	        // Nothing selected.
-	    	keineAdresseSelektiert();
+	    	keineKategorieSelektiert();
 	    }
 	}
 
@@ -231,20 +227,21 @@ public class StammdatenUebersichtController {
     	int selectedIndex = wertList.getSelectionModel().getSelectedIndex();
         StammdatenWert selectedStdWert = wertList.getSelectionModel().getSelectedItem();
         if (selectedIndex >= 0) {
-        	StammdatenWertDB.loescheEMail(selectedStdWert);
+        	StammdatenWertDB.loescheWert(selectedStdWert);
         	wertList.getItems().remove(selectedIndex);
         } else {
         	 // Nothing selected.
-        	keineAdresseSelektiert();
+        	keineKategorieSelektiert();
         }
     }
 
-    private void keineAdresseSelektiert() {
+    //TODO unterschiedliche Angabe
+    private void keineKategorieSelektiert() {
         Alert alert = new Alert(AlertType.WARNING);
         alert.initOwner(mainApp.getPrimaryStage());
         alert.setTitle("Keine Auswahl");
-        alert.setHeaderText("Keine E-Mail selektiert");
-        alert.setContentText("Bitte waehlen Sie eine E-Mail-Adresse in der Liste aus.");
+        alert.setHeaderText("Keine Kategorie/Wert selektiert");
+        alert.setContentText("Bitte waehlen Sie eine Kategorie/Wert in der Combobox/Liste aus.");
 
         alert.showAndWait();
 		
