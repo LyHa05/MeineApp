@@ -4,8 +4,6 @@ INSERT INTO StammdatenKategorie (Kategorie) VALUES('Anlass');
 INSERT INTO StammdatenKategorie (Kategorie) VALUES('GeschenkKategorie');
 INSERT INTO StammdatenKategorie (Kategorie) VALUES('Geschenkbestandteil');
 
-
-
 INSERT INTO StammdatenWert (KategorieID, Wert) VALUES(1,'Männlich');
 INSERT INTO StammdatenWert (KategorieID, Wert) VALUES(1,'Weiblich');
 INSERT INTO StammdatenWert (KategorieID, Wert) VALUES(2,'Deutschland');
@@ -20,10 +18,3 @@ INSERT INTO StammdatenWert (KategorieID, Wert) VALUES(4,'Gekauft');
 INSERT INTO StammdatenWert (KategorieID, Wert) VALUES(4,'Gebastelt');
 INSERT INTO StammdatenWert (KategorieID, Wert) VALUES(5,'Präsent');
 INSERT INTO StammdatenWert (KategorieID, Wert) VALUES(5,'Karte');
-
-
-	
-
-
-
-	

@@ -4,14 +4,10 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import application.MainApp;
-import application.model.adresse.WohnhaftIn;
 import application.model.gs.Geschenk;
 import application.model.gs.GeschenkBestandteil;
 import application.model.person.Person;
 import application.tools.DBConnect;
-import application.util.DateUtil;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -64,7 +60,7 @@ public class GeschenkEinzelUebersichtController {
     // Reference to the main application.
     private MainApp mainApp;
     
-    // Referenz für ResultSet (zum Garantieren des Schliessen des ResultSets)
+    // Referenz fï¿½r ResultSet (zum Garantieren des Schliessen des ResultSets)
     private ResultSet rs;
     
     /**
@@ -151,11 +147,16 @@ public class GeschenkEinzelUebersichtController {
 
                 for(Geschenk g : selectedItems){
                     System.out.println("selected item " + g);
-                    showGeschenkBestandteil(g);
+                    try {
+						showGeschenkBestandteil(g);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                 }
 
             }
-
+    	
         });
 
     }
@@ -197,7 +198,7 @@ public class GeschenkEinzelUebersichtController {
     	}
 	}
 
-	private void showGeschenkBestandteil(Geschenk geschenk) {
+	private void showGeschenkBestandteil(Geschenk geschenk) throws SQLException {
 		if (geschenk != null) {
     		//TableView mit GeschenkBestandateilDaten fuellen
     		try {    	
@@ -231,7 +232,7 @@ public class GeschenkEinzelUebersichtController {
     			if (rs != null) rs.close();
             	DBConnect.close();
             }	
-
+		}
 	}
 
 	/**
